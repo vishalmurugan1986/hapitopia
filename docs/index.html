@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habitopia - Build a future-proof child | Achariya</title>
+  <link rel="icon" type="image/svg+xml" href="./habitopia_app_icon.svg">
+  <style>
+    :root {
+      --bg: #0B1326;
+      --card: #131B2E;
+      --card-elevated: #171F33;
+      --primary: #10B981;
+      --secondary: #F59E0B;
+      --tertiary: #06B6D4;
+      --tx: #F8FAFC;
+      --mu: #94A3B8;
+      --line: #222A3D;
+      --line-high: #334155;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--tx);
+      line-height: 1.6;
+      padding: 0;
+    }
+    .hero {
+      text-align: center;
+      padding: 64px 20px 48px;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .logo-img {
+      width: 140px;
+      height: 140px;
+      border-radius: 32px;
+      background: #FFFFFF;
+      padding: 8px;
+      margin-bottom: 24px;
+      box-shadow: 0 12px 32px rgba(16, 185, 129, 0.3);
+    }
+    h1 {
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+    .tagline {
+      font-size: 20px;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .desc {
+      font-size: 16px;
+      color: var(--mu);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+    .pill-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+    .pill {
+      background: var(--card-elevated);
+      border: 1px solid var(--line-high);
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--tx);
+    }
+    .pill.green {
+      border-color: rgba(16, 185, 129, 0.4);
+      color: var(--primary);
+      background: rgba(16, 185, 129, 0.1);
+    }
+    .section {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 20px 48px;
+    }
+    .grid-5 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .dim-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+      transition: transform 0.2s;
+    }
+    .dim-card:hover {
+      transform: translateY(-2px);
+    }
+    .dim-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .dim-sub {
+      font-size: 13px;
+      color: var(--mu);
+      line-height: 1.5;
+    }
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 36px 20px;
+      text-align: center;
+      color: var(--mu);
+      font-size: 14px;
+      background: var(--card);
+    }
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <img src="./habitopia_app_icon.svg" alt="Habitopia Icon" class="logo-img">
+    <h1>Habitopia</h1>
+    <div class="tagline">Build a future-proof child</div>
+    <p class="desc">The complete 5×7 habit game framework designed for children ages 7 to 14. Master 35 foundational habits across 5 growth dimensions with zero screen addictions, 100% on-device privacy, and gamified daily mastery.</p>
+
+    <div class="pill-row">
+      <div class="pill green">35 Core Habits</div>
+      <div class="pill green">5 Growth Dimensions</div>
+      <div class="pill green">Ages 7 to 14</div>
+      <div class="pill">English & தமிழ்</div>
+      <div class="pill">100% Offline & Kid Safe</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 style="font-size: 22px; font-weight: 800; text-align: center;">5 Growth Dimensions</h2>
+    <div class="grid-5">
+      <div class="dim-card" style="border-top: 3px solid #10B981;">
+        <div class="dim-title" style="color: #10B981;">Physically Healthy</div>
+        <div class="dim-sub">Body = First Classroom. Move 30, Water First, Sleep Like a Champion, Rainbow Plate.</div>
+      </div>
+      <div class="dim-card" style="border-top: 3px solid #F59E0B;">
+        <div class="dim-title" style="color: #F59E0B;">Mentally Strong</div>
+        <div class="dim-sub">Mind > Mood. Win the Morning, Fail Fast Log, Focus Sprint 15, Gratitude 3.</div>
+      </div>
+      <div class="dim-card" style="border-top: 3px solid #06B6D4;">
+        <div class="dim-title" style="color: #06B6D4;">Intellectually Sharp</div>
+        <div class="dim-sub">Brain on Beast Mode. Read 10 Pages, Question Storm, Teach to Learn, Create Not Consume.</div>
+      </div>
+      <div class="dim-card" style="border-top: 3px solid #8B5CF6;">
+        <div class="dim-title" style="color: #8B5CF6;">Emotionally Balanced</div>
+        <div class="dim-sub">Heart with IQ. Name the Feeling, Kind Act Daily, Pause Button, Family Connect.</div>
+      </div>
+      <div class="dim-card" style="border-top: 3px solid #EC4899;">
+        <div class="dim-title" style="color: #EC4899;">Financially Wealthy</div>
+        <div class="dim-sub">Money Smart Early. 3-Jar System (Save 50 / Spend 40 / Give 10), Need vs Want, Delay Reward.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-links">
+      <a href="./privacy.html">Privacy Policy</a>
+      <a href="./support.html">Support & FAQ</a>
+      <a href="https://achariya.in" target="_blank" rel="noopener">Achariya World Class Education</a>
+    </div>
+    <p>© 2026 Achariya Educational Trust. All rights reserved.</p>
+  </div>
+</body>
+</html>

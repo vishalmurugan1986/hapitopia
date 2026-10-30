@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 290" width="760" height="580">
+  <rect width="380" height="290" rx="24" fill="#FFFFFF"/>
+  <g transform="translate(190 115)">
+    <ellipse cx="0" cy="-44" rx="19" ry="34" fill="#D85A30"/>
+    <ellipse cx="0" cy="-44" rx="19" ry="34" fill="#7F77DD" transform="rotate(72)"/>
+    <ellipse cx="0" cy="-44" rx="19" ry="34" fill="#378ADD" transform="rotate(144)"/>
+    <ellipse cx="0" cy="-44" rx="19" ry="34" fill="#D4537E" transform="rotate(216)"/>
+    <ellipse cx="0" cy="-44" rx="19" ry="34" fill="#1D9E75" transform="rotate(288)"/>
+    <circle r="27" fill="#FAC775"/>
+    <text x="0" y="6.5" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="18" fill="#412402">5×7</text>
+  </g>
+  <text x="190" y="238" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="32" fill="#2C2C2A">Habitopia</text>
+  <text x="190" y="262" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="600" font-size="13" fill="#5F5E5A">Build a future-proof child</text>
+</svg>

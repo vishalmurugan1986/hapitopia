@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "Habitopia",
+    "slug": "habitopia",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "platforms": [
+      "android",
+      "ios"
+    ],
+    "icon": "./assets/habitopia_app_icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/habitopia_logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFFFFF"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.achariya.habitopia"
+    },
+    "android": {
+      "package": "com.achariya.habitopia",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/habitopia_app_icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "plugins": [
+      "expo-status-bar",
+      "expo-font",
+      "expo-audio"
+    ]
+  }
+}
