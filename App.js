@@ -3,6 +3,7 @@ import { View, StyleSheet, useColorScheme, Platform, StatusBar as RNStatusBar } 
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFonts } from 'expo-font';
 
 import Header from './src/components/Header';
 import Navbar from './src/components/Navbar';
@@ -91,6 +92,9 @@ function MainShell({ S, update, tab, setTab, T, onLock }) {
 
 export default function App() {
   const systemColorScheme = useColorScheme();
+  const [fontsLoaded, fontError] = useFonts({
+    Fredoka: require('./assets/fonts/Fredoka.ttf')
+  });
   const [S, setS] = useState(null);
   const [tab, setTab] = useState('today');
   const [isUnlocked, setIsUnlocked] = useState(false);
@@ -126,7 +130,7 @@ export default function App() {
     AsyncStorage.setItem(KEY, JSON.stringify(synced)).catch(() => {});
   };
 
-  if (!S) return null;
+  if (!S || (!fontsLoaded && !fontError)) return null;
 
   return (
     <SafeAreaProvider>

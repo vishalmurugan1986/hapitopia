@@ -517,7 +517,7 @@ export default function OnboardingScreen({
 
             {/* 2. Bold Title & Tagline */}
             <View style={styles.titleBlock}>
-              <Text style={[styles.mainH1, { color: T.tx }]}>
+              <Text style={[styles.mainH1, { color: T.tx }, lang !== 'ta' && styles.brandFont]}>
                 {lang === 'ta' ? 'ஹேபிடோபியா' : 'Habitopia'}
               </Text>
               <Text style={[styles.mainSubtitle, { color: T.mu }]}>
@@ -673,7 +673,7 @@ export default function OnboardingScreen({
                 <View style={styles.qrHeaderTitleRow}>
                   <Ionicons name="qr-code" size={19} color={T.primary} />
                   <Text style={[styles.modalTitle, { color: T.tx }]}>
-                    {lang === 'ta' ? 'விளையாடுவது எப்படி?' : 'How to Play Habitopia'}
+                    {lang === 'ta' ? 'விளையாடுவது எப்படி?' : (<>How to Play <Text style={styles.brandFont}>Habitopia</Text></>)}
                   </Text>
                 </View>
                 <Pressable
@@ -715,7 +715,6 @@ export default function OnboardingScreen({
                 {/* 5 Game Rules for Children */}
                 <View style={styles.qrRulesList}>
                   <View style={[styles.qrRuleItem, { borderColor: T.line, backgroundColor: T.surfaceLowest || T.card }]}>
-                    <Text style={styles.qrRuleEmoji}>🌅</Text>
                     <View style={styles.qrRuleTextCol}>
                       <Text style={[styles.qrRuleTitle, { color: T.tx }]}>
                         {lang === 'ta' ? '1. நாள்தோறும் 5 பழக்கங்கள் (+10 XP)' : '1. Daily 5 Missions (+10 XP each)'}
@@ -729,7 +728,6 @@ export default function OnboardingScreen({
                   </View>
 
                   <View style={[styles.qrRuleItem, { borderColor: T.line, backgroundColor: T.surfaceLowest || T.card }]}>
-                    <Text style={styles.qrRuleEmoji}>⭐</Text>
                     <View style={styles.qrRuleTextCol}>
                       <Text style={[styles.qrRuleTitle, { color: T.tx }]}>
                         {lang === 'ta' ? '2. கிளீன் ஸ்வீப் போனஸ் (+20 XP)' : '2. Clean Sweep Bonus (+20 XP)'}
@@ -743,7 +741,6 @@ export default function OnboardingScreen({
                   </View>
 
                   <View style={[styles.qrRuleItem, { borderColor: T.line, backgroundColor: T.surfaceLowest || T.card }]}>
-                    <Text style={styles.qrRuleEmoji}>⚔️</Text>
                     <View style={styles.qrRuleTextCol}>
                       <Text style={[styles.qrRuleTitle, { color: T.tx }]}>
                         {lang === 'ta' ? '3. வார இறுதி பாஸ் சவால் (+100 XP)' : '3. Weekly Boss Fight (+100 XP)'}
@@ -757,7 +754,6 @@ export default function OnboardingScreen({
                   </View>
 
                   <View style={[styles.qrRuleItem, { borderColor: T.line, backgroundColor: T.surfaceLowest || T.card }]}>
-                    <Text style={styles.qrRuleEmoji}>🎁</Text>
                     <View style={styles.qrRuleTextCol}>
                       <Text style={[styles.qrRuleTitle, { color: T.tx }]}>
                         {lang === 'ta' ? '4. நிஜ உலக அனுபவப் பரிசுகள்' : '4. Real Experience Rewards'}
@@ -771,7 +767,6 @@ export default function OnboardingScreen({
                   </View>
 
                   <View style={[styles.qrRuleItem, { borderColor: T.line, backgroundColor: T.surfaceLowest || T.card }]}>
-                    <Text style={styles.qrRuleEmoji}>🚀</Text>
                     <View style={styles.qrRuleTextCol}>
                       <Text style={[styles.qrRuleTitle, { color: T.tx }]}>
                         {lang === 'ta' ? '5. 30 நாள் கேப்ஸ்டோன் (+500 XP)' : '5. 30-Day Capstone (+500 XP)'}
@@ -1622,6 +1617,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  brandFont: {
+    fontFamily: 'Fredoka',
+    fontWeight: 'normal',
+    letterSpacing: 0.3
+  },
   qrGuideBtn: {
     width: 36,
     height: 36,
@@ -2393,10 +2393,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 12,
     borderWidth: 1
-  },
-  qrRuleEmoji: {
-    fontSize: 18,
-    marginTop: 1
   },
   qrRuleTextCol: {
     flex: 1

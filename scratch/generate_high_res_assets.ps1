@@ -1,4 +1,9 @@
-Add-Type -AssemblyName System.Drawing
+﻿Add-Type -AssemblyName System.Drawing
+
+$mult = "5" + [char]0x00D7 + "7"
+$pfc = New-Object System.Drawing.Text.PrivateFontCollection
+$pfc.AddFontFile((Resolve-Path "assets\fonts\Fredoka.ttf").Path)
+$brandFamily = $pfc.Families[0]
 
 function Draw-FlowerPetals($g, $centerX, $centerY, $scale, $drawText) {
     $colors = @(
@@ -90,8 +95,8 @@ function Draw-FlowerPetals($g, $centerX, $centerY, $scale, $drawText) {
             $coreRadius * 2
         )
         
-        $g.DrawString("5`u{00D7}7", $font, $shadowBrush, $shadowRect, $textFormat)
-        $g.DrawString("5`u{00D7}7", $font, $textBrush, $textRect, $textFormat)
+        $g.DrawString($mult, $font, $shadowBrush, $shadowRect, $textFormat)
+        $g.DrawString($mult, $font, $textBrush, $textRect, $textFormat)
         
         $font.Dispose()
         $shadowBrush.Dispose()
@@ -152,7 +157,7 @@ $logoG.Clear([System.Drawing.Color]::FromArgb(0, 0, 0, 0))
 Draw-FlowerPetals $logoG 760 410 1.25 $true
 
 # Wordmark "Habitopia"
-$wordFont = [System.Drawing.Font]::new("Segoe UI", 112, [System.Drawing.FontStyle]::Bold)
+$wordFont = [System.Drawing.Font]::new($brandFamily, 118, [System.Drawing.FontStyle]::Regular)
 $formatCenter = [System.Drawing.StringFormat]::new()
 $formatCenter.Alignment = [System.Drawing.StringAlignment]::Center
 $formatCenter.LineAlignment = [System.Drawing.StringAlignment]::Center
@@ -177,4 +182,5 @@ $logoBmp.Save("assets\habitopia_logo.png", [System.Drawing.Imaging.ImageFormat]:
 $logoG.Dispose()
 $logoBmp.Dispose()
 Write-Output "Generated: assets\habitopia_logo.png (1520x1160)"
+
 

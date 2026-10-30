@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, ScrollView, StyleSheet, Alert, Image } from 'react-native';
+import { View, Text, Pressable, ScrollView, StyleSheet, Alert, Image, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import GuidesModal from './GuidesModal';
 import AgeProfileModal from './AgeProfileModal';
@@ -9,6 +9,9 @@ import { DIMS, HABITS } from '../data';
 import { TRANSLATIONS } from '../i18n/translations';
 import * as L from '../logic';
 import { isSoundMuted, setSoundMuted, triggerHaptic } from '../haptics';
+
+const PRIVACY_URL = 'https://vishalmurugan1986.github.io/hapitopia/privacy.html';
+const SUPPORT_URL = 'https://vishalmurugan1986.github.io/hapitopia/support.html';
 
 export default function MeScreen({ S, update, setTab, T, onLock }) {
   const [showGuides, setShowGuides] = useState(false);
@@ -529,6 +532,33 @@ export default function MeScreen({ S, update, setTab, T, onLock }) {
         </View>
       </View>
 
+      {/* Legal links (GitHub Pages) */}
+      <View style={styles.legalLinksRow}>
+        <Pressable
+          onPress={() => Linking.openURL(PRIVACY_URL).catch(() => {})}
+          style={styles.legalLink}
+          accessibilityRole="link"
+          accessibilityLabel="Privacy Policy"
+        >
+          <Ionicons name="shield-checkmark-outline" size={14} color={T.primary} />
+          <Text style={[styles.legalLinkText, { color: T.primary }]}>
+            {lang === 'ta' ? 'தனியுரிமைக் கொள்கை' : 'Privacy Policy'}
+          </Text>
+        </Pressable>
+        <View style={{ width: 1, height: 12, backgroundColor: T.lineHigh }} />
+        <Pressable
+          onPress={() => Linking.openURL(SUPPORT_URL).catch(() => {})}
+          style={styles.legalLink}
+          accessibilityRole="link"
+          accessibilityLabel="Support and FAQ"
+        >
+          <Ionicons name="help-buoy-outline" size={14} color={T.primary} />
+          <Text style={[styles.legalLinkText, { color: T.primary }]}>
+            {lang === 'ta' ? 'ஆதரவு & கேள்விகள்' : 'Support & FAQ'}
+          </Text>
+        </Pressable>
+      </View>
+
       {/* Modals */}
       <AgeProfileModal
         visible={showAgeModal}
@@ -589,9 +619,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   footerTitle: {
-    fontSize: 13,
-    fontWeight: '800',
-    letterSpacing: -0.2
+    fontSize: 16,
+    fontFamily: 'Fredoka',
+    fontWeight: 'normal',
+    letterSpacing: 0.3
+  },
+  legalLinksRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+    marginTop: 4,
+    marginBottom: 12
+  },
+  legalLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingVertical: 6,
+    paddingHorizontal: 4
+  },
+  legalLinkText: {
+    fontSize: 12,
+    fontWeight: '700',
+    textDecorationLine: 'underline'
   },
   footerText: {
     fontSize: 11,
