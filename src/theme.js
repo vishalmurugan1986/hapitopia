@@ -66,8 +66,8 @@ export const LUMINOUS_THEME = {
     name: 'light',
     // Backgrounds & Canvas (Pristine Warm Pearl Ivory)
     bg: '#FAF7F2',
-    surfaceLowest: '#FFFFFF',
-    surfaceLow: '#F3EFE8',
+    surfaceLowest: '#EDE7DC',
+    surfaceLow: '#F4EFE6',
     card: '#FFFFFF',
     cardElevated: '#FAF8F4',
     surfaceHigh: '#EAE5DB',

@@ -182,6 +182,12 @@ export const TRANSLATIONS = {
     parentConfirms: 'A parent or guardian confirms each experience reward.',
 
     // Profile & Me
+    dayNightMode: 'Day / Night Mode',
+    dayMode: 'Day',
+    nightMode: 'Night',
+    dayThemeActive: 'Day mode (Bright ivory theme)',
+    nightThemeActive: 'Night mode (Deep luminous theme)',
+    themeSoundHeading: 'Theme, Sound & Language',
     habitBadges: 'Habit Badges',
     earnedBadgeDesc: 'Unlocked after practicing a habit on 7 days.',
     noBadgesYet: 'No badges earned yet. Complete habits to unlock!',
@@ -427,6 +433,12 @@ export const TRANSLATIONS = {
     parentConfirms: 'ஒவ்வொரு அனுபவப் பரிசையும் பெற்றோர் அல்லது பாதுகாவலர் உறுதிசெய்வார்.',
 
     // Profile & Me
+    dayNightMode: 'பகல் / இரவு பயன்முறை',
+    dayMode: 'பகல்',
+    nightMode: 'இரவு',
+    dayThemeActive: 'பகல் பயன்முறை (வெளிச்சத் தோற்றம்)',
+    nightThemeActive: 'இரவு பயன்முறை (இருள் தோற்றம்)',
+    themeSoundHeading: 'பயன்முறை, ஒலி & மொழி',
     habitBadges: 'பழக்கப் பதக்கங்கள்',
     earnedBadgeDesc: 'ஒரு பழக்கத்தை 7 முறை பயிற்சி செய்த பின் திறக்கப்படும்.',
     noBadgesYet: 'இன்னும் பதக்கங்கள் பெறப்படவில்லை. பழக்கங்களை முடித்துப் பதக்கம் வெல்லுங்கள்!',

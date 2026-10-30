@@ -19,6 +19,13 @@ export default function MeScreen({ S, update, setTab, T, onLock }) {
   const lang = S.lang || 'en';
   const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
   const muted = S.soundMuted !== undefined ? !!S.soundMuted : isSoundMuted();
+  const isDarkTheme = T.name === 'dark';
+
+  const toggleTheme = (targetMode) => {
+    triggerHaptic('selection');
+    const nextMode = targetMode || (isDarkTheme ? 'light' : 'dark');
+    update({ ...S, themeMode: nextMode });
+  };
 
   // Count habit completions
   const completionCount = {};
@@ -142,11 +149,91 @@ export default function MeScreen({ S, update, setTab, T, onLock }) {
         </View>
       </View>
 
-      {/* 3. Sound & Language (Translate) Quick Controls */}
+      {/* 3. Theme, Sound & Language Quick Controls */}
       <View style={[styles.sectionCard, { backgroundColor: T.card, borderColor: T.line }]}>
         <Text style={[styles.menuHeading, { color: T.mu }]}>
-          {lang === 'ta' ? 'ஒலி & மொழி அமைப்புகள்' : 'Sound & Language Settings'}
+          {t.themeSoundHeading || (lang === 'ta' ? 'பயன்முறை, ஒலி & மொழி' : 'Theme, Sound & Language')}
         </Text>
+
+        {/* Day / Night Theme Row */}
+        <View
+          style={[styles.prefRow, { borderBottomColor: T.line, borderBottomWidth: 1, paddingBottom: 12, marginBottom: 12 }]}
+        >
+          <View style={styles.prefLeft}>
+            <View
+              style={[
+                styles.menuIconBox,
+                {
+                  backgroundColor: isDarkTheme ? (T.purple || '#A855F7') + '18' : (T.secondary || '#D97706') + '18',
+                  borderColor: isDarkTheme ? (T.purple || '#A855F7') + '45' : (T.secondary || '#D97706') + '45'
+                }
+              ]}
+            >
+              <Ionicons
+                name={isDarkTheme ? 'moon-outline' : 'sunny-outline'}
+                size={18}
+                color={isDarkTheme ? (T.purple || '#A855F7') : (T.secondary || '#D97706')}
+              />
+            </View>
+            <View style={styles.menuItemContent}>
+              <Text style={[styles.menuItemTitle, { color: T.tx }]}>
+                {t.dayNightMode || (lang === 'ta' ? 'பகல் / இரவு பயன்முறை' : 'Day / Night Mode')}
+              </Text>
+              <Text style={[styles.menuItemSubtitle, { color: T.mu }]}>
+                {isDarkTheme
+                  ? (t.nightThemeActive || (lang === 'ta' ? 'இரவு பயன்முறை செயல்பாட்டில் உள்ளது' : 'Night mode (Deep luminous theme)'))
+                  : (t.dayThemeActive || (lang === 'ta' ? 'பகல் பயன்முறை செயல்பாட்டில் உள்ளது' : 'Day mode (Bright ivory theme)'))}
+              </Text>
+            </View>
+          </View>
+
+          <View
+            style={[
+              styles.themeSegmentedControl,
+              {
+                backgroundColor: T.surfaceLowest || '#060E20',
+                borderColor: T.lineHigh
+              }
+            ]}
+          >
+            <Pressable
+              onPress={() => toggleTheme('light')}
+              style={[
+                styles.themeSegBtn,
+                !isDarkTheme && { backgroundColor: T.secondary }
+              ]}
+              accessibilityRole="button"
+              accessibilityLabel="Day mode"
+            >
+              <Ionicons
+                name="sunny"
+                size={12}
+                color={!isDarkTheme ? '#FFFFFF' : T.mu}
+              />
+              <Text style={[styles.themeSegText, { color: !isDarkTheme ? '#FFFFFF' : T.mu }]}>
+                {t.dayMode || (lang === 'ta' ? 'பகல்' : 'Day')}
+              </Text>
+            </Pressable>
+            <Pressable
+              onPress={() => toggleTheme('dark')}
+              style={[
+                styles.themeSegBtn,
+                isDarkTheme && { backgroundColor: T.primary }
+              ]}
+              accessibilityRole="button"
+              accessibilityLabel="Night mode"
+            >
+              <Ionicons
+                name="moon"
+                size={12}
+                color={isDarkTheme ? '#FFFFFF' : T.mu}
+              />
+              <Text style={[styles.themeSegText, { color: isDarkTheme ? '#FFFFFF' : T.mu }]}>
+                {t.nightMode || (lang === 'ta' ? 'இரவு' : 'Night')}
+              </Text>
+            </Pressable>
+          </View>
+        </View>
 
         {/* Sound Effects Row */}
         <Pressable
@@ -674,6 +761,26 @@ const styles = StyleSheet.create({
     borderWidth: 1
   },
   soundToggleText: {
+    fontSize: 11.5,
+    fontWeight: '800'
+  },
+  themeSegmentedControl: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 16,
+    borderWidth: 1,
+    padding: 3,
+    gap: 2
+  },
+  themeSegBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingVertical: 4,
+    paddingHorizontal: 9,
+    borderRadius: 12
+  },
+  themeSegText: {
     fontSize: 11.5,
     fontWeight: '800'
   },

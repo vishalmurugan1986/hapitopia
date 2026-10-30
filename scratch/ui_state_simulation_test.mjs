@@ -218,8 +218,15 @@ const prevMonthDate = new Date(yr, mo - 2, 1);
 const prevMonthKey = `${prevMonthDate.getFullYear()}-${String(prevMonthDate.getMonth() + 1).padStart(2, '0')}`;
 assert(prevMonthKey < currentMonth, 'Previous month navigation key is correct');
 
-// 7. SIMULATE PROFILE REMOVAL / SWITCHING
-console.log('\n--- TEST 7: Reset & Multi-Player Switching ---');
+// 7. SIMULATE DAY / NIGHT MODE SWITCHING
+console.log('\n--- TEST 7: Day / Night Mode Switching ---');
+S.themeMode = 'light';
+assert(S.themeMode === 'light', 'Theme switched to Day mode (light)');
+S.themeMode = 'dark';
+assert(S.themeMode === 'dark', 'Theme switched to Night mode (dark)');
+
+// 8. SIMULATE PROFILE REMOVAL / SWITCHING
+console.log('\n--- TEST 8: Reset & Multi-Player Switching ---');
 let updatedStorage = state.savedProfiles.filter(p => p.name !== 'Aarav');
 assert(updatedStorage.length === 1 && updatedStorage[0].name === 'Diya', 'Profile removal correctly purges target profile without affecting others');
 

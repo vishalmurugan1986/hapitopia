@@ -90,16 +90,22 @@ function MainShell({ S, update, tab, setTab, T, onLock }) {
 }
 
 export default function App() {
-  const isDark = useColorScheme() === 'dark';
+  const systemColorScheme = useColorScheme();
+  const [S, setS] = useState(null);
+  const [tab, setTab] = useState('today');
+  const [isUnlocked, setIsUnlocked] = useState(false);
+
+  // Day / Night mode resolution:
+  // Explicit setting in S takes priority ('light' = Day, 'dark' = Night)
+  // Otherwise falls back to system color scheme
+  const themeMode = S?.themeMode || 'system';
+  const isDark = themeMode === 'light' ? false : (themeMode === 'dark' ? true : systemColorScheme === 'dark');
   const baseT = isDark ? LUMINOUS_THEME.dark : LUMINOUS_THEME.light;
   const T = {
     ...baseT,
     gold: baseT.secondary,
     i: baseT.tertiary
   };
-  const [S, setS] = useState(null);
-  const [tab, setTab] = useState('today');
-  const [isUnlocked, setIsUnlocked] = useState(false);
 
   useEffect(() => {
     AsyncStorage.getItem(KEY)
