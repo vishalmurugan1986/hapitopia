@@ -47,15 +47,7 @@ export default function OnboardingScreen({
   // Screen modes: 'welcome' | 'pinSetup' | 'profile' | 'quickLogin'
   const [currentScreen, setCurrentScreen] = useState(initialScreen);
   const [lang, setLang] = useState(S?.lang || 'en');
-  const [muted, setMuted] = useState(() => isSoundMuted());
-
-  const handleToggleSound = () => {
-    const nextMuted = toggleSoundMuted();
-    setMuted(nextMuted);
-    if (update && S) {
-      update({ ...S, soundMuted: nextMuted });
-    }
-  };
+  const [showQrModal, setShowQrModal] = useState(false);
 
   // All profiles created on this device
   const savedProfiles = Array.isArray(S?.savedProfiles) && S.savedProfiles.length > 0
@@ -396,23 +388,24 @@ export default function OnboardingScreen({
         </Pressable>
       ) : (
         <Pressable
-          onPress={handleToggleSound}
+          onPress={() => {
+            triggerHaptic('light');
+            setShowQrModal(true);
+          }}
           style={[
-            styles.soundBtn,
+            styles.qrGuideBtn,
             {
-              borderColor: muted ? T.line : T.primary + '50',
-              backgroundColor: muted
-                ? T.cardElevated || T.card
-                : T.primary + '16'
+              borderColor: T.lineHigh,
+              backgroundColor: T.cardElevated || T.card
             }
           ]}
           accessibilityRole="button"
-          accessibilityLabel={muted ? 'Unmute Sound' : 'Mute Sound'}
+          accessibilityLabel="Open How to Play QR Guide"
         >
           <Ionicons
-            name={muted ? 'volume-mute-outline' : 'volume-high-outline'}
+            name="qr-code-outline"
             size={18}
-            color={muted ? T.mu : T.primary}
+            color={T.tx}
           />
         </Pressable>
       )}
@@ -658,6 +651,157 @@ export default function OnboardingScreen({
             </View>
           </View>
         </ScrollView>
+
+        {/* How to Play QR Guide Modal */}
+        <Modal
+          visible={showQrModal}
+          transparent
+          animationType="fade"
+          onRequestClose={() => setShowQrModal(false)}
+        >
+          <View style={styles.modalBackdrop}>
+            <View
+              style={[
+                styles.qrModalCard,
+                {
+                  backgroundColor: T.cardElevated || T.card,
+                  borderColor: T.lineHigh
+                }
+              ]}
+            >
+              <View style={styles.modalHeaderRow}>
+                <View style={styles.qrHeaderTitleRow}>
+                  <Ionicons name="qr-code" size={19} color={T.primary} />
+                  <Text style={[styles.modalTitle, { color: T.tx }]}>
+                    {lang === 'ta' ? 'விளையாடுவது எப்படி?' : 'How to Play Habitopia'}
+                  </Text>
+                </View>
+                <Pressable
+                  onPress={() => setShowQrModal(false)}
+                  style={styles.closeModalBtn}
+                  hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                  accessibilityRole="button"
+                  accessibilityLabel="Close"
+                >
+                  <Ionicons name="close" size={20} color={T.mu} />
+                </Pressable>
+              </View>
+
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.qrScrollContent}
+              >
+                {/* QR Code Container */}
+                <View style={[styles.qrCodeBox, { borderColor: T.primary + '40', backgroundColor: '#FFFFFF' }]}>
+                  <Image
+                    source={require('../../assets/guide_qr.png')}
+                    style={styles.qrImage}
+                    resizeMode="contain"
+                  />
+                </View>
+
+                <Text style={[styles.qrScanHint, { color: T.tx }]}>
+                  {lang === 'ta'
+                    ? 'பெற்றோர் அல்லது ஆசிரியர் மொபைலில் ஸ்கேன் செய்து முழு வழிகாட்டியைப் படிக்கலாம்'
+                    : 'Scan with parent or teacher phone to open complete web guide'}
+                </Text>
+                <View style={[styles.qrUrlBadge, { backgroundColor: T.primary + '18', borderColor: T.primary + '40' }]}>
+                  <Ionicons name="link-outline" size={13} color={T.primary} />
+                  <Text style={[styles.qrUrlText, { color: T.primary }]} numberOfLines={1}>
+                    vishalmurugan1986.github.io/hapitopia
+                  </Text>
+                </View>
+
+                {/* 5 Game Rules for Children */}
+                <View style={styles.qrRulesList}>
+                  <View style={[styles.qrRuleItem, { borderColor: T.line, backgroundColor: T.surfaceLowest || T.card }]}>
+                    <Text style={styles.qrRuleEmoji}>🌅</Text>
+                    <View style={styles.qrRuleTextCol}>
+                      <Text style={[styles.qrRuleTitle, { color: T.tx }]}>
+                        {lang === 'ta' ? '1. நாள்தோறும் 5 பழக்கங்கள் (+10 XP)' : '1. Daily 5 Missions (+10 XP each)'}
+                      </Text>
+                      <Text style={[styles.qrRuleDesc, { color: T.mu }]}>
+                        {lang === 'ta'
+                          ? 'உடல், மனம், அறிவு, இதயம், பணம் ஆகிய 5 பகுதிகளிலும் ஒரு பழக்கத்தைச் செய்து XP வெல்லுங்கள்.'
+                          : 'Complete 1 habit across physical, mental, brain, heart, and money dimensions daily.'}
+                      </Text>
+                    </View>
+                  </View>
+
+                  <View style={[styles.qrRuleItem, { borderColor: T.line, backgroundColor: T.surfaceLowest || T.card }]}>
+                    <Text style={styles.qrRuleEmoji}>⭐</Text>
+                    <View style={styles.qrRuleTextCol}>
+                      <Text style={[styles.qrRuleTitle, { color: T.tx }]}>
+                        {lang === 'ta' ? '2. கிளீன் ஸ்வீப் போனஸ் (+20 XP)' : '2. Clean Sweep Bonus (+20 XP)'}
+                      </Text>
+                      <Text style={[styles.qrRuleDesc, { color: T.mu }]}>
+                        {lang === 'ta'
+                          ? 'ஒரே நாளில் அனைத்து 5 பழக்கங்களையும் முடித்தால் கூடுதல் +20 XP போனஸ்!'
+                          : 'Complete all 5 daily habits in a single day to unlock the Clean Sweep bonus.'}
+                      </Text>
+                    </View>
+                  </View>
+
+                  <View style={[styles.qrRuleItem, { borderColor: T.line, backgroundColor: T.surfaceLowest || T.card }]}>
+                    <Text style={styles.qrRuleEmoji}>⚔️</Text>
+                    <View style={styles.qrRuleTextCol}>
+                      <Text style={[styles.qrRuleTitle, { color: T.tx }]}>
+                        {lang === 'ta' ? '3. வார இறுதி பாஸ் சவால் (+100 XP)' : '3. Weekly Boss Fight (+100 XP)'}
+                      </Text>
+                      <Text style={[styles.qrRuleDesc, { color: T.mu }]}>
+                        {lang === 'ta'
+                          ? '240+ புள்ளிகள் பெற்று சில்வர் பதக்கம் அடைந்ததும் வார இறுதி பாஸை வெல்லலாம்.'
+                          : 'Reach 240+ weekly points to achieve Silver tier and defeat the weekly Boss.'}
+                      </Text>
+                    </View>
+                  </View>
+
+                  <View style={[styles.qrRuleItem, { borderColor: T.line, backgroundColor: T.surfaceLowest || T.card }]}>
+                    <Text style={styles.qrRuleEmoji}>🎁</Text>
+                    <View style={styles.qrRuleTextCol}>
+                      <Text style={[styles.qrRuleTitle, { color: T.tx }]}>
+                        {lang === 'ta' ? '4. நிஜ உலக அனுபவப் பரிசுகள்' : '4. Real Experience Rewards'}
+                      </Text>
+                      <Text style={[styles.qrRuleDesc, { color: T.mu }]}>
+                        {lang === 'ta'
+                          ? 'பொம்மைகள் இல்லை! பூங்கா பயணம், நூலக வருகை போன்ற அனுபவங்களைப் பெற்றோரிடம் பெறுங்கள்.'
+                          : 'Real adventures (park visits, library trips, sports) confirmed by parents.'}
+                      </Text>
+                    </View>
+                  </View>
+
+                  <View style={[styles.qrRuleItem, { borderColor: T.line, backgroundColor: T.surfaceLowest || T.card }]}>
+                    <Text style={styles.qrRuleEmoji}>🚀</Text>
+                    <View style={styles.qrRuleTextCol}>
+                      <Text style={[styles.qrRuleTitle, { color: T.tx }]}>
+                        {lang === 'ta' ? '5. 30 நாள் கேப்ஸ்டோன் (+500 XP)' : '5. 30-Day Capstone (+500 XP)'}
+                      </Text>
+                      <Text style={[styles.qrRuleDesc, { color: T.mu }]}>
+                        {lang === 'ta'
+                          ? '30 நாட்கள் தொடர்ந்து சாதித்து உங்கள் வாழ்க்கையின் CEO பட்டயத்தைப் பெறுங்கள்!'
+                          : 'Master your habits for 30 days to graduate and become the CEO of your life!'}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+
+                {/* Got it CTA */}
+                <Pressable
+                  onPress={() => {
+                    triggerHaptic('success');
+                    setShowQrModal(false);
+                  }}
+                  style={[styles.qrDoneBtn, { backgroundColor: T.primary }]}
+                >
+                  <Ionicons name="checkmark-circle" size={16} color="#FFFFFF" />
+                  <Text style={styles.qrDoneBtnText}>
+                    {lang === 'ta' ? 'புரிகிறது! விளையாடுவோம்' : "Got It! Let's Play"}
+                  </Text>
+                </Pressable>
+              </ScrollView>
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -1478,6 +1622,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  qrGuideBtn: {
+    width: 36,
+    height: 36,
+    borderRadius: 12,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   soundBtnSmall: {
     width: 32,
     height: 32,
@@ -2171,5 +2323,106 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '700',
     flex: 1
+  },
+
+  // QR Play Guide Modal
+  qrModalCard: {
+    width: '100%',
+    maxWidth: 380,
+    maxHeight: '86%',
+    borderRadius: 22,
+    borderWidth: 1.5,
+    padding: 18
+  },
+  qrHeaderTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    flex: 1
+  },
+  qrScrollContent: {
+    paddingVertical: 6,
+    alignItems: 'center'
+  },
+  qrCodeBox: {
+    width: 140,
+    height: 140,
+    borderRadius: 16,
+    borderWidth: 1.5,
+    padding: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 10
+  },
+  qrImage: {
+    width: 124,
+    height: 124,
+    borderRadius: 8
+  },
+  qrScanHint: {
+    fontSize: 12,
+    fontWeight: '700',
+    textAlign: 'center',
+    lineHeight: 16,
+    marginTop: 4,
+    paddingHorizontal: 12
+  },
+  qrUrlBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    borderRadius: 12,
+    borderWidth: 1,
+    marginTop: 6,
+    marginBottom: 14
+  },
+  qrUrlText: {
+    fontSize: 11,
+    fontWeight: '800'
+  },
+  qrRulesList: {
+    width: '100%',
+    gap: 8
+  },
+  qrRuleItem: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 10,
+    padding: 10,
+    borderRadius: 12,
+    borderWidth: 1
+  },
+  qrRuleEmoji: {
+    fontSize: 18,
+    marginTop: 1
+  },
+  qrRuleTextCol: {
+    flex: 1
+  },
+  qrRuleTitle: {
+    fontSize: 12.5,
+    fontWeight: '800',
+    marginBottom: 2
+  },
+  qrRuleDesc: {
+    fontSize: 11,
+    lineHeight: 15
+  },
+  qrDoneBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    width: '100%',
+    paddingVertical: 12,
+    borderRadius: 14,
+    marginTop: 14
+  },
+  qrDoneBtnText: {
+    color: '#FFFFFF',
+    fontSize: 14,
+    fontWeight: '800'
   }
 });

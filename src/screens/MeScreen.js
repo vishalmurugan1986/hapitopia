@@ -515,15 +515,18 @@ export default function MeScreen({ S, update, setTab, T, onLock }) {
       {/* Minimal Understated Attribution Footer */}
       <View style={styles.footerAttribution}>
         <Image
-          source={require('../../assets/habitopia_logo.png')}
+          source={require('../../assets/habitopia_app_icon.png')}
           style={styles.footerLogo}
           resizeMode="contain"
         />
-        <Text style={[styles.footerText, { color: T.dim }]}>
-          {lang === 'ta'
-            ? 'ஹேபிடோபியா · எதிர்காலத்தை வெல்லும் குழந்தை'
-            : 'Habitopia · Build a future-proof child'}
-        </Text>
+        <View style={styles.footerTextCol}>
+          <Text style={[styles.footerTitle, { color: T.tx }]}>Habitopia</Text>
+          <Text style={[styles.footerText, { color: T.dim }]}>
+            {lang === 'ta'
+              ? 'எதிர்காலத்தை வெல்லும் குழந்தையை உருவாக்குவோம்'
+              : 'Build a future-proof child'}
+          </Text>
+        </View>
       </View>
 
       {/* Modals */}
@@ -578,14 +581,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16
   },
   footerLogo: {
-    width: 26,
-    height: 26,
-    borderRadius: 6
+    width: 36,
+    height: 36,
+    borderRadius: 10
+  },
+  footerTextCol: {
+    justifyContent: 'center'
+  },
+  footerTitle: {
+    fontSize: 13,
+    fontWeight: '800',
+    letterSpacing: -0.2
   },
   footerText: {
     fontSize: 11,
-    fontWeight: '500',
-    textAlign: 'center'
+    fontWeight: '600',
+    lineHeight: 14
   },
   profileHeroCard: {
     borderRadius: 20,
