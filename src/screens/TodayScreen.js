@@ -149,11 +149,42 @@ export default function TodayScreen({ S, update, T }) {
       });
     }
 
+    // Timestamp & Integrity Audit Tracking
+    const nowIso = new Date().toISOString();
+    const curTimestamps = { ...((S && S.habitTimestamps && S.habitTimestamps[todayStr]) || {}) };
+    if (isNowDone) {
+      curTimestamps[id] = nowIso;
+    } else {
+      delete curTimestamps[id];
+    }
+
+    // Velocity / Rapid-tap check (< 15s between marks)
+    const times = Object.values(curTimestamps).map((t) => new Date(t).getTime()).sort((a, b) => a - b);
+    let rapidTaps = 0;
+    if (times.length >= 3) {
+      for (let i = 1; i < times.length; i++) {
+        if (times[i] - times[i - 1] < 15000) rapidTaps++;
+      }
+    }
+    const isRapid = rapidTaps >= 2;
+
     const nextS = {
       ...S,
       done: {
         ...(S.done || {}),
         [todayStr]: nextList
+      },
+      habitTimestamps: {
+        ...(S.habitTimestamps || {}),
+        [todayStr]: curTimestamps
+      },
+      auditFlags: {
+        ...(S.auditFlags || {}),
+        [todayStr]: {
+          ...((S && S.auditFlags && S.auditFlags[todayStr]) || {}),
+          rapidTap: isRapid,
+          lastUpdated: nowIso
+        }
       }
     };
 

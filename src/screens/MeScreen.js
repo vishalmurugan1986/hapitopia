@@ -5,6 +5,7 @@ import GuidesModal from './GuidesModal';
 import AgeProfileModal from './AgeProfileModal';
 import ClassroomPrintablesModal from './ClassroomPrintablesModal';
 import CurriculumBookModal from './CurriculumBookModal';
+import SchoolAuditModal from './SchoolAuditModal';
 import { DIMS, HABITS } from '../data';
 import { TRANSLATIONS } from '../i18n/translations';
 import * as L from '../logic';
@@ -18,6 +19,7 @@ export default function MeScreen({ S, update, setTab, T, onLock }) {
   const [showAgeModal, setShowAgeModal] = useState(false);
   const [showPrintables, setShowPrintables] = useState(false);
   const [showCurriculumBooks, setShowCurriculumBooks] = useState(false);
+  const [showAuditModal, setShowAuditModal] = useState(false);
 
   const lang = S.lang || 'en';
   const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
@@ -436,6 +438,25 @@ export default function MeScreen({ S, update, setTab, T, onLock }) {
           <Ionicons name="chevron-forward" size={18} color={T.mu} />
         </Pressable>
 
+        {/* School Verification & Habit Audit */}
+        <Pressable
+          onPress={() => setShowAuditModal(true)}
+          style={[styles.menuItem, { borderBottomColor: T.line }]}
+        >
+          <View style={[styles.menuIconBox, { backgroundColor: T.primary + '18', borderColor: T.primary + '40' }]}>
+            <Ionicons name="shield-checkmark-outline" size={18} color={T.primary} />
+          </View>
+          <View style={styles.menuItemContent}>
+            <Text style={[styles.menuItemTitle, { color: T.tx }]}>
+              {lang === 'ta' ? 'பள்ளி சரிபார்ப்பு & தணிக்கை' : 'School Verification & Habit Audit'}
+            </Text>
+            <Text style={[styles.menuItemSubtitle, { color: T.mu }]}>
+              {lang === 'ta' ? 'உண்மையான பதிவு கண்காணிப்பு, நேரப் பதிவு & பள்ளி போர்ட்டல்' : 'Anti-cheat audit trail, pacing analysis, and student verification code'}
+            </Text>
+          </View>
+          <Ionicons name="chevron-forward" size={18} color={T.mu} />
+        </Pressable>
+
         {/* Parent & Teacher Guides */}
         <Pressable
           onPress={() => setShowGuides(true)}
@@ -532,7 +553,7 @@ export default function MeScreen({ S, update, setTab, T, onLock }) {
         </View>
       </View>
 
-      {/* Legal links (GitHub Pages) */}
+      {/* Legal links & School Portal (GitHub Pages) */}
       <View style={styles.legalLinksRow}>
         <Pressable
           onPress={() => Linking.openURL(PRIVACY_URL).catch(() => {})}
@@ -542,7 +563,7 @@ export default function MeScreen({ S, update, setTab, T, onLock }) {
         >
           <Ionicons name="shield-checkmark-outline" size={14} color={T.primary} />
           <Text style={[styles.legalLinkText, { color: T.primary }]}>
-            {lang === 'ta' ? 'தனியுரிமைக் கொள்கை' : 'Privacy Policy'}
+            {lang === 'ta' ? 'தனியுரிமை' : 'Privacy'}
           </Text>
         </Pressable>
         <View style={{ width: 1, height: 12, backgroundColor: T.lineHigh }} />
@@ -554,7 +575,19 @@ export default function MeScreen({ S, update, setTab, T, onLock }) {
         >
           <Ionicons name="help-buoy-outline" size={14} color={T.primary} />
           <Text style={[styles.legalLinkText, { color: T.primary }]}>
-            {lang === 'ta' ? 'ஆதரவு & கேள்விகள்' : 'Support & FAQ'}
+            {lang === 'ta' ? 'ஆதரவு' : 'Support'}
+          </Text>
+        </Pressable>
+        <View style={{ width: 1, height: 12, backgroundColor: T.lineHigh }} />
+        <Pressable
+          onPress={() => Linking.openURL('https://vishalmurugan1986.github.io/hapitopia/management.html').catch(() => {})}
+          style={styles.legalLink}
+          accessibilityRole="link"
+          accessibilityLabel="School Portal"
+        >
+          <Ionicons name="school-outline" size={14} color={T.primary} />
+          <Text style={[styles.legalLinkText, { color: T.primary }]}>
+            {lang === 'ta' ? 'பள்ளி போர்ட்டல்' : 'School Portal'}
           </Text>
         </Pressable>
       </View>
@@ -585,6 +618,13 @@ export default function MeScreen({ S, update, setTab, T, onLock }) {
       <CurriculumBookModal
         visible={showCurriculumBooks}
         onClose={() => setShowCurriculumBooks(false)}
+        S={S}
+        T={T}
+      />
+
+      <SchoolAuditModal
+        visible={showAuditModal}
+        onClose={() => setShowAuditModal(false)}
         S={S}
         T={T}
       />

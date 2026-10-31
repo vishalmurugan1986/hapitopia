@@ -162,3 +162,122 @@ export function futureProofIndex(S) {
     breakdown
   };
 }
+// Section 8: Anti-Cheat & Integrity Audit Engine
+export function getAuditSummary(S, dateStr = todayS()) {
+  const doneList = doneOn(S, dateStr);
+  const timestamps = (S && S.habitTimestamps && S.habitTimestamps[dateStr]) || {};
+  const activeCount = activeHabits(S).length || 5;
+
+  if (!doneList.length) {
+    return {
+      status: 'incomplete',
+      label: 'Incomplete',
+      labelTa: 'தொடங்கவில்லை',
+      reason: 'No habits marked today',
+      rapidCount: 0,
+      durationSec: 0,
+      timestampsList: []
+    };
+  }
+
+  // Build sorted list of recorded timestamps
+  const recorded = doneList.map((id) => ({
+    id,
+    time: timestamps[id] ? new Date(timestamps[id]).getTime() : null,
+    iso: timestamps[id] || null
+  })).sort((a, b) => (a.time || 0) - (b.time || 0));
+
+  const validTimes = recorded.filter((r) => r.time !== null);
+  let isRapid = false;
+  let rapidCount = 0;
+  let durationSec = 0;
+
+  if (validTimes.length >= 3) {
+    const firstTime = validTimes[0].time;
+    const lastTime = validTimes[validTimes.length - 1].time;
+    durationSec = Math.max(1, Math.round((lastTime - firstTime) / 1000));
+
+    // If 3 or more habits were marked within 15 seconds of each other
+    for (let i = 1; i < validTimes.length; i++) {
+      if (validTimes[i].time - validTimes[i - 1].time < 15000) {
+        rapidCount++;
+      }
+    }
+    if (rapidCount >= 2 && durationSec <= 35) {
+      isRapid = true;
+    }
+  }
+
+  // Check stored audit flag if present
+  const storedFlag = S && S.auditFlags && S.auditFlags[dateStr];
+  if (storedFlag && storedFlag.rapidTap) {
+    isRapid = true;
+  }
+
+  if (isRapid) {
+    return {
+      status: 'review_needed',
+      label: 'Review Needed: Rapid Tap',
+      labelTa: 'மறுஆய்வு தேவை: விரைவு தட்டல்',
+      reason: 'Marked ' + validTimes.length + ' habits in only ' + durationSec + ' seconds',
+      rapidCount: rapidCount + 1,
+      durationSec,
+      timestampsList: recorded
+    };
+  }
+
+  if (doneList.length < activeCount) {
+    return {
+      status: 'in_progress',
+      label: 'In Progress',
+      labelTa: 'முன்னேற்றத்தில்',
+      reason: doneList.length + ' of ' + activeCount + ' habits completed',
+      rapidCount: 0,
+      durationSec,
+      timestampsList: recorded
+    };
+  }
+
+  return {
+    status: 'verified',
+    label: 'Verified Honest',
+    labelTa: 'உண்மையான பதிவு (சரிபார்க்கப்பட்டது)',
+    reason: 'Naturally paced throughout the day',
+    rapidCount: 0,
+    durationSec,
+    timestampsList: recorded
+  };
+}
+
+// Generate compact export code for School Management Portal
+export function generateStudentExport(S) {
+  const today = todayS();
+  const doneToday = doneOn(S, today);
+  const audit = getAuditSummary(S, today);
+  const active = activeHabits(S);
+  const fp = futureProofIndex(S);
+
+  const payload = {
+    rollNo: S?.rollNo || S?.id || ('ACH-2026-' + String(Math.abs((S?.name || 'std').charCodeAt(0) * 11) % 900 + 100)),
+    name: S?.name || 'Student',
+    age: S?.age || 10,
+    grade: S?.grade || ('Grade ' + Math.min(8, Math.max(4, (S?.age || 10) - 5)) + 'A'),
+    date: today,
+    completed: doneToday.length,
+    total: active.length || 5,
+    status: audit.status,
+    reason: audit.reason,
+    durationSec: audit.durationSec,
+    streak: streak(S),
+    level: level(S),
+    xp: xp(S),
+    fpIndex: fp.index,
+    timestamps: (S && S.habitTimestamps && S.habitTimestamps[today]) || {},
+    habits: doneToday
+  };
+
+  return {
+    data: payload,
+    jsonString: JSON.stringify(payload)
+  };
+}
