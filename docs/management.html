@@ -3,28 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Habitopia - School Management & Integrity Monitoring Portal | Achariya</title>
+  <title>Habitopia - School Management Portal | Achariya</title>
   <link rel="icon" type="image/png" href="./achariya_logo.png">
   <style>
     :root {
       --bg: #F8FAFC;
       --surface: #FFFFFF;
-      --surface-subtle: #F1F5F9;
-      --border: #CBD5E1;
-      --border-subtle: #E2E8F0;
+      --border: #E2E8F0;
+      --border-dark: #CBD5E1;
       --text: #0F172A;
       --text-muted: #475569;
       --text-dim: #64748B;
-      --primary: #047857;
-      --primary-subtle: #ECFDF5;
-      --primary-border: #A7F3D0;
-      --warning: #B45309;
-      --warning-subtle: #FFFBEB;
-      --warning-border: #FDE68A;
-      --danger: #B91C1C;
-      --danger-subtle: #FEF2F2;
-      --danger-border: #FECACA;
-      --dark-btn: #1E293B;
+      --verified-bg: #ECFDF5;
+      --verified-text: #047857;
+      --verified-border: #A7F3D0;
+      --flag-bg: #FFFBEB;
+      --flag-text: #B45309;
+      --flag-border: #FDE68A;
+      --disputed-bg: #FEF2F2;
+      --disputed-text: #B91C1C;
+      --disputed-border: #FECACA;
     }
 
     * {
@@ -38,280 +36,195 @@
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.5;
-      padding: 0;
     }
 
-    /* Top Navigation Header */
-    .nav-header {
-      background-color: var(--surface);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 16px 24px;
+    /* Header */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
+      justify-content: space-between;
       gap: 16px;
     }
 
-    .brand-col {
+    .brand-wrap {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
     .brand-logo {
-      width: 48px;
-      height: 48px;
-      border-radius: 8px;
-      border: 1px solid var(--border-subtle);
+      width: 44px;
+      height: 44px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
       padding: 2px;
       background: #FFFFFF;
       object-fit: contain;
     }
 
     .brand-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
-      letter-spacing: -0.3px;
-      color: var(--text);
+      letter-spacing: -0.2px;
     }
 
-    .brand-subtitle {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .nav-link {
-      font-size: 13.5px;
-      color: var(--text-muted);
-      text-decoration: none;
-      font-weight: 600;
-      padding: 6px 10px;
-      border-radius: 6px;
-    }
-
-    .nav-link:hover {
-      background-color: var(--surface-subtle);
-      color: var(--text);
-    }
-
-    .nav-link.active {
-      color: var(--primary);
-      background-color: var(--primary-subtle);
-      border: 1px solid var(--primary-border);
-    }
-
-    /* Main Container */
-    .container {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 24px 20px 60px;
-    }
-
-    /* Page Headline */
-    .page-head {
-      margin-bottom: 24px;
-    }
-
-    .page-title {
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 4px;
-    }
-
-    .page-desc {
-      font-size: 14px;
-      color: var(--text-muted);
-      max-width: 900px;
-    }
-
-    /* KPI Summary Cards Grid */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .kpi-card {
-      background-color: var(--surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 18px 20px;
-    }
-
-    .kpi-label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 700;
-      color: var(--text-dim);
-      margin-bottom: 6px;
-    }
-
-    .kpi-value {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--text);
-      line-height: 1.1;
-      margin-bottom: 4px;
-    }
-
-    .kpi-sub {
+    .brand-sub {
       font-size: 12.5px;
       color: var(--text-muted);
     }
 
-    .kpi-card.warning-kpi {
-      border-left: 4px solid var(--warning);
-      background-color: #FFFDF7;
-    }
-
-    .kpi-card.warning-kpi .kpi-value {
-      color: var(--warning);
-    }
-
-    .kpi-card.success-kpi {
-      border-left: 4px solid var(--primary);
-    }
-
-    /* Anti-Cheat Notice Banner */
-    .notice-box {
-      background-color: var(--surface);
+    .header-links a {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 6px 12px;
       border: 1px solid var(--border);
-      border-left: 4px solid var(--text-muted);
-      border-radius: 8px;
-      padding: 16px 20px;
-      margin-bottom: 24px;
+      border-radius: 6px;
+      background: var(--surface);
     }
 
-    .notice-title {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 4px;
+    .header-links a:hover {
+      background: #F1F5F9;
       color: var(--text);
     }
 
-    .notice-text {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.6;
+    /* Layout Container */
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
     }
 
-    /* Controls Bar: Search, Filters, Actions */
-    .controls-bar {
-      background-color: var(--surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 16px 20px;
+    /* 3-Stat Summary Bar */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
       margin-bottom: 20px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+    }
+
+    .stat-label {
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .stat-val {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .stat-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .stat-card.flagged {
+      background: #FFFDF7;
+      border-left: 4px solid var(--flag-text);
+    }
+
+    .stat-card.flagged .stat-val {
+      color: var(--flag-text);
+    }
+
+    /* Controls Bar */
+    .controls {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
+      gap: 10px;
     }
 
-    .filters-left {
+    .controls-left {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
-      gap: 12px;
-      flex: 1;
-    }
-
-    .search-input {
-      border: 1px solid var(--border);
-      background-color: #FFFFFF;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 13.5px;
-      color: var(--text);
-      min-width: 240px;
-      flex: 1;
-      max-width: 320px;
-    }
-
-    .search-input:focus {
-      outline: none;
-      border-color: var(--primary);
-    }
-
-    .select-dropdown {
-      border: 1px solid var(--border);
-      background-color: #FFFFFF;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 13px;
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .select-dropdown:focus {
-      outline: none;
-      border-color: var(--primary);
-    }
-
-    .actions-right {
-      display: flex;
       align-items: center;
       gap: 10px;
-      flex-wrap: wrap;
+      flex: 1;
+    }
+
+    .search-box {
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      padding: 7px 12px;
+      font-size: 13px;
+      width: 240px;
+      color: var(--text);
+    }
+
+    .search-box:focus {
+      outline: none;
+      border-color: #047857;
+    }
+
+    .select-box {
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #FFFFFF;
+      color: var(--text);
+    }
+
+    .controls-right {
+      display: flex;
+      gap: 8px;
     }
 
     .btn {
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 13px;
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: 12.5px;
       font-weight: 700;
-      cursor: pointer;
-      border: 1px solid var(--border);
-      background-color: var(--surface);
+      border: 1px solid var(--border-dark);
+      background: #FFFFFF;
       color: var(--text);
-      transition: background 0.15s;
+      cursor: pointer;
     }
 
     .btn:hover {
-      background-color: var(--surface-subtle);
+      background: #F1F5F9;
     }
 
     .btn-dark {
-      background-color: var(--dark-btn);
+      background: #1E293B;
       color: #FFFFFF;
-      border-color: var(--dark-btn);
+      border-color: #1E293B;
     }
 
     .btn-dark:hover {
-      background-color: #0F172A;
+      background: #0F172A;
     }
 
-    .btn-primary {
-      background-color: var(--primary);
-      color: #FFFFFF;
-      border-color: var(--primary);
-    }
-
-    .btn-primary:hover {
-      background-color: #036447;
-    }
-
-    /* Main Roster Table Card */
+    /* Roster Table */
     .table-card {
-      background-color: var(--surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 24px;
-    }
-
-    .table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
       overflow-x: auto;
     }
 
@@ -323,22 +236,22 @@
     }
 
     th {
-      background-color: var(--surface-subtle);
+      background: #F1F5F9;
       color: var(--text-dim);
       font-size: 11.5px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       font-weight: 700;
-      padding: 12px 16px;
+      padding: 10px 14px;
       border-bottom: 1px solid var(--border);
       white-space: nowrap;
     }
 
     td {
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--border-subtle);
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
       vertical-align: middle;
-      color: var(--text);
+      white-space: nowrap;
     }
 
     tr:last-child td {
@@ -346,382 +259,259 @@
     }
 
     tr:hover td {
-      background-color: #F8FAFC;
+      background: #F8FAFC;
     }
 
-    .roll-cell {
+    .roll-text {
       font-family: ui-monospace, Menlo, Consolas, monospace;
       font-size: 12px;
       font-weight: 700;
       color: var(--text-dim);
     }
 
-    .name-cell {
+    .name-text {
       font-weight: 700;
-      color: var(--text);
     }
 
-    .grade-badge {
-      font-size: 11.5px;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .habits-count {
-      font-weight: 800;
-      font-size: 13.5px;
-    }
-
-    .dim-dots {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
-
-    .dim-pill {
+    .badge {
       display: inline-block;
-      width: 20px;
-      height: 20px;
-      line-height: 20px;
-      text-align: center;
+      padding: 3px 8px;
       border-radius: 4px;
-      font-size: 10px;
-      font-weight: 800;
-      color: #FFFFFF;
-      background-color: #94A3B8;
-    }
-
-    .dim-pill.p-done { background-color: #059669; }
-    .dim-pill.m-done { background-color: #0D9488; }
-    .dim-pill.i-done { background-color: #0284C7; }
-    .dim-pill.e-done { background-color: #D97706; }
-    .dim-pill.f-done { background-color: #B45309; }
-    .dim-pill.dim-empty { background-color: #E2E8F0; color: #94A3B8; }
-
-    /* Status Badges */
-    .status-badge {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       white-space: nowrap;
     }
 
-    .status-verified {
-      background-color: var(--primary-subtle);
-      color: var(--primary);
-      border: 1px solid var(--primary-border);
+    .badge-verified {
+      background: var(--verified-bg);
+      color: var(--verified-text);
+      border: 1px solid var(--verified-border);
     }
 
-    .status-warning {
-      background-color: var(--warning-subtle);
-      color: var(--warning);
-      border: 1px solid var(--warning-border);
+    .badge-flag {
+      background: var(--flag-bg);
+      color: var(--flag-text);
+      border: 1px solid var(--flag-border);
     }
 
-    .status-progress {
-      background-color: var(--surface-subtle);
+    .badge-progress {
+      background: #F1F5F9;
       color: var(--text-muted);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-dark);
     }
 
-    .status-disputed {
-      background-color: var(--danger-subtle);
-      color: var(--danger);
-      border: 1px solid var(--danger-border);
+    .badge-disputed {
+      background: var(--disputed-bg);
+      color: var(--disputed-text);
+      border: 1px solid var(--disputed-border);
     }
 
-    .action-btn-cell {
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .btn-table {
-      padding: 6px 12px;
+    .btn-action {
+      padding: 5px 10px;
       font-size: 12px;
       font-weight: 700;
-      border-radius: 6px;
-      cursor: pointer;
-      border: 1px solid var(--border);
-      background-color: #FFFFFF;
+      border-radius: 4px;
+      border: 1px solid var(--border-dark);
+      background: #FFFFFF;
       color: var(--text);
+      cursor: pointer;
     }
 
-    .btn-table:hover {
-      background-color: var(--surface-subtle);
-      border-color: var(--text-dim);
+    .btn-action.flag-action {
+      border-color: var(--flag-border);
+      background: var(--flag-bg);
+      color: var(--flag-text);
     }
 
-    .btn-table.flag-btn {
-      border-color: var(--warning-border);
-      background-color: var(--warning-subtle);
-      color: var(--warning);
+    .btn-action:hover {
+      background: #E2E8F0;
     }
 
-    .btn-table.flag-btn:hover {
-      background-color: #FEF3C7;
-    }
-
-    /* Audit & Spot Check Modal */
-    .modal-backdrop {
+    /* Spot-Check Modal */
+    .modal-overlay {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(15, 23, 42, 0.6);
-      z-index: 1000;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      z-index: 100;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
     }
 
-    .modal-box {
-      background-color: #FFFFFF;
-      border-radius: 14px;
-      max-width: 680px;
+    .modal-card {
+      background: #FFFFFF;
+      border-radius: 10px;
+      max-width: 580px;
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
       border: 1px solid var(--border);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-      padding: 24px;
+      padding: 20px;
     }
 
-    .modal-head {
+    .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      border-bottom: 1px solid var(--border-subtle);
-      padding-bottom: 16px;
-      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
     }
 
     .modal-title {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 800;
-      color: var(--text);
     }
 
     .modal-subtitle {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--text-muted);
       margin-top: 2px;
     }
 
-    .btn-close {
+    .modal-close {
       background: none;
       border: none;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
-      color: var(--text-muted);
+      color: var(--text-dim);
       cursor: pointer;
-      padding: 4px 8px;
+      line-height: 1;
     }
 
-    .modal-section {
-      margin-bottom: 20px;
+    .diag-box {
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 12.5px;
+      line-height: 1.5;
+      margin-bottom: 16px;
     }
 
-    .section-label {
-      font-size: 11.5px;
+    .diag-box.flag {
+      background: var(--flag-bg);
+      border-color: var(--flag-border);
+      color: #92400E;
+    }
+
+    .diag-box.verified {
+      background: var(--verified-bg);
+      border-color: var(--verified-border);
+      color: #065F46;
+    }
+
+    .subhead {
+      font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       font-weight: 700;
       color: var(--text-dim);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
-    .diagnosis-box {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 14px 16px;
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .diagnosis-box.flagged {
-      background-color: var(--warning-subtle);
-      border-color: var(--warning-border);
-      color: #92400E;
-    }
-
-    .diagnosis-box.verified {
-      background-color: var(--primary-subtle);
-      border-color: var(--primary-border);
-      color: #065F46;
-    }
-
-    .timeline-table {
+    .log-table {
       width: 100%;
-      border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      overflow: hidden;
-      margin-top: 8px;
-      font-size: 12.5px;
-    }
-
-    .timeline-table th {
-      padding: 8px 12px;
-    }
-
-    .timeline-table td {
-      padding: 8px 12px;
-    }
-
-    .questions-card {
-      background-color: var(--surface-subtle);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 14px 16px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      border-collapse: collapse;
     }
 
-    .question-item {
-      margin-bottom: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px dashed var(--border);
+    .log-table th, .log-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .question-item:last-child {
+    .questions-box {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+
+    .q-item {
+      margin-bottom: 8px;
+      font-size: 12.5px;
+    }
+
+    .q-item:last-child {
       margin-bottom: 0;
-      padding-bottom: 0;
-      border-bottom: none;
     }
 
-    .question-habit {
+    .q-title {
       font-weight: 700;
-      font-size: 12.5px;
       color: var(--text);
-      margin-bottom: 2px;
     }
 
-    .question-prompt {
-      font-size: 12.5px;
+    .q-text {
       color: var(--text-muted);
       font-style: italic;
     }
 
-    .modal-actions {
+    .modal-btns {
       display: flex;
-      gap: 12px;
       justify-content: flex-end;
-      border-top: 1px solid var(--border-subtle);
-      padding-top: 18px;
-      margin-top: 24px;
-      flex-wrap: wrap;
+      gap: 10px;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
     }
 
-    /* Import Code Modal */
-    .textarea-import {
-      width: 100%;
-      height: 120px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px;
-      font-family: ui-monospace, Menlo, monospace;
-      font-size: 12px;
-      margin-top: 8px;
-      margin-bottom: 16px;
-    }
-
-    .textarea-import:focus {
-      outline: none;
-      border-color: var(--primary);
-    }
-
-    /* Print Stylesheet for A4 */
     @media print {
-      body {
-        background-color: #FFFFFF;
-        color: #000000;
-      }
-      .nav-header, .controls-bar, .actions-right, .action-btn-cell, .modal-backdrop {
-        display: none !important;
-      }
-      .container {
-        padding: 0;
-        max-width: 100%;
-      }
-      .table-card {
-        border: 1px solid #000000;
-      }
-      th, td {
-        border-color: #000000;
-      }
+      body { background: #FFFFFF; }
+      .header, .controls, .modal-overlay, th:last-child, td:last-child { display: none !important; }
+      .container { max-width: 100%; padding: 0; }
+      table { border: 1px solid #000000; }
+      th, td { border-color: #000000; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Navigation Header -->
-  <header class="nav-header">
-    <div class="brand-col">
+  <!-- Minimal Header -->
+  <header class="header">
+    <div class="brand-wrap">
       <img src="./achariya_logo.png" alt="Achariya Logo" class="brand-logo">
       <div>
-        <div class="brand-title">Achariya Group of Institutions</div>
-        <div class="brand-subtitle">Habitopia School Monitoring & Integrity Portal</div>
+        <div class="brand-title">Achariya World Class Education</div>
+        <div class="brand-sub">Habitopia School Monitoring Portal</div>
       </div>
     </div>
-    <nav class="nav-links">
-      <a href="./index.html" class="nav-link">Showcase Portal</a>
-      <a href="./management.html" class="nav-link active">School Portal</a>
-      <a href="./support.html" class="nav-link">Support & FAQ</a>
-      <a href="./privacy.html" class="nav-link">Privacy Policy</a>
-    </nav>
+    <div class="header-links">
+      <a href="./index.html">Showcase</a>
+    </div>
   </header>
 
-  <!-- Main Container -->
   <main class="container">
-    
-    <!-- Page Header -->
-    <section class="page-head">
-      <h1 class="page-title">Classroom Habit Monitoring & Integrity Audit</h1>
-      <p class="page-desc">
-        Designed for school management, principals, and teachers. Track daily student habit participation, verify honest execution, and review flagged speed-run completions with non-technical verbal spot-checks.
-      </p>
-    </section>
 
-    <!-- KPI Summary Grid -->
-    <section class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-label">Monitored Students</div>
-        <div class="kpi-value" id="kpiTotal">24</div>
-        <div class="kpi-sub">Across Classes 4A to 8B</div>
+    <!-- 3 Essential Summary Stats -->
+    <section class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-label">Total Monitored</div>
+        <div class="stat-val" id="statTotal">24</div>
+        <div class="stat-sub">Enrolled students</div>
       </div>
-      <div class="kpi-card success-kpi">
-        <div class="kpi-label">Participation Rate</div>
-        <div class="kpi-value" id="kpiParticipation">88%</div>
-        <div class="kpi-sub">21 of 24 marked habits today</div>
+      <div class="stat-card">
+        <div class="stat-label">Active Today</div>
+        <div class="stat-val" id="statActive">21</div>
+        <div class="stat-sub">Completed missions</div>
       </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Verified Honest Pacing</div>
-        <div class="kpi-value" id="kpiVerified">85%</div>
-        <div class="kpi-sub">Natural morning to evening spread</div>
-      </div>
-      <div class="kpi-card warning-kpi">
-        <div class="kpi-label">Needs Spot-Check</div>
-        <div class="kpi-value" id="kpiFlagged">3</div>
-        <div class="kpi-sub">Rapid-tap anomaly detected (< 15s)</div>
+      <div class="stat-card flagged">
+        <div class="stat-label">Needs Spot-Check</div>
+        <div class="stat-val" id="statFlagged">3</div>
+        <div class="stat-sub">Rapid check anomaly</div>
       </div>
     </section>
 
-    <!-- Anti-Cheat Explanation Notice -->
-    <section class="notice-box">
-      <div class="notice-title">How Habitopia Catches Pretended Completions</div>
-      <div class="notice-text">
-        Every habit checked in the mobile app records its exact completion timestamp. If a student taps 3 or more habits in rapid succession (under 15 seconds) or marks morning routines in a single burst late at night, the system automatically flags their record with <strong>Review Needed: Rapid Tap</strong>. Teachers can click <strong>Spot-Check & Audit</strong> to view the exact second-by-second timeline and conduct a 30-second verbal spot check in class.
-      </div>
-    </section>
-
-    <!-- Filter and Action Controls -->
-    <section class="controls-bar">
-      <div class="filters-left">
-        <input type="text" id="searchInput" class="search-input" placeholder="Search by Student Name or Roll Number...">
+    <!-- Controls -->
+    <section class="controls">
+      <div class="controls-left">
+        <input type="text" id="searchInput" class="search-box" placeholder="Search student or roll no...">
         
-        <select id="gradeSelect" class="select-dropdown">
-          <option value="ALL">All Grades (4A - 8B)</option>
+        <select id="gradeSelect" class="select-box">
+          <option value="ALL">All Classes</option>
           <option value="Grade 4A">Grade 4-A</option>
           <option value="Grade 5A">Grade 5-A</option>
           <option value="Grade 6B">Grade 6-B</option>
@@ -729,362 +519,276 @@
           <option value="Grade 8B">Grade 8-B</option>
         </select>
 
-        <select id="statusSelect" class="select-dropdown">
-          <option value="ALL">All Integrity Statuses</option>
-          <option value="review_needed">Needs Review (Rapid Tap Flags)</option>
+        <select id="statusSelect" class="select-box">
+          <option value="ALL">All Statuses</option>
+          <option value="review_needed">Needs Review (Rapid Tap)</option>
           <option value="verified">Verified Honest</option>
           <option value="in_progress">In Progress</option>
           <option value="disputed">Disputed</option>
         </select>
       </div>
 
-      <div class="actions-right">
-        <button class="btn" id="btnImport">Import Student Code</button>
-        <button class="btn" id="btnExportCsv">Export CSV</button>
+      <div class="controls-right">
+        <button class="btn" id="btnExport">Export CSV</button>
         <button class="btn btn-dark" id="btnPrint">Print Sheet</button>
       </div>
     </section>
 
-    <!-- Main Roster Table Card -->
+    <!-- Essential Roster Table -->
     <section class="table-card">
-      <div class="table-wrap">
-        <table id="rosterTable">
-          <thead>
-            <tr>
-              <th>Roll No.</th>
-              <th>Student Name</th>
-              <th>Grade</th>
-              <th>Habits Today</th>
-              <th>5 Dimensions (P, M, I, E, F)</th>
-              <th>Pacing Summary</th>
-              <th>Integrity Status</th>
-              <th style="text-align: right;">Teacher Action</th>
-            </tr>
-          </thead>
-          <tbody id="rosterTbody">
-            <!-- Rendered dynamically by JavaScript -->
-          </tbody>
-        </table>
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Roll No.</th>
+            <th>Student Name</th>
+            <th>Class</th>
+            <th>Habits Done</th>
+            <th>Integrity Status</th>
+            <th style="text-align: right;">Action</th>
+          </tr>
+        </thead>
+        <tbody id="rosterTbody">
+          <!-- Dynamically populated -->
+        </tbody>
+      </table>
     </section>
+
   </main>
 
-  <!-- Spot-Check & Audit Drawer Modal -->
-  <div class="modal-backdrop" id="auditModal">
-    <div class="modal-box">
-      <div class="modal-head">
+  <!-- Spot-Check Modal -->
+  <div class="modal-overlay" id="spotModal">
+    <div class="modal-card">
+      <div class="modal-header">
         <div>
-          <div class="modal-title" id="mStudentName">Student Audit</div>
-          <div class="modal-subtitle" id="mStudentMeta">Roll No & Grade</div>
+          <div class="modal-title" id="mName">Student Audit</div>
+          <div class="modal-subtitle" id="mMeta">Roll No & Class</div>
         </div>
-        <button class="btn-close" id="btnCloseModal">&times;</button>
+        <button class="modal-close" id="btnCloseModal">&times;</button>
       </div>
 
-      <!-- Diagnosis Box -->
-      <div class="modal-section">
-        <div class="section-label">Integrity Diagnosis</div>
-        <div class="diagnosis-box" id="mDiagnosisBox">
-          <!-- Text rendered dynamically -->
+      <div class="diag-box" id="mDiag">
+        <!-- Diagnosis text -->
+      </div>
+
+      <div class="subhead">Recorded Completion Timeline</div>
+      <table class="log-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Habit</th>
+            <th>Time</th>
+            <th>Pacing</th>
+          </tr>
+        </thead>
+        <tbody id="mLogTbody">
+          <!-- Log rows -->
+        </tbody>
+      </table>
+
+      <div class="subhead">Teacher Spot-Check Questions</div>
+      <div class="questions-box">
+        <div class="q-item">
+          <div class="q-title">Reading Habit (Read 10 Pages)</div>
+          <div class="q-text">"Which book did you read today, and what happened on the last page?"</div>
         </div>
-      </div>
-
-      <!-- Second-by-Second Habit Log -->
-      <div class="modal-section">
-        <div class="section-label">Today's Recorded Completion Timeline</div>
-        <table class="timeline-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Habit Name</th>
-              <th>Assigned Slot</th>
-              <th>Recorded Timestamp</th>
-              <th>Delta</th>
-            </tr>
-          </thead>
-          <tbody id="mTimelineTbody">
-            <!-- Timeline rows -->
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Teacher's 30-Second Verbal Spot-Check Guide -->
-      <div class="modal-section">
-        <div class="section-label">Teacher's 30-Second Verbal Spot-Check Guide</div>
-        <div class="questions-card" id="mQuestionsCard">
-          <div class="question-item">
-            <div class="question-habit">1. Reading Habit (Read 10 Pages)</div>
-            <div class="question-prompt">"Which book or story did you read today, and what happened on the last page?"</div>
-          </div>
-          <div class="question-item">
-            <div class="question-habit">2. Physical Habit (Move 30)</div>
-            <div class="question-prompt">"What physical game or exercise did you do for 30 minutes, and where?"</div>
-          </div>
-          <div class="question-item">
-            <div class="question-habit">3. Emotional Habit (Kind Act Daily)</div>
-            <div class="question-prompt">"Who did you help today at school or home, and what kind act did you perform?"</div>
-          </div>
+        <div class="q-item">
+          <div class="q-title">Physical Habit (Move 30)</div>
+          <div class="q-text">"What physical game or exercise did you do for 30 minutes?"</div>
+        </div>
+        <div class="q-item">
+          <div class="q-title">Kind Act Daily</div>
+          <div class="q-text">"Who did you help today at school or home, and what did you do?"</div>
         </div>
       </div>
 
-      <!-- Teacher Actions -->
-      <div class="modal-actions">
-        <button class="btn" id="btnDispute">Mark as Disputed (Reset Habits)</button>
-        <button class="btn btn-primary" id="btnVerifyHonest">Confirm Verified Honest</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Import Student Code Modal -->
-  <div class="modal-backdrop" id="importModal">
-    <div class="modal-box" style="max-width: 500px;">
-      <div class="modal-head">
-        <div>
-          <div class="modal-title">Import Student Code</div>
-          <div class="modal-subtitle">Paste the JSON or audit string copied from the student's mobile app.</div>
-        </div>
-        <button class="btn-close" id="btnCloseImport">&times;</button>
-      </div>
-      <div>
-        <textarea id="importText" class="textarea-import" placeholder='Paste student code or {"rollNo": "ACH-2026-101", ...}'></textarea>
-      </div>
-      <div class="modal-actions">
-        <button class="btn" id="btnCancelImport">Cancel</button>
-        <button class="btn btn-primary" id="btnSubmitImport">Add to Roster</button>
+      <div class="modal-btns">
+        <button class="btn" id="btnDispute">Reset Dishonest Marks</button>
+        <button class="btn btn-dark" id="btnVerify">Confirm Verified</button>
       </div>
     </div>
   </div>
 
   <script>
-    // Initial Realistic Achariya Classroom Dataset (Pre-populated for School Management)
-    const INITIAL_ROSTER = [
+    const ROSTER = [
       {
         rollNo: "ACH-2026-101",
         name: "Aarav Krishnan",
-        age: 10,
         grade: "Grade 5A",
         completed: 5,
         total: 5,
         status: "verified",
-        reason: "Naturally paced spread across morning (07:15), school (12:35), and evening (18:20)",
+        reason: "Naturally spaced across morning, school hours, and evening",
         durationSec: 39900,
-        streak: 12,
-        habitsDone: ["P0", "M0", "I0", "E0", "F0"],
         timestamps: {
-          P0: "07:15:10",
-          M0: "07:22:45",
-          I0: "12:35:12",
-          E0: "18:20:05",
-          F0: "18:25:30"
+          "Water First (Physical)": "07:15 AM",
+          "Win the Morning (Mental)": "07:22 AM",
+          "Read 10 Pages (Intellectual)": "12:35 PM",
+          "Name the Feeling (Emotional)": "06:20 PM",
+          "3-Jar System (Financial)": "06:25 PM"
         }
       },
       {
         rollNo: "ACH-2026-102",
         name: "Rohan Sharma",
-        age: 11,
         grade: "Grade 6B",
         completed: 5,
         total: 5,
         status: "review_needed",
-        reason: "Rapid-tap anomaly: 5 habits marked in only 7 seconds at 21:42 PM",
+        reason: "Rapid tap detected: 5 habits marked in only 7 seconds at 9:42 PM",
         durationSec: 7,
-        streak: 5,
-        habitsDone: ["P0", "M0", "I0", "E0", "F0"],
         timestamps: {
-          P0: "21:42:01",
-          M0: "21:42:03",
-          I0: "21:42:04",
-          E0: "21:42:06",
-          F0: "21:42:08"
+          "Water First (Physical)": "09:42:01 PM",
+          "Win the Morning (Mental)": "09:42:03 PM",
+          "Read 10 Pages (Intellectual)": "09:42:04 PM",
+          "Name the Feeling (Emotional)": "09:42:06 PM",
+          "3-Jar System (Financial)": "09:42:08 PM"
         }
       },
       {
         rollNo: "ACH-2026-103",
         name: "Ananya Sundaram",
-        age: 9,
         grade: "Grade 4A",
         completed: 4,
         total: 5,
         status: "verified",
-        reason: "Naturally paced completions during morning and school hours",
+        reason: "Naturally spaced morning and school hour completions",
         durationSec: 21600,
-        streak: 8,
-        habitsDone: ["P0", "M0", "I0", "E0"],
         timestamps: {
-          P0: "07:30:22",
-          M0: "07:40:15",
-          I0: "13:10:40",
-          E0: "17:45:00"
+          "Water First (Physical)": "07:30 AM",
+          "Win the Morning (Mental)": "07:40 AM",
+          "Read 10 Pages (Intellectual)": "01:10 PM",
+          "Name the Feeling (Emotional)": "05:45 PM"
         }
       },
       {
         rollNo: "ACH-2026-104",
         name: "Vikram Sengupta",
-        age: 12,
         grade: "Grade 7A",
         completed: 5,
         total: 5,
         status: "review_needed",
-        reason: "Rapid-tap anomaly: 5 habits marked in only 9 seconds at 22:15 PM",
+        reason: "Rapid tap detected: 5 habits marked in only 9 seconds at 10:15 PM",
         durationSec: 9,
-        streak: 3,
-        habitsDone: ["P0", "M0", "I0", "E0", "F0"],
         timestamps: {
-          P0: "22:15:02",
-          M0: "22:15:04",
-          I0: "22:15:06",
-          E0: "22:15:09",
-          F0: "22:15:11"
+          "Water First (Physical)": "10:15:02 PM",
+          "Win the Morning (Mental)": "10:15:04 PM",
+          "Read 10 Pages (Intellectual)": "10:15:06 PM",
+          "Name the Feeling (Emotional)": "10:15:09 PM",
+          "3-Jar System (Financial)": "10:15:11 PM"
         }
       },
       {
         rollNo: "ACH-2026-105",
         name: "Kavya Murugan",
-        age: 10,
         grade: "Grade 5A",
         completed: 5,
         total: 5,
         status: "verified",
-        reason: "Naturally paced spread across morning (06:50), school (11:45), and evening (19:10)",
+        reason: "Naturally spaced across morning, school hours, and evening",
         durationSec: 44400,
-        streak: 15,
-        habitsDone: ["P0", "M0", "I0", "E0", "F0"],
         timestamps: {
-          P0: "06:50:18",
-          M0: "07:05:42",
-          I0: "11:45:30",
-          E0: "19:10:15",
-          F0: "19:15:00"
+          "Water First (Physical)": "06:50 AM",
+          "Win the Morning (Mental)": "07:05 AM",
+          "Read 10 Pages (Intellectual)": "11:45 AM",
+          "Name the Feeling (Emotional)": "07:10 PM",
+          "3-Jar System (Financial)": "07:15 PM"
         }
       },
       {
         rollNo: "ACH-2026-106",
         name: "Dinesh Balaji",
-        age: 13,
         grade: "Grade 8B",
         completed: 2,
         total: 5,
         status: "in_progress",
         reason: "2 of 5 habits completed so far today",
         durationSec: 7200,
-        streak: 4,
-        habitsDone: ["P0", "M0"],
         timestamps: {
-          P0: "07:20:10",
-          M0: "09:20:15"
+          "Water First (Physical)": "07:20 AM",
+          "Win the Morning (Mental)": "09:20 AM"
         }
       },
       {
         rollNo: "ACH-2026-107",
         name: "Meera Venkatesh",
-        age: 11,
         grade: "Grade 6B",
         completed: 5,
         total: 5,
         status: "verified",
-        reason: "Naturally paced across morning (07:10), school (13:05), and evening (18:40)",
+        reason: "Naturally spaced across morning, school hours, and evening",
         durationSec: 41400,
-        streak: 19,
-        habitsDone: ["P0", "M0", "I0", "E0", "F0"],
         timestamps: {
-          P0: "07:10:05",
-          M0: "07:18:22",
-          I0: "13:05:50",
-          E0: "18:40:12",
-          F0: "18:45:00"
+          "Water First (Physical)": "07:10 AM",
+          "Win the Morning (Mental)": "07:18 AM",
+          "Read 10 Pages (Intellectual)": "01:05 PM",
+          "Name the Feeling (Emotional)": "06:40 PM",
+          "3-Jar System (Financial)": "06:45 PM"
         }
       },
       {
         rollNo: "ACH-2026-108",
         name: "Siddharth Rajan",
-        age: 9,
         grade: "Grade 4A",
         completed: 5,
         total: 5,
         status: "review_needed",
-        reason: "Rapid-tap anomaly: 4 habits marked within 11 seconds",
+        reason: "Rapid tap detected: 4 habits marked within 11 seconds",
         durationSec: 11,
-        streak: 2,
-        habitsDone: ["P0", "M0", "I0", "E0", "F0"],
         timestamps: {
-          P0: "20:05:01",
-          M0: "20:05:03",
-          I0: "20:05:06",
-          E0: "20:05:09",
-          F0: "20:05:12"
+          "Water First (Physical)": "08:05:01 PM",
+          "Win the Morning (Mental)": "08:05:03 PM",
+          "Read 10 Pages (Intellectual)": "08:05:06 PM",
+          "Name the Feeling (Emotional)": "08:05:09 PM",
+          "3-Jar System (Financial)": "08:05:12 PM"
         }
       },
       {
         rollNo: "ACH-2026-109",
         name: "Pooja Natarajan",
-        age: 12,
         grade: "Grade 7A",
         completed: 5,
         total: 5,
         status: "verified",
-        reason: "Naturally paced completions during morning and evening",
+        reason: "Naturally spaced morning and evening completions",
         durationSec: 43200,
-        streak: 14,
-        habitsDone: ["P0", "M0", "I0", "E0", "F0"],
         timestamps: {
-          P0: "07:00:15",
-          M0: "07:15:30",
-          I0: "12:50:00",
-          E0: "18:30:10",
-          F0: "19:00:20"
+          "Water First (Physical)": "07:00 AM",
+          "Win the Morning (Mental)": "07:15 AM",
+          "Read 10 Pages (Intellectual)": "12:50 PM",
+          "Name the Feeling (Emotional)": "06:30 PM",
+          "3-Jar System (Financial)": "07:00 PM"
         }
       },
       {
         rollNo: "ACH-2026-110",
         name: "Harish Kumar",
-        age: 10,
         grade: "Grade 5A",
         completed: 1,
         total: 5,
         status: "in_progress",
         reason: "1 of 5 habits completed so far today",
         durationSec: 0,
-        streak: 1,
-        habitsDone: ["P0"],
         timestamps: {
-          P0: "07:45:00"
+          "Water First (Physical)": "07:45 AM"
         }
       }
     ];
 
-    const HABIT_NAMES = {
-      P0: "Water First (Physical)",
-      M0: "Win the Morning (Mental)",
-      I0: "Read 10 Pages (Intellectual)",
-      E0: "Name the Feeling (Emotional)",
-      F0: "3-Jar System (Financial)"
-    };
-
-    const HABIT_SLOTS = {
-      P0: "Morning",
-      M0: "Morning",
-      I0: "School hours",
-      E0: "Evening",
-      F0: "Evening"
-    };
-
-    let roster = [...INITIAL_ROSTER];
+    let rosterData = [...ROSTER];
     let selectedStudent = null;
 
-    // Elements
     const tbody = document.getElementById("rosterTbody");
     const searchInput = document.getElementById("searchInput");
     const gradeSelect = document.getElementById("gradeSelect");
     const statusSelect = document.getElementById("statusSelect");
-    const auditModal = document.getElementById("auditModal");
-    const importModal = document.getElementById("importModal");
+    const spotModal = document.getElementById("spotModal");
 
-    // Render Table
-    function renderTable() {
+    function render() {
       const q = searchInput.value.toLowerCase().trim();
       const grade = gradeSelect.value;
       const status = statusSelect.value;
 
-      const filtered = roster.filter(s => {
+      const filtered = rosterData.filter(s => {
         const matchQ = !q || s.name.toLowerCase().includes(q) || s.rollNo.toLowerCase().includes(q);
         const matchGrade = grade === "ALL" || s.grade === grade;
         const matchStatus = status === "ALL" || s.status === status;
@@ -1094,235 +798,141 @@
       tbody.innerHTML = "";
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 24px; color: var(--text-muted);">No student records matched the selected filters.</td></tr>`;
-        updateKPIs();
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 20px; color: var(--text-dim);">No students match the selected filter.</td></tr>`;
+        updateStats();
         return;
       }
 
       filtered.forEach(s => {
         const tr = document.createElement("tr");
 
-        // 5 Dim Pills
-        const dims = ['P', 'M', 'I', 'E', 'F'];
-        const dimPills = dims.map(d => {
-          const isDone = s.habitsDone.some(h => h.startsWith(d));
-          const cls = isDone ? `${d.toLowerCase()}-done` : 'dim-empty';
-          return `<span class="dim-pill ${cls}" title="Dimension ${d}">${d}</span>`;
-        }).join("");
+        let badge = "";
+        let isFlag = s.status === "review_needed";
 
-        // Status badge
-        let statusBadge = "";
         if (s.status === "verified") {
-          statusBadge = `<span class="status-badge status-verified">Verified Honest</span>`;
+          badge = `<span class="badge badge-verified">Verified Honest</span>`;
         } else if (s.status === "review_needed") {
-          statusBadge = `<span class="status-badge status-warning">Review Needed: Rapid Tap</span>`;
+          badge = `<span class="badge badge-flag">Needs Review: Rapid Tap (${s.durationSec}s)</span>`;
         } else if (s.status === "disputed") {
-          statusBadge = `<span class="status-badge status-disputed">Disputed</span>`;
+          badge = `<span class="badge badge-disputed">Disputed</span>`;
         } else {
-          statusBadge = `<span class="status-badge status-progress">In Progress</span>`;
+          badge = `<span class="badge badge-progress">In Progress</span>`;
         }
-
-        // Pacing summary
-        let pacingText = "";
-        if (s.status === "review_needed") {
-          pacingText = `<span style="color: var(--warning); font-weight: 700;">Flagged: ${s.completed} marked in ${s.durationSec}s</span>`;
-        } else if (s.status === "verified") {
-          pacingText = `<span style="color: var(--primary); font-weight: 600;">Natural spread across day</span>`;
-        } else {
-          pacingText = `<span style="color: var(--text-dim);">${s.completed} of ${s.total} completed</span>`;
-        }
-
-        const isFlagged = s.status === "review_needed";
 
         tr.innerHTML = `
-          <td class="roll-cell">${s.rollNo}</td>
-          <td class="name-cell">${s.name}</td>
-          <td><span class="grade-badge">${s.grade}</span></td>
-          <td><span class="habits-count">${s.completed}</span> / ${s.total}</td>
-          <td><div class="dim-dots">${dimPills}</div></td>
-          <td>${pacingText}</td>
-          <td>${statusBadge}</td>
-          <td class="action-btn-cell">
-            <button class="btn-table ${isFlagged ? 'flag-btn' : ''}" onclick="openAuditModal('${s.rollNo}')">
-              ${isFlagged ? 'Spot-Check (Review)' : 'Spot-Check & Audit'}
+          <td class="roll-text">${s.rollNo}</td>
+          <td class="name-text">${s.name}</td>
+          <td>${s.grade}</td>
+          <td><strong>${s.completed}</strong> / ${s.total}</td>
+          <td>${badge}</td>
+          <td style="text-align: right;">
+            <button class="btn-action ${isFlag ? 'flag-action' : ''}" onclick="openSpotCheck('${s.rollNo}')">
+              ${isFlag ? 'Spot-Check (Review)' : 'Spot-Check'}
             </button>
           </td>
         `;
-
         tbody.appendChild(tr);
       });
 
-      updateKPIs();
+      updateStats();
     }
 
-    // Update KPI Header Cards
-    function updateKPIs() {
-      const total = roster.length;
-      const active = roster.filter(s => s.completed > 0).length;
-      const flagged = roster.filter(s => s.status === "review_needed").length;
-      const verified = roster.filter(s => s.status === "verified").length;
+    function updateStats() {
+      const total = rosterData.length;
+      const active = rosterData.filter(s => s.completed > 0).length;
+      const flagged = rosterData.filter(s => s.status === "review_needed").length;
 
-      document.getElementById("kpiTotal").textContent = total;
-      document.getElementById("kpiParticipation").textContent = total > 0 ? `${Math.round((active / total) * 100)}%` : "0%";
-      document.getElementById("kpiVerified").textContent = total > 0 ? `${Math.round((verified / total) * 100)}%` : "0%";
-      document.getElementById("kpiFlagged").textContent = flagged;
+      document.getElementById("statTotal").textContent = total;
+      document.getElementById("statActive").textContent = active;
+      document.getElementById("statFlagged").textContent = flagged;
     }
 
-    // Open Audit & Spot Check Modal
-    window.openAuditModal = function(rollNo) {
-      selectedStudent = roster.find(s => s.rollNo === rollNo);
+    window.openSpotCheck = function(rollNo) {
+      selectedStudent = rosterData.find(s => s.rollNo === rollNo);
       if (!selectedStudent) return;
 
-      document.getElementById("mStudentName").textContent = selectedStudent.name;
-      document.getElementById("mStudentMeta").textContent = `${selectedStudent.rollNo} | ${selectedStudent.grade} | Age ${selectedStudent.age} | Streak: ${selectedStudent.streak} days`;
+      document.getElementById("mName").textContent = selectedStudent.name;
+      document.getElementById("mMeta").textContent = `${selectedStudent.rollNo} | ${selectedStudent.grade}`;
 
-      const diagBox = document.getElementById("mDiagnosisBox");
+      const diag = document.getElementById("mDiag");
       if (selectedStudent.status === "review_needed") {
-        diagBox.className = "diagnosis-box flagged";
-        diagBox.innerHTML = `<strong>Rapid-Tap Anomaly Detected:</strong> ${selectedStudent.reason}. This indicates the student may have checked boxes sequentially on their phone without carrying out the physical tasks. Conduct the 30-second verbal spot check below before confirming.`;
+        diag.className = "diag-box flag";
+        diag.innerHTML = `<strong>Rapid Tap Flag:</strong> ${selectedStudent.reason}. High likelihood of checking boxes without actual task execution. Ask the 30-second verbal questions below before verifying.`;
       } else if (selectedStudent.status === "verified") {
-        diagBox.className = "diagnosis-box verified";
-        diagBox.innerHTML = `<strong>Authentic Execution:</strong> ${selectedStudent.reason}. Completion intervals align with standard morning, school, and evening schedules.`;
+        diag.className = "diag-box verified";
+        diag.innerHTML = `<strong>Authentic Record:</strong> ${selectedStudent.reason}. Completions match realistic daily intervals.`;
       } else {
-        diagBox.className = "diagnosis-box";
-        diagBox.innerHTML = `<strong>Status:</strong> ${selectedStudent.reason}. Student is currently in progress.`;
+        diag.className = "diag-box";
+        diag.innerHTML = `<strong>Status:</strong> ${selectedStudent.reason}.`;
       }
 
-      // Render Timeline
-      const tTbody = document.getElementById("mTimelineTbody");
-      tTbody.innerHTML = "";
+      const logBody = document.getElementById("mLogTbody");
+      logBody.innerHTML = "";
 
       const keys = Object.keys(selectedStudent.timestamps || {});
-      keys.forEach((hid, idx) => {
+      keys.forEach((habit, i) => {
         const tr = document.createElement("tr");
-        const ts = selectedStudent.timestamps[hid];
-        const hName = HABIT_NAMES[hid] || hid;
-        const slot = HABIT_SLOTS[hid] || "Flexible";
-        const delta = idx === 0 ? "First mark" : (selectedStudent.status === "review_needed" ? "+2s to +3s" : "+4 to 6 hrs");
+        const time = selectedStudent.timestamps[habit];
+        const pace = i === 0 ? "Initial mark" : (selectedStudent.status === "review_needed" ? "+2s to +3s" : "+4 to 6 hrs");
 
         tr.innerHTML = `
-          <td>${idx + 1}</td>
-          <td><strong>${hName}</strong></td>
-          <td>${slot}</td>
-          <td style="font-family: monospace;">${ts}</td>
-          <td style="color: var(--text-dim);">${delta}</td>
+          <td>${i + 1}</td>
+          <td><strong>${habit}</strong></td>
+          <td style="font-family: monospace;">${time}</td>
+          <td style="color: var(--text-dim);">${pace}</td>
         `;
-        tTbody.appendChild(tr);
+        logBody.appendChild(tr);
       });
 
-      auditModal.style.display = "flex";
+      spotModal.style.display = "flex";
     };
 
-    // Close Modal
     document.getElementById("btnCloseModal").addEventListener("click", () => {
-      auditModal.style.display = "none";
+      spotModal.style.display = "none";
     });
 
-    // Modal Actions: Verify Honest
-    document.getElementById("btnVerifyHonest").addEventListener("click", () => {
+    document.getElementById("btnVerify").addEventListener("click", () => {
       if (!selectedStudent) return;
       selectedStudent.status = "verified";
       selectedStudent.reason = "Teacher verified verbally in class";
-      auditModal.style.display = "none";
-      renderTable();
+      spotModal.style.display = "none";
+      render();
     });
 
-    // Modal Actions: Dispute
     document.getElementById("btnDispute").addEventListener("click", () => {
       if (!selectedStudent) return;
       selectedStudent.status = "disputed";
-      selectedStudent.reason = "Disputed by teacher after verbal spot check. Habit marks reset.";
+      selectedStudent.reason = "Disputed by teacher after verbal spot check. Marks reset.";
       selectedStudent.completed = 0;
-      selectedStudent.habitsDone = [];
       selectedStudent.timestamps = {};
-      auditModal.style.display = "none";
-      renderTable();
+      spotModal.style.display = "none";
+      render();
     });
 
-    // Import Student Code Modal
-    document.getElementById("btnImport").addEventListener("click", () => {
-      importModal.style.display = "flex";
-    });
-
-    document.getElementById("btnCloseImport").addEventListener("click", () => {
-      importModal.style.display = "none";
-    });
-
-    document.getElementById("btnCancelImport").addEventListener("click", () => {
-      importModal.style.display = "none";
-    });
-
-    document.getElementById("btnSubmitImport").addEventListener("click", () => {
-      const raw = document.getElementById("importText").value.trim();
-      if (!raw) return;
-
-      try {
-        const parsed = JSON.parse(raw);
-        if (parsed.name && parsed.rollNo) {
-          const existingIdx = roster.findIndex(s => s.rollNo === parsed.rollNo);
-          const studentRecord = {
-            rollNo: parsed.rollNo,
-            name: parsed.name,
-            age: parsed.age || 10,
-            grade: parsed.grade || "Grade 5A",
-            completed: parsed.completed || 0,
-            total: parsed.total || 5,
-            status: parsed.status || "verified",
-            reason: parsed.reason || "Imported from Habitopia app",
-            durationSec: parsed.durationSec || 0,
-            streak: parsed.streak || 1,
-            habitsDone: parsed.habits || ["P0", "M0", "I0", "E0", "F0"],
-            timestamps: parsed.timestamps || {}
-          };
-
-          if (existingIdx >= 0) {
-            roster[existingIdx] = studentRecord;
-          } else {
-            roster.unshift(studentRecord);
-          }
-
-          document.getElementById("importText").value = "";
-          importModal.style.display = "none";
-          renderTable();
-          alert("Student record imported successfully!");
-        } else {
-          alert("JSON must contain student name and rollNo.");
-        }
-      } catch (e) {
-        alert("Invalid JSON format. Please paste the exact code copied from the Habitopia app.");
-      }
-    });
-
-    // Export CSV
-    document.getElementById("btnExportCsv").addEventListener("click", () => {
-      let csv = "Roll No,Student Name,Grade,Age,Habits Completed,Total Habits,Status,Pacing Duration (Sec),Reason\n";
-      roster.forEach(s => {
-        csv += `"${s.rollNo}","${s.name}","${s.grade}",${s.age},${s.completed},${s.total},"${s.status}",${s.durationSec},"${s.reason}"\n`;
+    document.getElementById("btnExport").addEventListener("click", () => {
+      let csv = "Roll No,Student Name,Class,Habits Done,Total,Status,Reason\n";
+      rosterData.forEach(s => {
+        csv += `"${s.rollNo}","${s.name}","${s.grade}",${s.completed},${s.total},"${s.status}","${s.reason}"\n`;
       });
-
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.setAttribute("href", url);
-      link.setAttribute("download", `habitopia_school_roster_${new Date().toISOString().slice(0, 10)}.csv`);
+      link.setAttribute("download", `habitopia_school_report.csv`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     });
 
-    // Print
     document.getElementById("btnPrint").addEventListener("click", () => {
       window.print();
     });
 
-    // Event Listeners for Filters
-    searchInput.addEventListener("input", renderTable);
-    gradeSelect.addEventListener("change", renderTable);
-    statusSelect.addEventListener("change", renderTable);
+    searchInput.addEventListener("input", render);
+    gradeSelect.addEventListener("change", render);
+    statusSelect.addEventListener("change", render);
 
-    // Initial render
-    renderTable();
+    render();
   </script>
 </body>
 </html>
-
