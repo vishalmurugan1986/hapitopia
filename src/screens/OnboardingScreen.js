@@ -540,10 +540,15 @@ export default function OnboardingScreen({
               {gameLoopSteps.map((item, idx) => (
                 <React.Fragment key={item.label}>
                   <View style={styles.minimalLoopItem}>
-                    <Ionicons name={item.icon} size={15} color={item.color} />
+                    <Ionicons name={item.icon} size={13} color={item.color} />
                     <Text
-                      style={[styles.minimalLoopText, { color: T.tx }]}
+                      style={[
+                        styles.minimalLoopText,
+                        { color: T.tx, fontSize: lang === 'ta' ? 11 : 12 }
+                      ]}
                       numberOfLines={1}
+                      adjustsFontSizeToFit
+                      minimumFontScale={0.75}
                     >
                       {item.label}
                     </Text>
@@ -1672,8 +1677,8 @@ const styles = StyleSheet.create({
   // SCREEN 1: WELCOME (Clean, Minimal, Production-Grade)
   welcomeScroll: {
     flexGrow: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 28,
+    paddingHorizontal: 16,
+    paddingVertical: 24,
     justifyContent: 'center'
   },
   welcomeCenterGroup: {
@@ -1718,30 +1723,33 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     flexWrap: 'nowrap',
     borderRadius: 16,
     borderWidth: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 14,
-    marginBottom: 26
+    paddingVertical: 10,
+    paddingHorizontal: 8,
+    marginBottom: 24
   },
   minimalLoopItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    flexShrink: 1
+    justifyContent: 'center',
+    gap: 4,
+    flex: 1,
+    paddingHorizontal: 2
   },
   minimalLoopText: {
-    fontSize: 12.5,
-    lineHeight: 18,
-    fontWeight: '800'
+    fontSize: 12,
+    lineHeight: 16,
+    fontWeight: '700',
+    textAlign: 'center'
   },
   minimalLoopDot: {
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-    marginHorizontal: 3
+    width: 3,
+    height: 3,
+    borderRadius: 1.5,
+    marginHorizontal: 1
   },
   savedProfilesSection: {
     width: '100%',
