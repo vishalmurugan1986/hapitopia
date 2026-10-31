@@ -414,17 +414,17 @@ export default function TodayScreen({ S, update, T }) {
                   accessibilityRole="button"
                   accessibilityLabel={`Open details for ${hData.name}`}
                 >
-                  {/* Custom Thematic Daily Mission Icon Badge */}
+                  {/* Custom Thematic Daily Mission Icon Badge with Respective Dimension Color */}
                   <View
                     style={[
                       styles.dimIconBox,
                       {
-                        backgroundColor: isDone ? T.primary + '20' : (T.surfaceLowest || '#060E20'),
-                        borderColor: isDone ? T.primary : T.line
+                        backgroundColor: isDone ? dimColor + '26' : dimColor + '16',
+                        borderColor: isDone ? dimColor : dimColor + '45'
                       }
                     ]}
                   >
-                    <Ionicons name={habitIcon} size={20} color={isDone ? T.primary : T.mu} />
+                    <Ionicons name={habitIcon} size={20} color={dimColor} />
                   </View>
 
                   {/* Content Area */}
