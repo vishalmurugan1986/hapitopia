@@ -30,7 +30,7 @@ const HABIT_ICONS = {
   // Dimension I: Intellectually Sharp (Brain on Beast Mode)
   I0: 'book',              // Read 10 Pages
   I1: 'help-circle',       // Question Storm
-  I2: 'extension-puzzle',  // Memory Play
+  I2: 'shapes',  // Memory Play
   I3: 'people',            // Teach to Learn
   I4: 'calculator',        // Math in Life
   I5: 'color-palette',     // Create Not Consume
@@ -38,7 +38,7 @@ const HABIT_ICONS = {
 
   // Dimension E: Emotionally Balanced (Heart with IQ)
   E0: 'chatbubble-ellipses', // Name the Feeling
-  E1: 'heart',             // Kind Act Daily
+  E1: 'sparkles',             // Kind Act Daily
   E2: 'pause-circle',      // Pause Button
   E3: 'ear',               // Friendship Rule
   E4: 'document-text',     // Journal One Line
@@ -314,17 +314,17 @@ export default function TodayScreen({ S, update, T }) {
                   style={[
                     styles.filterPill,
                     {
-                      borderColor: isSelected ? dimColor : T.line,
-                      backgroundColor: isSelected ? dimColor + '20' : T.card
+                      borderColor: isSelected ? T.primary : T.line,
+                      backgroundColor: isSelected ? T.primary + '18' : T.card
                     }
                   ]}
                 >
-                  <View style={[styles.filterDot, { backgroundColor: dimColor }]} />
+                  <View style={[styles.filterDot, { backgroundColor: isSelected ? T.primary : T.mu }]} />
                   <Text
                     style={[
                       styles.filterText,
                       {
-                        color: isSelected ? dimColor : T.mu,
+                        color: isSelected ? T.primary : T.mu,
                         fontWeight: isSelected ? '800' : '600'
                       }
                     ]}
@@ -419,12 +419,12 @@ export default function TodayScreen({ S, update, T }) {
                     style={[
                       styles.dimIconBox,
                       {
-                        backgroundColor: isDone ? dimColor + '26' : dimColor + '16',
-                        borderColor: isDone ? dimColor : dimColor + '45'
+                        backgroundColor: isDone ? T.primary + '20' : (T.surfaceLowest || '#060E20'),
+                        borderColor: isDone ? T.primary : T.line
                       }
                     ]}
                   >
-                    <Ionicons name={habitIcon} size={22} color={dimColor} />
+                    <Ionicons name={habitIcon} size={20} color={isDone ? T.primary : T.mu} />
                   </View>
 
                   {/* Content Area */}
@@ -437,8 +437,8 @@ export default function TodayScreen({ S, update, T }) {
                           {lang === 'ta' ? (h.d.slot_ta || h.d.slot) : h.d.slot}
                         </Text>
                       </View>
-                      <View style={[styles.xpBadge, { backgroundColor: dimColor + '18', borderColor: dimColor + '55' }]}>
-                        <Text style={[styles.xpBadgeText, { color: dimColor }]}>+10 XP</Text>
+                      <View style={[styles.xpBadge, { backgroundColor: T.surfaceLowest || '#060E20', borderColor: T.line }]}>
+                        <Text style={[styles.xpBadgeText, { color: T.mu }]}>+10 XP</Text>
                       </View>
                     </View>
 
@@ -461,8 +461,8 @@ export default function TodayScreen({ S, update, T }) {
                       style={[
                         styles.checkboxBtn,
                         {
-                          borderColor: isDone ? dimColor : T.lineHigh,
-                          backgroundColor: isDone ? dimColor : 'transparent'
+                          borderColor: isDone ? T.primary : T.lineHigh,
+                          backgroundColor: isDone ? T.primary : 'transparent'
                         }
                       ]}
                     >
@@ -548,8 +548,8 @@ export default function TodayScreen({ S, update, T }) {
                 <Text style={[styles.sweepTitle, { color: T.tx }]}>
                   {lang === 'ta' ? 'தினசரி போனஸ் (Clean Sweep)' : 'Daily Clean Sweep'}
                 </Text>
-                <View style={[styles.bonusTag, { backgroundColor: T.secondary + '20', borderColor: T.secondary + '60' }]}>
-                  <Text style={[styles.bonusTagText, { color: T.secondary }]}>+20 XP</Text>
+                <View style={[styles.bonusTag, { backgroundColor: T.surfaceLowest || '#060E20', borderColor: T.line }]}>
+                  <Text style={[styles.bonusTagText, { color: T.mu }]}>+20 XP</Text>
                 </View>
               </View>
               <Text style={[styles.sweepDesc, { color: T.mu }]}>

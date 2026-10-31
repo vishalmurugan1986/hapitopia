@@ -170,7 +170,7 @@ export default function DailyLogModal({ visible, S, update, onClose, T }) {
           {/* 2. Mood Tracker */}
           <View style={[styles.card, { backgroundColor: T.card, borderColor: T.line }]}>
             <View style={styles.cardHeaderRow}>
-              <Ionicons name="heart-circle-outline" size={17} color={T.secondary} />
+              <Ionicons name="sunny-outline" size={17} color={T.primary} />
               <Text style={[styles.cardTitle, { color: T.tx }]}>{t.moodTracker}</Text>
             </View>
             <View style={styles.moodRow}>

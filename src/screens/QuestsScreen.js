@@ -67,7 +67,7 @@ export default function QuestsScreen({ S, update, T }) {
     P: 'fitness-outline',
     M: 'compass-outline',
     I: 'bulb-outline',
-    E: 'heart-outline',
+    E: 'shield-checkmark-outline',
     F: 'wallet-outline'
   };
 

@@ -99,7 +99,7 @@ export default function ReportCardsScreen({ S, update, T, initialSubTab = 'rubri
     P: 'fitness-outline',
     M: 'compass-outline',
     I: 'bulb-outline',
-    E: 'heart-outline',
+    E: 'shield-checkmark-outline',
     F: 'wallet-outline'
   };
 

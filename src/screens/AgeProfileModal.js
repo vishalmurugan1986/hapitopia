@@ -211,7 +211,7 @@ export default function AgeProfileModal({ visible, age = 7, onClose, S, T }) {
               {/* 2. Emotional Development */}
               <View style={[styles.card, { borderColor: T.line, backgroundColor: T.card }]}>
                 <View style={styles.cardHeaderRow}>
-                  <Ionicons name="heart-outline" size={16} color={T.rose} />
+                  <Ionicons name="shield-checkmark-outline" size={16} color={T.primary} />
                   <Text style={[styles.cardTitle, { color: T.tx }]}>
                     {lang === 'ta' ? 'உணர்ச்சி வளர்ச்சி (Emotional)' : 'Emotional Development'}
                   </Text>

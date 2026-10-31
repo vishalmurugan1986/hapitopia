@@ -52,10 +52,10 @@ export const LUMINOUS_THEME = {
 
     // 5 Dimension Specific Colors (Achariya Identity mapping)
     dimColors: {
-      P: '#10B981', // Physically Healthy (Growth Green)
-      M: '#D81B60', // Mentally Strong (Achariya Royal Magenta)
-      I: '#06B6D4', // Intellectually Sharp (Academic Cyan/Navy)
-      E: '#F43F5E', // Emotionally Balanced (Terracotta Rose)
+      P: '#10B981', // Physically Healthy (Emerald Green)
+      M: '#14B8A6', // Mentally Strong (Sage Teal)
+      I: '#38BDF8', // Intellectually Sharp (Academic Azure)
+      E: '#FBBF24', // Emotionally Balanced (Warm Amber)
       F: '#F59E0B', // Financially Wealthy (Sunburst Gold)
     },
 
@@ -106,11 +106,11 @@ export const LUMINOUS_THEME = {
 
     // 5 Dimension Specific Colors
     dimColors: {
-      P: '#059669', // Physically Healthy
-      M: '#C2185B', // Mentally Strong (Achariya Magenta)
-      I: '#0891B2', // Intellectually Sharp
-      E: '#E11D48', // Emotionally Balanced
-      F: '#D97706', // Financially Wealthy
+      P: '#059669', // Physically Healthy (Emerald Green)
+      M: '#0D9488', // Mentally Strong (Sage Teal)
+      I: '#0284C7', // Intellectually Sharp (Academic Azure)
+      E: '#D97706', // Emotionally Balanced (Warm Amber)
+      F: '#B45309', // Financially Wealthy (Sunburst Gold)
     },
 
     ci: 0

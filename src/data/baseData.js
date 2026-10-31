@@ -1,10 +1,10 @@
 // Source of truth: Habitopia 5x7 Habit Framework
 export const DIMS = [
   { k: 'P', n: 'Physically Healthy', t: 'Body = First Classroom', e: '💪', slot: 'Morning', slot_ta: 'காலை', c: ['#059669', '#10B981'] },
-  { k: 'M', n: 'Mentally Strong', t: 'Mind > Mood', e: '🧠', slot: 'Morning', slot_ta: 'காலை', c: ['#C2185B', '#D81B60'] },
-  { k: 'I', n: 'Intellectually Sharp', t: 'Brain on Beast Mode', e: '📚', slot: 'School hours', slot_ta: 'பள்ளி நேரம்', c: ['#0891B2', '#06B6D4'] },
-  { k: 'E', n: 'Emotionally Balanced', t: 'Heart with IQ', e: '💛', slot: 'Evening', slot_ta: 'மாலை', c: ['#E11D48', '#F43F5E'] },
-  { k: 'F', n: 'Financially Wealthy', t: 'Money Smart Early', e: '🪙', slot: 'Evening', slot_ta: 'மாலை', c: ['#D97706', '#F59E0B'] },
+  { k: 'M', n: 'Mentally Strong', t: 'Mind > Mood', e: '🧠', slot: 'Morning', slot_ta: 'காலை', c: ['#0D9488', '#14B8A6'] },
+  { k: 'I', n: 'Intellectually Sharp', t: 'Brain on Beast Mode', e: '📚', slot: 'School hours', slot_ta: 'பள்ளி நேரம்', c: ['#0284C7', '#38BDF8'] },
+  { k: 'E', n: 'Emotionally Balanced', t: 'Mindful Character', e: '🛡️', slot: 'Evening', slot_ta: 'மாலை', c: ['#D97706', '#FBBF24'] },
+  { k: 'F', n: 'Financially Wealthy', t: 'Money Smart Early', e: '🪙', slot: 'Evening', slot_ta: 'மாலை', c: ['#B45309', '#F59E0B'] },
 ];
 
 export const HABITS = {
