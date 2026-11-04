@@ -1,0 +1,2115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habitopia - School Management Portal | Achariya</title>
+  <link rel="icon" type="image/png" href="./achariya_logo.png">
+  <style>
+    :root {
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --surface-alt: #F1F5F9;
+      --border: #CBD5E1;
+      --border-light: #E2E8F0;
+      --text: #0F172A;
+      --text-muted: #334155;
+      --text-dim: #64748B;
+      --bar-fill: #334155;
+      --bar-bg: #E2E8F0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      font-size: 13.5px;
+    }
+
+    /* Header */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 4px;
+      border: 1px solid var(--border-light);
+      padding: 2px;
+      background: #FFFFFF;
+      object-fit: contain;
+    }
+
+    .brand-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Scope / Batch Control in Header */
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .scope-tabs {
+      display: inline-flex;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--surface-alt);
+    }
+
+    .scope-tab {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 7px 14px;
+      cursor: pointer;
+      border-right: 1px solid var(--border);
+    }
+
+    .scope-tab:last-child {
+      border-right: none;
+    }
+
+    .scope-tab.active {
+      background: var(--text);
+      color: #FFFFFF;
+    }
+
+    .batch-control {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .batch-tag-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .batch-select {
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      color: var(--text);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Main Container - Expanded to Full Width */
+    .container {
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      padding: 20px 24px 48px;
+    }
+
+    /* Section Headings */
+    .section-block {
+      margin-bottom: 24px;
+      width: 100%;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--text);
+    }
+
+    .section-note {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    /* Plain-English Executive Summary Box */
+    .summary-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--text);
+      border-radius: 4px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      width: 100%;
+    }
+
+    .summary-banner-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .summary-banner-text {
+      font-size: 13.5px;
+      color: var(--text);
+    }
+
+    /* KPI Metrics Bar */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 14px 16px;
+    }
+
+    .stat-label {
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      font-weight: 700;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+
+    .stat-val {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.1;
+    }
+
+    .stat-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Analytics Grid (2 Columns) */
+    .analytics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .analytics-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Card & Table Styling - No Horizontal Scrolls */
+    .table-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    .card-header {
+      padding: 10px 14px;
+      background: var(--surface-alt);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: var(--text);
+    }
+
+    .card-subtitle {
+      font-size: 11.5px;
+      color: var(--text-dim);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+      table-layout: auto;
+    }
+
+    th {
+      background: var(--surface-alt);
+      color: var(--text-muted);
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      font-weight: 700;
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.35;
+      vertical-align: middle;
+    }
+
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-light);
+      vertical-align: middle;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr.summary-total-row td {
+      background: var(--surface-alt);
+      font-weight: 700;
+      border-top: 1px solid var(--border);
+    }
+
+    tr.active-batch-row td {
+      background: #F8FAFC;
+    }
+
+    /* Simple Monochrome Progress Bar */
+    .progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 60px;
+      max-width: 160px;
+      width: 100%;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 8px;
+      background: var(--bar-bg);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--bar-fill);
+    }
+
+    .progress-pct {
+      font-size: 12px;
+      font-weight: 700;
+      min-width: 36px;
+      text-align: right;
+    }
+
+    /* Filter Controls */
+    .controls {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .controls-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .search-box {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 6px 10px;
+      font-size: 13px;
+      width: 240px;
+      color: var(--text);
+    }
+
+    .select-box {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #FFFFFF;
+      color: var(--text);
+    }
+
+    .controls-right {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 12.5px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--surface-alt);
+    }
+
+    .btn-dark {
+      background: var(--text);
+      color: #FFFFFF;
+      border-color: var(--text);
+    }
+
+    .btn-dark:hover {
+      background: #1E293B;
+    }
+
+    /* Status Text Tags (Minimalist, No Bright Colors) */
+    .name-text {
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .live-chip {
+      font-size: 10px;
+      font-weight: 700;
+      background: var(--surface-alt);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1px 5px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 11.5px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .badge-verified {
+      background: var(--surface-alt);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .badge-flag {
+      background: #FFFFFF;
+      color: var(--text);
+      border: 1px solid var(--text);
+      font-weight: 700;
+    }
+
+    .badge-progress {
+      background: #FFFFFF;
+      color: var(--text-dim);
+      border-color: var(--border-light);
+    }
+
+    .badge-disputed {
+      background: var(--surface-alt);
+      color: var(--text-muted);
+      border-color: var(--border);
+      text-decoration: line-through;
+    }
+
+    .btn-action {
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      color: var(--text);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-action.flag-action {
+      border-color: var(--text);
+      font-weight: 700;
+    }
+
+    .btn-action:hover {
+      background: var(--surface-alt);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-card {
+      background: #FFFFFF;
+      border-radius: 4px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      border: 1px solid var(--border);
+      padding: 20px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .modal-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .diag-box {
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      border-radius: 4px;
+      padding: 10px 12px;
+      font-size: 12.5px;
+      line-height: 1.5;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+
+    .diag-box.flag {
+      border-left: 4px solid var(--text);
+    }
+
+    .subhead {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .log-table {
+      width: 100%;
+      border: 1px solid var(--border);
+      margin-bottom: 14px;
+      font-size: 12px;
+      border-collapse: collapse;
+    }
+
+    .log-table th, .log-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .questions-box {
+      background: var(--surface-alt);
+      border: 1px solid var(--border-light);
+      border-radius: 4px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+
+    .q-item {
+      margin-bottom: 8px;
+      font-size: 12.5px;
+    }
+
+    .q-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .q-title {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .q-text {
+      color: var(--text-muted);
+    }
+
+    .modal-btns {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      border-top: 1px solid var(--border-light);
+      padding-top: 14px;
+    }
+
+    .evidence-viewer {
+      display: none;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px;
+      margin-bottom: 14px;
+    }
+
+    .ev-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .ev-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .ev-stage {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: 4px;
+      padding: 12px;
+      font-size: 12.5px;
+      color: var(--text);
+    }
+
+    .ev-meta {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 6px;
+    }
+
+    .btn-ev-view {
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .btn-ev-view:hover {
+      background: var(--surface-alt);
+    }
+
+    .import-textarea {
+      width: 100%;
+      min-height: 95px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-family: monospace;
+      margin: 8px 0 12px;
+    }
+
+    @media print {
+      body { background: #FFFFFF; }
+      .header-controls, .controls, .modal-overlay, th:last-child, td:last-child { display: none !important; }
+      .container { max-width: 100%; padding: 0; }
+      .table-card, .stat-card, .summary-banner { border: 1px solid #000000; }
+      th, td { border-color: #000000; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="brand-wrap">
+      <img src="./achariya_logo.png" alt="Achariya Logo" class="brand-logo">
+      <div>
+        <div class="brand-title">Achariya World Class Education</div>
+        <div class="brand-sub">Habitopia School Management &amp; Analytics Portal</div>
+      </div>
+    </div>
+
+    <div class="header-controls">
+      <div class="scope-tabs" role="tablist" aria-label="Report Scope">
+        <button type="button" class="scope-tab" id="tabALL" onclick="switchBatch('ALL')">Overall School (All Batches)</button>
+        <button type="button" class="scope-tab active" id="tabBAT01" onclick="switchBatch('BAT01')">Batch BAT01</button>
+        <button type="button" class="scope-tab" id="tabBAT02" onclick="switchBatch('BAT02')">Batch BAT02</button>
+      </div>
+
+      <div class="batch-control">
+        <label for="batchSelect" class="batch-tag-label">VIEW:</label>
+        <select id="batchSelect" class="batch-select">
+          <option value="ALL">All Batches (Overall)</option>
+          <option value="BAT01" selected>BAT01</option>
+          <option value="BAT02">BAT02</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Plain-Language Summary for School Management -->
+    <div class="summary-banner">
+      <div class="summary-banner-title" id="execSummaryTitle">Management Overview - Batch BAT01</div>
+      <div class="summary-banner-text" id="execSummaryText">
+        Loading daily school habit report...
+      </div>
+    </div>
+
+    <!-- 5 Core Summary Metrics for Active View (Overall or Batch) -->
+    <section class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-label">Total Monitored</div>
+        <div class="stat-val" id="statTotal">0</div>
+        <div class="stat-sub" id="statTotalSub">Enrolled students</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Today</div>
+        <div class="stat-val" id="statActive">0</div>
+        <div class="stat-sub" id="statActiveSub">Daily participation rate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Habit Completion Rate</div>
+        <div class="stat-val" id="statCompletionRate">0%</div>
+        <div class="stat-sub" id="statCompletionSub">0 of 0 habits done today</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Proof Submitted</div>
+        <div class="stat-val" id="statProofRate">0%</div>
+        <div class="stat-sub" id="statProofSub">0 media proofs attached</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Needs Spot-Check</div>
+        <div class="stat-val" id="statFlagged">0</div>
+        <div class="stat-sub" id="statFlaggedSub">Rapid marks or missing proof</div>
+      </div>
+    </section>
+
+    <!-- Section 1: Overall School & Batch-by-Batch Comparison Table -->
+    <section class="section-block">
+      <div class="section-header">
+        <div class="section-title">1. Overall School &amp; Batch Comparison</div>
+        <div class="section-note">Side-by-side summary across all active batches</div>
+      </div>
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th>Batch / Cohort</th>
+              <th>Curriculum Model</th>
+              <th>Enrolled</th>
+              <th>Active Today</th>
+              <th>Habits Completed</th>
+              <th>Completion %</th>
+              <th>Proofs Submitted</th>
+              <th>Verified Honest</th>
+              <th>Needs Check</th>
+            </tr>
+          </thead>
+          <tbody id="batchComparisonTbody">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 2: Batch-Level Detailed Breakdown (Habit Areas & Age/Proof Summary) -->
+    <section class="section-block">
+      <div class="section-header">
+        <div class="section-title" id="breakdownSectionTitle">2. Batch Analytics Breakdown (BAT01)</div>
+        <div class="section-note">Performance by habit growth area, student age group, and evidence type</div>
+      </div>
+
+      <div class="analytics-grid">
+        <!-- Left Table: Habit Growth Area Breakdown -->
+        <div class="table-card">
+          <div class="card-header">
+            <span class="card-title">Habit Area Completion</span>
+            <span class="card-subtitle">Daily completion by category</span>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Habit Growth Area</th>
+                <th>Completed / Assigned</th>
+                <th>Completion Rate</th>
+              </tr>
+            </thead>
+            <tbody id="dimensionAnalyticsTbody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Right Table: Age Group & Evidence Breakdown -->
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div class="table-card">
+            <div class="card-header">
+              <span class="card-title">Age Group Performance</span>
+              <span class="card-subtitle">Progress by student age bracket</span>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Age Group</th>
+                  <th>Students</th>
+                  <th>Habits Done</th>
+                  <th>Avg Completion</th>
+                  <th>Needs Check</th>
+                </tr>
+              </thead>
+              <tbody id="ageAnalyticsTbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-card">
+            <div class="card-header">
+              <span class="card-title">Submitted Evidence Summary</span>
+              <span class="card-subtitle">Proof types received from students</span>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Photo Proof</th>
+                  <th>Voice Audio</th>
+                  <th>Video Clips</th>
+                  <th>Total Proofs</th>
+                  <th>Missing Proof</th>
+                </tr>
+              </thead>
+              <tbody id="evidenceAnalyticsTbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Student Roster & Individual Proof Verification -->
+    <section class="section-block">
+      <div class="section-header">
+        <div class="section-title" id="rosterSectionTitle">3. Student Roster &amp; Daily Verification</div>
+        <div class="section-note">Click "Inspect Proof" on any student row to view attached photo, audio, or video evidence</div>
+      </div>
+
+      <div class="controls">
+        <div class="controls-left">
+          <input type="text" id="searchInput" class="search-box" placeholder="Search by student name or age...">
+
+          <select id="ageSelect" class="select-box">
+            <option value="ALL">All Ages (7-14)</option>
+            <option value="7">Age 7</option>
+            <option value="8">Age 8</option>
+            <option value="9">Age 9</option>
+            <option value="10">Age 10</option>
+            <option value="11">Age 11</option>
+            <option value="12">Age 12</option>
+            <option value="13">Age 13</option>
+            <option value="14">Age 14</option>
+          </select>
+
+          <select id="statusSelect" class="select-box">
+            <option value="ALL">All Statuses</option>
+            <option value="review_needed">Needs Review</option>
+            <option value="verified">Verified Honest</option>
+            <option value="in_progress">In Progress</option>
+            <option value="disputed">Disputed</option>
+          </select>
+        </div>
+
+        <div class="controls-right">
+          <button class="btn" id="btnImportOpen">Sync Student Code</button>
+          <button class="btn" id="btnExport">Export CSV</button>
+          <button class="btn btn-dark" id="btnPrint">Print Sheet</button>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th>Student Name</th>
+              <th>Batch</th>
+              <th>Age</th>
+              <th>Habits Done</th>
+              <th>Completion %</th>
+              <th>Evidence Submitted</th>
+              <th>Verification Status</th>
+              <th style="text-align: right;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="rosterTbody">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Spot-Check & Evidence Verification Modal -->
+  <div class="modal-overlay" id="spotModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title" id="mName">Student Audit</div>
+          <div class="modal-subtitle" id="mMeta">Age &amp; Batch Details</div>
+        </div>
+        <button class="modal-close" id="btnCloseModal">&times;</button>
+      </div>
+
+      <div class="diag-box" id="mDiag"></div>
+
+      <div class="subhead">Submitted Evidence &amp; Completion Timeline</div>
+      <table class="log-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Habit</th>
+            <th>Evidence Proof</th>
+            <th>Time</th>
+            <th>Media</th>
+          </tr>
+        </thead>
+        <tbody id="mLogTbody"></tbody>
+      </table>
+
+      <div class="evidence-viewer" id="evidenceViewer">
+        <div class="ev-header">
+          <div class="ev-title" id="evViewerTitle">Evidence Preview</div>
+          <button class="btn-ev-view" id="btnCloseEvViewer">Close Preview</button>
+        </div>
+        <div class="ev-stage" id="evViewerStage"></div>
+        <div class="ev-meta" id="evViewerMeta"></div>
+      </div>
+
+      <div class="subhead">Teacher Spot-Check Questions</div>
+      <div class="questions-box">
+        <div class="q-item">
+          <div class="q-title">Reading / Intellectual Habit</div>
+          <div class="q-text">"Which book or skill did you practice today, and what is one thing you learned?"</div>
+        </div>
+        <div class="q-item">
+          <div class="q-title">Physical / Morning Habit</div>
+          <div class="q-text">"What physical warm-up or exercise did you complete today?"</div>
+        </div>
+        <div class="q-item">
+          <div class="q-title">Emotional / Gratitude Habit</div>
+          <div class="q-text">"Who did you help or express gratitude to today at school or home?"</div>
+        </div>
+      </div>
+
+      <div class="modal-btns">
+        <button class="btn" id="btnDispute">Reset Dishonest Marks</button>
+        <button class="btn btn-dark" id="btnVerify">Confirm Verified</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sync Student Code Modal -->
+  <div class="modal-overlay" id="importModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title">Sync Student Evidence Code</div>
+          <div class="modal-subtitle">Paste JSON audit data exported from the Habitopia app</div>
+        </div>
+        <button class="modal-close" id="btnCloseImport">&times;</button>
+      </div>
+      <textarea id="importInput" class="import-textarea" placeholder="Paste student JSON payload here (includes completed habits and photo/audio/video evidence)..."></textarea>
+      <div class="modal-btns">
+        <button class="btn" id="btnCancelImport">Cancel</button>
+        <button class="btn btn-dark" id="btnSubmitImport">Sync Student Record</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Batches Configuration: BAT01 and BAT02
+    const BATCHES = {
+      BAT01: {
+        id: "BAT01",
+        title: "BAT01",
+        curriculum: "Age-Tiered 35-Habit System (5 Areas)",
+        minAge: 7,
+        maxAge: 14,
+        ages: [7, 8, 9, 10, 11, 12, 13, 14],
+        roster: [
+          {
+            name: "Aarav Krishnan", age: 10, batch: "BAT01", completed: 5, total: 5, status: "verified",
+            reason: "All 5 habits completed with submitted media evidence (2 Photo, 2 Audio, 1 Video)", durationSec: 39900,
+            timestamps: { "Water First (Physical)": "07:15 AM", "Win the Morning (Mental)": "07:22 AM", "Read 10 Pages (Intellectual)": "12:35 PM", "Name the Feeling (Emotional)": "06:20 PM", "3-Jar System (Financial)": "06:25 PM" },
+            evidence: {
+              "Water First (Physical)": { type: "photo", fileName: "IMG_P1_0715.jpg", durationSec: 0, note: "Drank 1 full glass of warm water after waking up" },
+              "Win the Morning (Mental)": { type: "video", fileName: "VID_M0_0722.mp4", durationSec: 14, note: "Made bed neatly and arranged school bag" },
+              "Read 10 Pages (Intellectual)": { type: "audio", fileName: "AUD_I0_1235.m4a", durationSec: 18, note: "Read 10 pages of Wings of Fire and summarized chapter 2" },
+              "Name the Feeling (Emotional)": { type: "audio", fileName: "AUD_E0_1820.m4a", durationSec: 9, note: "Shared calm and grateful feeling after evening study" },
+              "3-Jar System (Financial)": { type: "photo", fileName: "IMG_F0_1825.jpg", durationSec: 0, note: "Placed Rs 10 coin in Save jar" }
+            }
+          },
+          {
+            name: "Rohan Sharma", age: 11, batch: "BAT01", completed: 5, total: 5, status: "review_needed",
+            reason: "Rapid tap detected: 5 habits marked in 7 seconds with incomplete proof (1/5)", durationSec: 7,
+            timestamps: { "Water First (Physical)": "09:42:01 PM", "Win the Morning (Mental)": "09:42:03 PM", "Read 10 Pages (Intellectual)": "09:42:04 PM", "Name the Feeling (Emotional)": "09:42:06 PM", "3-Jar System (Financial)": "09:42:08 PM" },
+            evidence: {
+              "Water First (Physical)": { type: "photo", fileName: "IMG_P1_2142.jpg", durationSec: 0, note: "Uploaded late at night" }
+            }
+          },
+          {
+            name: "Ananya Sundaram", age: 9, batch: "BAT01", completed: 4, total: 5, status: "verified",
+            reason: "4 of 5 habits completed with media evidence (2 Photo, 1 Audio, 1 Video)", durationSec: 21600,
+            timestamps: { "Water First (Physical)": "07:30 AM", "Win the Morning (Mental)": "07:40 AM", "Read 10 Pages (Intellectual)": "01:10 PM", "Name the Feeling (Emotional)": "05:45 PM" },
+            evidence: {
+              "Water First (Physical)": { type: "photo", fileName: "IMG_P1_0730.jpg", durationSec: 0, note: "Morning water glass completed" },
+              "Win the Morning (Mental)": { type: "photo", fileName: "IMG_M0_0740.jpg", durationSec: 0, note: "Study table organized before school" },
+              "Read 10 Pages (Intellectual)": { type: "audio", fileName: "AUD_I0_1310.m4a", durationSec: 15, note: "Read science storybook aloud" },
+              "Name the Feeling (Emotional)": { type: "video", fileName: "VID_E0_1745.mp4", durationSec: 11, note: "Evening reflection with mother" }
+            }
+          },
+          {
+            name: "Vikram Sengupta", age: 12, batch: "BAT01", completed: 5, total: 5, status: "review_needed",
+            reason: "Rapid tap detected: 5 habits marked in 9 seconds at 10:15 PM (2/5 proof)", durationSec: 9,
+            timestamps: { "Water First (Physical)": "10:15:02 PM", "Win the Morning (Mental)": "10:15:04 PM", "Read 10 Pages (Intellectual)": "10:15:06 PM", "Name the Feeling (Emotional)": "10:15:09 PM", "3-Jar System (Financial)": "10:15:11 PM" },
+            evidence: {
+              "Water First (Physical)": { type: "photo", fileName: "IMG_P1_2215.jpg", durationSec: 0, note: "Completed at home" },
+              "Win the Morning (Mental)": { type: "audio", fileName: "AUD_M0_2215.m4a", durationSec: 3, note: "Quick voice note" }
+            }
+          },
+          {
+            name: "Kavya Murugan", age: 10, batch: "BAT01", completed: 5, total: 5, status: "verified",
+            reason: "All 5 habits completed with submitted media evidence (2 Photo, 1 Audio, 2 Video)", durationSec: 44400,
+            timestamps: { "Water First (Physical)": "06:50 AM", "Win the Morning (Mental)": "07:05 AM", "Read 10 Pages (Intellectual)": "11:45 AM", "Name the Feeling (Emotional)": "07:10 PM", "3-Jar System (Financial)": "07:15 PM" },
+            evidence: {
+              "Water First (Physical)": { type: "photo", fileName: "IMG_P1_0650.jpg", durationSec: 0, note: "Morning hydration completed" },
+              "Win the Morning (Mental)": { type: "video", fileName: "VID_M0_0705.mp4", durationSec: 16, note: "Morning routine completed on time" },
+              "Read 10 Pages (Intellectual)": { type: "audio", fileName: "AUD_I0_1145.m4a", durationSec: 22, note: "Read 10 pages during library period" },
+              "Name the Feeling (Emotional)": { type: "video", fileName: "VID_E0_1910.mp4", durationSec: 12, note: "Shared gratitude journal entry" },
+              "3-Jar System (Financial)": { type: "photo", fileName: "IMG_F0_1915.jpg", durationSec: 0, note: "Updated savings tracker notebook" }
+            }
+          },
+          {
+            name: "Dinesh Balaji", age: 13, batch: "BAT01", completed: 2, total: 5, status: "in_progress",
+            reason: "2 of 5 habits completed with media evidence", durationSec: 7200,
+            timestamps: { "Water First (Physical)": "07:20 AM", "Win the Morning (Mental)": "09:20 AM" },
+            evidence: {
+              "Water First (Physical)": { type: "photo", fileName: "IMG_P1_0720.jpg", durationSec: 0, note: "Morning water glass" },
+              "Win the Morning (Mental)": { type: "audio", fileName: "AUD_M0_0920.m4a", durationSec: 10, note: "Planned top 3 priorities for school" }
+            }
+          },
+          {
+            name: "Meera Venkatesh", age: 11, batch: "BAT01", completed: 5, total: 5, status: "verified",
+            reason: "All 5 habits completed with submitted media evidence (3 Photo, 1 Audio, 1 Video)", durationSec: 41400,
+            timestamps: { "Water First (Physical)": "07:10 AM", "Win the Morning (Mental)": "07:18 AM", "Read 10 Pages (Intellectual)": "01:05 PM", "Name the Feeling (Emotional)": "06:40 PM", "3-Jar System (Financial)": "06:45 PM" },
+            evidence: {
+              "Water First (Physical)": { type: "photo", fileName: "IMG_P1_0710.jpg", durationSec: 0, note: "Completed at home" },
+              "Win the Morning (Mental)": { type: "photo", fileName: "IMG_M0_0718.jpg", durationSec: 0, note: "Desk and books ready" },
+              "Read 10 Pages (Intellectual)": { type: "audio", fileName: "AUD_I0_1305.m4a", durationSec: 19, note: "Read 10 pages of Tamil literature" },
+              "Name the Feeling (Emotional)": { type: "video", fileName: "VID_E0_1840.mp4", durationSec: 14, note: "Practiced calm breathing and named feeling" },
+              "3-Jar System (Financial)": { type: "photo", fileName: "IMG_F0_1845.jpg", durationSec: 0, note: "Saved pocket money in jar" }
+            }
+          },
+          {
+            name: "Siddharth Rajan", age: 9, batch: "BAT01", completed: 5, total: 5, status: "review_needed",
+            reason: "Rapid tap detected: 5 habits marked within 11 seconds (1/5 proof)", durationSec: 11,
+            timestamps: { "Water First (Physical)": "08:05:01 PM", "Win the Morning (Mental)": "08:05:03 PM", "Read 10 Pages (Intellectual)": "08:05:06 PM", "Name the Feeling (Emotional)": "08:05:09 PM", "3-Jar System (Financial)": "08:05:12 PM" },
+            evidence: {
+              "Water First (Physical)": { type: "audio", fileName: "AUD_P1_2005.m4a", durationSec: 2, note: "Done" }
+            }
+          },
+          {
+            name: "Pooja Natarajan", age: 12, batch: "BAT01", completed: 5, total: 5, status: "verified",
+            reason: "All 5 habits completed with submitted media evidence (2 Photo, 2 Audio, 1 Video)", durationSec: 43200,
+            timestamps: { "Water First (Physical)": "07:00 AM", "Win the Morning (Mental)": "07:15 AM", "Read 10 Pages (Intellectual)": "12:50 PM", "Name the Feeling (Emotional)": "06:30 PM", "3-Jar System (Financial)": "07:00 PM" },
+            evidence: {
+              "Water First (Physical)": { type: "photo", fileName: "IMG_P1_0700.jpg", durationSec: 0, note: "Drank water before breakfast" },
+              "Win the Morning (Mental)": { type: "video", fileName: "VID_M0_0715.mp4", durationSec: 15, note: "Morning stretching and bed making" },
+              "Read 10 Pages (Intellectual)": { type: "audio", fileName: "AUD_I0_1250.m4a", durationSec: 20, note: "Summarized history chapter aloud" },
+              "Name the Feeling (Emotional)": { type: "audio", fileName: "AUD_E0_1830.m4a", durationSec: 12, note: "Evening family check-in" },
+              "3-Jar System (Financial)": { type: "photo", fileName: "IMG_F0_1900.jpg", durationSec: 0, note: "Logged daily expense vs need" }
+            }
+          },
+          {
+            name: "Harish Kumar", age: 10, batch: "BAT01", completed: 1, total: 5, status: "in_progress",
+            reason: "1 of 5 habits completed with photo evidence", durationSec: 0,
+            timestamps: { "Water First (Physical)": "07:45 AM" },
+            evidence: {
+              "Water First (Physical)": { type: "photo", fileName: "IMG_P1_0745.jpg", durationSec: 0, note: "Completed at home" }
+            }
+          }
+        ]
+      },
+      BAT02: {
+        id: "BAT02",
+        title: "BAT02",
+        curriculum: "25-Week Progressive System (30 Habits)",
+        minAge: 7,
+        maxAge: 14,
+        ages: [7, 8, 9, 10, 11, 12, 13, 14],
+        roster: [
+          {
+            name: "Pranav Rajesh", age: 10, batch: "BAT02", completed: 7, total: 7, status: "verified",
+            reason: "All 7 habits for Week 2 completed with submitted media evidence (3 Photo, 2 Audio, 2 Video)", durationSec: 42100,
+            timestamps: {
+              "Eye Ball Exercise (Q Power)": "06:40 AM",
+              "Speed Reading Card (Q Power)": "06:45 AM",
+              "Concentration Music (Q Power)": "06:55 AM",
+              "Blind Fold Practice (Q Power)": "07:05 AM",
+              "Power Affirmations (Q Power)": "07:12 AM",
+              "Sunlight & Warm Up (Physical)": "07:25 AM",
+              "Visualize Future Self (Mental)": "07:35 AM"
+            },
+            evidence: {
+              "Eye Ball Exercise (Q Power)": { type: "video", fileName: "VID_B2Q0_0640.mp4", durationSec: 15, note: "Practiced 8-direction smooth pursuit tracking" },
+              "Speed Reading Card (Q Power)": { type: "photo", fileName: "IMG_B2Q1_0645.jpg", durationSec: 0, note: "Completed 2-minute card flash drill" },
+              "Concentration Music (Q Power)": { type: "audio", fileName: "AUD_B2Q2_0655.m4a", durationSec: 20, note: "Alpha wave music focus session" },
+              "Blind Fold Practice (Q Power)": { type: "photo", fileName: "IMG_B2Q3_0705.jpg", durationSec: 0, note: "Sensory activation blindfolded color card touch" },
+              "Power Affirmations (Q Power)": { type: "audio", fileName: "AUD_B2Q4_0712.m4a", durationSec: 12, note: "Spoke 5 core power affirmations aloud" },
+              "Sunlight & Warm Up (Physical)": { type: "photo", fileName: "IMG_B2P0_0725.jpg", durationSec: 0, note: "15-minute morning sun exposure & joint rotations" },
+              "Visualize Future Self (Mental)": { type: "video", fileName: "VID_B2M0_0735.mp4", durationSec: 18, note: "Shared visualization of champion habits" }
+            }
+          },
+          {
+            name: "Diya Sridhar", age: 9, batch: "BAT02", completed: 6, total: 6, status: "verified",
+            reason: "All 6 habits for Week 1 completed with submitted media evidence (2 Photo, 2 Audio, 2 Video)", durationSec: 38400,
+            timestamps: {
+              "Eye Ball Exercise (Q Power)": "06:50 AM",
+              "Speed Reading Card (Q Power)": "06:55 AM",
+              "Concentration Music (Q Power)": "07:05 AM",
+              "Blind Fold Practice (Q Power)": "07:15 AM",
+              "Power Affirmations (Q Power)": "07:20 AM",
+              "Sunlight & Warm Up (Physical)": "07:30 AM"
+            },
+            evidence: {
+              "Eye Ball Exercise (Q Power)": { type: "video", fileName: "VID_B2Q0_0650.mp4", durationSec: 12, note: "Tracked thumb arc without moving head" },
+              "Speed Reading Card (Q Power)": { type: "photo", fileName: "IMG_B2Q1_0655.jpg", durationSec: 0, note: "Speed card drill" },
+              "Concentration Music (Q Power)": { type: "audio", fileName: "AUD_B2Q2_0705.m4a", durationSec: 15, note: "Calm music listened with closed eyes" },
+              "Blind Fold Practice (Q Power)": { type: "video", fileName: "VID_B2Q3_0715.mp4", durationSec: 14, note: "Blindfold sensory awareness practice" },
+              "Power Affirmations (Q Power)": { type: "audio", fileName: "AUD_B2Q4_0720.m4a", durationSec: 10, note: "I am focused, I am strong, I can learn anything" },
+              "Sunlight & Warm Up (Physical)": { type: "photo", fileName: "IMG_B2P0_0730.jpg", durationSec: 0, note: "Morning sunlight walk" }
+            }
+          },
+          {
+            name: "Vigneshwar Karthik", age: 11, batch: "BAT02", completed: 7, total: 7, status: "review_needed",
+            reason: "Rapid tap detected: 7 habits marked within 12 seconds with partial proof (2/7)", durationSec: 12,
+            timestamps: {
+              "Eye Ball Exercise (Q Power)": "09:30:01 PM",
+              "Speed Reading Card (Q Power)": "09:30:03 PM",
+              "Concentration Music (Q Power)": "09:30:05 PM",
+              "Blind Fold Practice (Q Power)": "09:30:07 PM",
+              "Power Affirmations (Q Power)": "09:30:09 PM",
+              "Sunlight & Warm Up (Physical)": "09:30:11 PM",
+              "Visualize Future Self (Mental)": "09:30:13 PM"
+            },
+            evidence: {
+              "Eye Ball Exercise (Q Power)": { type: "photo", fileName: "IMG_B2Q0_2130.jpg", durationSec: 0, note: "Uploaded late evening" },
+              "Power Affirmations (Q Power)": { type: "audio", fileName: "AUD_B2Q4_2130.m4a", durationSec: 2, note: "Quick tap" }
+            }
+          },
+          {
+            name: "Shalini Venkatesh", age: 12, batch: "BAT02", completed: 5, total: 8, status: "in_progress",
+            reason: "5 of 8 habits completed with media evidence (Week 3 progression)", durationSec: 24000,
+            timestamps: {
+              "Eye Ball Exercise (Q Power)": "07:00 AM",
+              "Speed Reading Card (Q Power)": "07:05 AM",
+              "Concentration Music (Q Power)": "07:15 AM",
+              "Blind Fold Practice (Q Power)": "07:22 AM",
+              "Sunlight & Warm Up (Physical)": "07:35 AM"
+            },
+            evidence: {
+              "Eye Ball Exercise (Q Power)": { type: "video", fileName: "VID_B2Q0_0700.mp4", durationSec: 14, note: "Vertical and diagonal eye tracks" },
+              "Speed Reading Card (Q Power)": { type: "photo", fileName: "IMG_B2Q1_0705.jpg", durationSec: 0, note: "Completed card session" },
+              "Concentration Music (Q Power)": { type: "audio", fileName: "AUD_B2Q2_0715.m4a", durationSec: 18, note: "Focus music track completed" },
+              "Blind Fold Practice (Q Power)": { type: "photo", fileName: "IMG_B2Q3_0722.jpg", durationSec: 0, note: "Sensory card practice" },
+              "Sunlight & Warm Up (Physical)": { type: "photo", fileName: "IMG_B2P0_0735.jpg", durationSec: 0, note: "Balcony sun warm up" }
+            }
+          },
+          {
+            name: "Arvind Ram", age: 13, batch: "BAT02", completed: 15, total: 15, status: "verified",
+            reason: "All 15 habits for Week 10 completed with submitted media evidence (5 Photo, 5 Audio, 5 Video)", durationSec: 46800,
+            timestamps: {
+              "Eye Ball Exercise (Q Power)": "06:30 AM",
+              "Speed Reading Card (Q Power)": "06:35 AM",
+              "Concentration Music (Q Power)": "06:45 AM",
+              "Blind Fold Practice (Q Power)": "06:55 AM",
+              "Power Affirmations (Q Power)": "07:05 AM",
+              "Sunlight & Warm Up (Physical)": "07:15 AM",
+              "Deep Breathing (Physical)": "07:25 AM",
+              "Adequate Hydration (Physical)": "07:30 AM",
+              "Visualize Future Self (Mental)": "07:40 AM",
+              "Daily Gratitude Practice (Mental)": "07:45 AM",
+              "Brain Gym & Logic (Intellectual)": "01:15 PM",
+              "Learn One New Skill (Intellectual)": "01:30 PM",
+              "Emotion Check-in (Emotional)": "06:30 PM",
+              "Deep Listening (Emotional)": "06:45 PM",
+              "4-Jars Savings Method (Financial)": "07:10 PM"
+            },
+            evidence: {
+              "Eye Ball Exercise (Q Power)": { type: "video", fileName: "VID_B2Q0_0630.mp4", durationSec: 15, note: "Morning tracking drill" },
+              "Speed Reading Card (Q Power)": { type: "photo", fileName: "IMG_B2Q1_0635.jpg", durationSec: 0, note: "Completed speed reading card" },
+              "Concentration Music (Q Power)": { type: "audio", fileName: "AUD_B2Q2_0645.m4a", durationSec: 20, note: "Alpha music session" },
+              "Blind Fold Practice (Q Power)": { type: "video", fileName: "VID_B2Q3_0655.mp4", durationSec: 20, note: "Blindfolded shape guessing" },
+              "Power Affirmations (Q Power)": { type: "audio", fileName: "AUD_B2Q4_0705.m4a", durationSec: 12, note: "Morning affirmations spoken" },
+              "Sunlight & Warm Up (Physical)": { type: "photo", fileName: "IMG_B2P0_0715.jpg", durationSec: 0, note: "Outdoor morning stretch" },
+              "Deep Breathing (Physical)": { type: "audio", fileName: "AUD_B2P1_0725.m4a", durationSec: 25, note: "4-4-4 box breathing reflection" },
+              "Adequate Hydration (Physical)": { type: "photo", fileName: "IMG_B2P2_0730.jpg", durationSec: 0, note: "Morning water tracker" },
+              "Visualize Future Self (Mental)": { type: "video", fileName: "VID_B2M0_0740.mp4", durationSec: 14, note: "Goal visualization note" },
+              "Daily Gratitude Practice (Mental)": { type: "audio", fileName: "AUD_B2M1_0745.m4a", durationSec: 15, note: "Gratitude for parents, teacher, and clear morning" },
+              "Brain Gym & Logic (Intellectual)": { type: "video", fileName: "VID_B2I0_1315.mp4", durationSec: 16, note: "Cross-crawl brain gym exercise" },
+              "Learn One New Skill (Intellectual)": { type: "photo", fileName: "IMG_B2I1_1330.jpg", durationSec: 0, note: "Practiced new vocabulary diagram" },
+              "Emotion Check-in (Emotional)": { type: "audio", fileName: "AUD_B2E0_1830.m4a", durationSec: 11, note: "Evening mood check-in" },
+              "Deep Listening (Emotional)": { type: "video", fileName: "VID_B2E1_1845.mp4", durationSec: 15, note: "Family conversation summary" },
+              "4-Jars Savings Method (Financial)": { type: "photo", fileName: "IMG_B2F0_1910.jpg", durationSec: 0, note: "Distributed pocket money into 4 jars" }
+            }
+          }
+        ]
+      }
+    };
+
+    const HABIT_NAME_MAP = {
+      P0: "Move 30 (Physical)", P1: "Water First (Physical)", P2: "Sleep Champion (Physical)", P3: "Rainbow Plate (Physical)", P4: "Posture Police (Physical)", P5: "Breathe Reset (Physical)", P6: "Sport a Quarter (Physical)",
+      M0: "Win the Morning (Mental)", M1: "No-Excuse Minute (Mental)", M2: "Fail Fast Log (Mental)", M3: "Focus Sprint 15 (Mental)", M4: "Self-Talk Filter (Mental)", M5: "Gratitude 3 (Mental)", M6: "Digital Boundaries (Mental)",
+      I0: "Read 10 Pages (Intellectual)", I1: "Question Storm (Intellectual)", I2: "Memory Play (Intellectual)", I3: "Teach to Learn (Intellectual)", I4: "Math in Life (Intellectual)", I5: "Create Not Consume (Intellectual)", I6: "Weekly Deep Dive (Intellectual)",
+      E0: "Name the Feeling (Emotional)", E1: "Kind Act Daily (Emotional)", E2: "Pause Button (Emotional)", E3: "Friendship Rule (Emotional)", E4: "Journal One Line (Emotional)", E5: "Sorry Fast (Emotional)", E6: "Family Connect (Emotional)",
+      F0: "3-Jar System (Financial)", F1: "Earn a Rupee (Financial)", F2: "Need vs Want (Financial)", F3: "Price Detective (Financial)", F4: "Goal Piggy (Financial)", F5: "Delay Reward (Financial)", F6: "Value Creation (Financial)",
+      B2_Q0: "Eye Ball Exercise (Q Power)", B2_Q1: "Speed Reading Card (Q Power)", B2_Q2: "Concentration Music (Q Power)", B2_Q3: "Blind Fold Practice (Q Power)", B2_Q4: "Power Affirmations (Q Power)",
+      B2_P0: "Sunlight & Warm Up (Physical)", B2_P1: "Deep Breathing (Physical)", B2_P2: "Adequate Hydration (Physical)", B2_P3: "Healthy Breakfast (Physical)", B2_P4: "Proper Posture (Physical)",
+      B2_M0: "Visualize Future Self (Mental)", B2_M1: "Daily Gratitude Practice (Mental)", B2_M2: "Daily Affirmations (Mental)", B2_M3: "Mindful Pause (Mental)", B2_M4: "Read Inspiring Stories (Mental)",
+      B2_I0: "Brain Gym & Logic (Intellectual)", B2_I1: "Learn One New Skill (Intellectual)", B2_I2: "Ask Why Questions (Intellectual)", B2_I3: "Daily Journaling (Intellectual)", B2_I4: "Teach What You Learnt (Intellectual)",
+      B2_E0: "Emotion Check-in (Emotional)", B2_E1: "Deep Listening (Emotional)", B2_E2: "Help Someone Daily (Emotional)", B2_E3: "Express Appreciation (Emotional)", B2_E4: "Respond Do Not React (Emotional)",
+      B2_F0: "4-Jars Savings Method (Financial)", B2_F1: "Needs vs Wants (Financial)", B2_F2: "Track Daily Expenses (Financial)", B2_F3: "Value Before Price (Financial)", B2_F4: "Money Concept (Financial)"
+    };
+
+    // Summarize evidence counts for a student
+    function getEvidenceCounts(student) {
+      const evMap = student.evidence || {};
+      const entries = Object.values(evMap).filter(e => e && e.type);
+      const photos = entries.filter(e => e.type === "photo").length;
+      const audios = entries.filter(e => e.type === "audio").length;
+      const videos = entries.filter(e => e.type === "video").length;
+      const totalProof = entries.length;
+      const missing = Math.max(0, (student.completed || 0) - totalProof);
+      return { photos, audios, videos, totalProof, missing };
+    }
+
+    function getEvidenceSummaryText(student) {
+      if (student.completed === 0) return "0/0 Submitted";
+      const { photos, audios, videos, totalProof } = getEvidenceCounts(student);
+      const parts = [];
+      if (photos > 0) parts.push(`${photos} Photo`);
+      if (audios > 0) parts.push(`${audios} Audio`);
+      if (videos > 0) parts.push(`${videos} Video`);
+      const breakdown = parts.length > 0 ? ` (${parts.join(", ")})` : "";
+      return `${totalProof}/${student.completed} Proof${breakdown}`;
+    }
+
+    // Direct Sync: Automatically reads enrolled children and their submitted evidence from Habitopia local storage
+    function getDirectSyncedStudents(batchId) {
+      const list = [];
+      try {
+        const rawProfiles = localStorage.getItem('habitopia_enrolled_profiles');
+        const rawState = localStorage.getItem('habitgame_v1');
+        let profiles = [];
+        if (rawProfiles) {
+          profiles = JSON.parse(rawProfiles);
+        } else if (rawState) {
+          const parsed = JSON.parse(rawState);
+          profiles = parsed.savedProfiles || [];
+          if (parsed.name && !profiles.some(p => p.name === parsed.name)) {
+            profiles.unshift(parsed);
+          }
+        }
+
+        if (Array.isArray(profiles)) {
+          const todayStr = new Date().toISOString().slice(0, 10);
+          profiles.forEach(p => {
+            if (p && p.name) {
+              const studentBatch = p.batch || "BAT01";
+              if (studentBatch === batchId) {
+                const doneToday = (p.done && p.done[todayStr]) || [];
+                const rawTimestamps = (p.habitTimestamps && p.habitTimestamps[todayStr]) || {};
+                const rawEvidence = (p.habitEvidence && p.habitEvidence[todayStr]) || {};
+                const activeCount = studentBatch === 'BAT02'
+                  ? Math.min(30, 5 + Math.max(1, Math.min(25, Number(p.bat02Week) || 1)))
+                  : (p.age <= 9 ? 5 : (p.age <= 11 ? 15 : 35));
+
+                const formattedTimestamps = {};
+                const formattedEvidence = {};
+                doneToday.forEach(hid => {
+                  const label = HABIT_NAME_MAP[hid] || hid;
+                  const ts = rawTimestamps[hid];
+                  formattedTimestamps[label] = ts
+                    ? new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+                    : "Recorded";
+                  if (rawEvidence[hid]) {
+                    formattedEvidence[label] = rawEvidence[hid];
+                  }
+                });
+
+                const times = Object.values(rawTimestamps).map(t => new Date(t).getTime()).sort((a,b) => a-b);
+                let isRapid = false;
+                let durationSec = 0;
+                if (times.length >= 3) {
+                  durationSec = Math.max(1, Math.round((times[times.length-1] - times[0])/1000));
+                  let fastCount = 0;
+                  for (let i = 1; i < times.length; i++) {
+                    if (times[i] - times[i-1] < 15000) fastCount++;
+                  }
+                  if (fastCount >= 2 && durationSec <= 35) isRapid = true;
+                }
+
+                const evCount = Object.keys(formattedEvidence).length;
+                const missingEv = Math.max(0, doneToday.length - evCount);
+
+                let status = "in_progress";
+                let reason = `${doneToday.length} of ${activeCount <= 5 ? 5 : activeCount} habits completed (${evCount} with media proof)`;
+                if (isRapid) {
+                  status = "review_needed";
+                  reason = `Rapid tap detected: ${times.length} habits marked in ${durationSec} seconds`;
+                } else if (missingEv > 0) {
+                  status = "review_needed";
+                  reason = `${missingEv} completed habit(s) missing media evidence`;
+                } else if (doneToday.length >= (activeCount <= 5 ? 5 : Math.min(doneToday.length, 5)) && doneToday.length > 0) {
+                  status = "verified";
+                  reason = `All ${doneToday.length} habits completed with verified media evidence`;
+                }
+
+                list.push({
+                  name: p.name,
+                  age: Number(p.age) || 10,
+                  batch: studentBatch,
+                  completed: doneToday.length,
+                  total: studentBatch === 'BAT02' ? activeCount : (activeCount <= 5 ? 5 : activeCount),
+                  status: status,
+                  reason: reason,
+                  durationSec: durationSec,
+                  timestamps: formattedTimestamps,
+                  evidence: formattedEvidence,
+                  isLiveSynced: true
+                });
+              }
+            }
+          });
+        }
+      } catch (e) {
+        console.log('Direct sync check:', e);
+      }
+      return list;
+    }
+
+    // Store mutable runtime rosters per batch so teacher actions (Verify / Dispute / Sync) persist across view switches
+    const runtimeRosters = {
+      BAT01: null,
+      BAT02: null
+    };
+
+    function loadBatchRoster(batchId) {
+      if (!runtimeRosters[batchId]) {
+        runtimeRosters[batchId] = BATCHES[batchId] ? BATCHES[batchId].roster.map(s => ({ ...s })) : [];
+      }
+      const baseRoster = runtimeRosters[batchId];
+      const liveList = getDirectSyncedStudents(batchId);
+      liveList.forEach(live => {
+        const idx = baseRoster.findIndex(b => b.name.toLowerCase() === live.name.toLowerCase());
+        if (idx >= 0) {
+          baseRoster[idx] = live;
+        } else {
+          baseRoster.unshift(live);
+        }
+      });
+      return baseRoster;
+    }
+
+    function getActiveRoster(scopeId) {
+      const r1 = loadBatchRoster("BAT01");
+      const r2 = loadBatchRoster("BAT02");
+      if (scopeId === "ALL") {
+        return [...r1, ...r2];
+      }
+      return scopeId === "BAT02" ? r2 : r1;
+    }
+
+    // Compute aggregate statistics for any list of students
+    function computeGroupMetrics(roster) {
+      const enrolled = roster.length;
+      const active = roster.filter(s => s.completed > 0).length;
+      const activePct = enrolled > 0 ? Math.round((active / enrolled) * 100) : 0;
+
+      let completedHabits = 0;
+      let assignedHabits = 0;
+      let photos = 0;
+      let audios = 0;
+      let videos = 0;
+      let totalProofs = 0;
+      let missingProofs = 0;
+
+      let verifiedCount = 0;
+      let flaggedCount = 0;
+      let inProgressCount = 0;
+      let disputedCount = 0;
+
+      roster.forEach(s => {
+        completedHabits += (s.completed || 0);
+        assignedHabits += (s.total || 0);
+
+        const ev = getEvidenceCounts(s);
+        photos += ev.photos;
+        audios += ev.audios;
+        videos += ev.videos;
+        totalProofs += ev.totalProof;
+        missingProofs += ev.missing;
+
+        if (s.status === "verified") verifiedCount++;
+        else if (s.status === "review_needed") flaggedCount++;
+        else if (s.status === "disputed") disputedCount++;
+        else inProgressCount++;
+      });
+
+      const completionPct = assignedHabits > 0 ? Math.round((completedHabits / assignedHabits) * 100) : 0;
+      const proofPct = completedHabits > 0 ? Math.round((totalProofs / completedHabits) * 100) : 0;
+
+      return {
+        enrolled,
+        active,
+        activePct,
+        completedHabits,
+        assignedHabits,
+        completionPct,
+        photos,
+        audios,
+        videos,
+        totalProofs,
+        missingProofs,
+        proofPct,
+        verifiedCount,
+        flaggedCount,
+        inProgressCount,
+        disputedCount
+      };
+    }
+
+    // Compute per-dimension completion metrics for a given roster
+    function computeDimensionAnalytics(roster, scopeId) {
+      const dims = [
+        { key: "Q Power", label: "Q Power Habits (BAT02 Core)", done: 0, assigned: 0, onlyBat02: true },
+        { key: "Physical", label: "Physical Health", done: 0, assigned: 0, dimIdx: 0 },
+        { key: "Mental", label: "Mental Strength", done: 0, assigned: 0, dimIdx: 1 },
+        { key: "Intellectual", label: "Intellectual Sharpness", done: 0, assigned: 0, dimIdx: 2 },
+        { key: "Emotional", label: "Emotional Balance", done: 0, assigned: 0, dimIdx: 3 },
+        { key: "Financial", label: "Financial Literacy", done: 0, assigned: 0, dimIdx: 4 }
+      ];
+
+      roster.forEach(s => {
+        const sBatch = s.batch || "BAT01";
+        const sTotal = s.total || 5;
+
+        // Calculate assigned habits per dimension for this student
+        if (sBatch === "BAT02") {
+          dims[0].assigned += 5; // 5 Q Power habits always active in BAT02
+          const growthTotal = Math.max(0, sTotal - 5);
+          for (let d = 0; d < 5; d++) {
+            const countForDim = Math.floor((growthTotal + 4 - d) / 5);
+            dims[d + 1].assigned += countForDim;
+          }
+        } else {
+          const perDim = Math.max(1, Math.round(sTotal / 5));
+          for (let d = 0; d < 5; d++) {
+            dims[d + 1].assigned += perDim;
+          }
+        }
+
+        // Count completed habits per dimension from timestamps keys
+        const doneKeys = Object.keys(s.timestamps || {});
+        doneKeys.forEach(habitTitle => {
+          dims.forEach(dimObj => {
+            if (habitTitle.includes(`(${dimObj.key})`)) {
+              dimObj.done += 1;
+            }
+          });
+        });
+      });
+
+      return dims.filter(d => !(d.onlyBat02 && scopeId === "BAT01"));
+    }
+
+    // Compute Age Bracket Analytics
+    function computeAgeGroupAnalytics(roster) {
+      const groups = [
+        { label: "Ages 7 - 9 (Primary)", min: 7, max: 9 },
+        { label: "Ages 10 - 11 (Middle)", min: 10, max: 11 },
+        { label: "Ages 12 - 14 (Senior)", min: 12, max: 14 }
+      ];
+
+      return groups.map(g => {
+        const sub = roster.filter(s => s.age >= g.min && s.age <= g.max);
+        const m = computeGroupMetrics(sub);
+        return {
+          label: g.label,
+          students: m.enrolled,
+          completedHabits: m.completedHabits,
+          assignedHabits: m.assignedHabits,
+          completionPct: m.completionPct,
+          flaggedCount: m.flaggedCount
+        };
+      });
+    }
+
+    // State
+    let currentBatchId = "BAT01";
+    let activeRoster = getActiveRoster(currentBatchId);
+    let selectedStudent = null;
+
+    // DOM Elements
+    const batchSelect = document.getElementById("batchSelect");
+    const ageSelect = document.getElementById("ageSelect");
+    const statusSelect = document.getElementById("statusSelect");
+    const searchInput = document.getElementById("searchInput");
+    const tbody = document.getElementById("rosterTbody");
+    const spotModal = document.getElementById("spotModal");
+    const evidenceViewer = document.getElementById("evidenceViewer");
+
+    // Populate Age Dropdown
+    function updateAgeOptions(scopeId) {
+      const b = BATCHES[scopeId] || BATCHES.BAT01;
+      ageSelect.innerHTML = `<option value="ALL">All Ages (${b.minAge}-${b.maxAge})</option>`;
+      b.ages.forEach(age => {
+        const opt = document.createElement("option");
+        opt.value = String(age);
+        opt.textContent = `Age ${age}`;
+        ageSelect.appendChild(opt);
+      });
+    }
+
+    // Switch Scope / Batch ("ALL", "BAT01", "BAT02")
+    window.switchBatch = function(newScopeId) {
+      currentBatchId = newScopeId;
+      batchSelect.value = newScopeId;
+
+      ["ALL", "BAT01", "BAT02"].forEach(id => {
+        const tab = document.getElementById("tab" + id);
+        if (tab) {
+          tab.className = id === newScopeId ? "scope-tab active" : "scope-tab";
+        }
+      });
+
+      updateAgeOptions(newScopeId);
+      activeRoster = getActiveRoster(newScopeId);
+      render();
+    };
+
+    // Render All Analytics Sections + Roster Table
+    function render() {
+      activeRoster = getActiveRoster(currentBatchId);
+      renderTopKPIsAndSummary();
+      renderBatchComparisonTable();
+      renderBatchDetailedAnalytics();
+      renderRosterTable();
+    }
+
+    // 1. Render Top KPIs and Plain-English Executive Summary
+    function renderTopKPIsAndSummary() {
+      const m = computeGroupMetrics(activeRoster);
+      const scopeLabel = currentBatchId === "ALL" ? "Overall School (BAT01 + BAT02)" : `Batch ${currentBatchId}`;
+
+      document.getElementById("statTotal").textContent = m.enrolled;
+      document.getElementById("statTotalSub").textContent = currentBatchId === "ALL"
+        ? `Across BAT01 (${loadBatchRoster("BAT01").length}) & BAT02 (${loadBatchRoster("BAT02").length})`
+        : `Enrolled in ${currentBatchId}`;
+
+      document.getElementById("statActive").textContent = `${m.active} / ${m.enrolled}`;
+      document.getElementById("statActiveSub").textContent = `${m.activePct}% active today`;
+
+      document.getElementById("statCompletionRate").textContent = `${m.completionPct}%`;
+      document.getElementById("statCompletionSub").textContent = `${m.completedHabits} of ${m.assignedHabits} habits done`;
+
+      document.getElementById("statProofRate").textContent = `${m.proofPct}%`;
+      document.getElementById("statProofSub").textContent = `${m.totalProofs} proofs (${m.photos}P, ${m.audios}A, ${m.videos}V)`;
+
+      document.getElementById("statFlagged").textContent = m.flaggedCount;
+      document.getElementById("statFlaggedSub").textContent = m.flaggedCount === 0
+        ? "All records verified"
+        : `${m.flaggedCount} student(s) require check`;
+
+      document.getElementById("execSummaryTitle").textContent = `Management Summary - ${scopeLabel}`;
+      const checkSentence = m.flaggedCount > 0
+        ? `${m.flaggedCount} student(s) are marked "Needs Review" due to rapid completion or missing evidence and require a 30-second verbal teacher check.`
+        : `All completed student records have been verified with supporting proof.`;
+      document.getElementById("execSummaryText").textContent =
+        `${m.active} of ${m.enrolled} enrolled students (${m.activePct}%) participated today, completing ${m.completedHabits} out of ${m.assignedHabits} assigned daily habits (${m.completionPct}% completion rate) with ${m.totalProofs} media proofs submitted. ${checkSentence}`;
+    }
+
+    // 2. Render Overall vs Batch-by-Batch Comparison Table
+    function renderBatchComparisonTable() {
+      const r1 = loadBatchRoster("BAT01");
+      const r2 = loadBatchRoster("BAT02");
+      const m1 = computeGroupMetrics(r1);
+      const m2 = computeGroupMetrics(r2);
+      const mAll = computeGroupMetrics([...r1, ...r2]);
+
+      const rows = [
+        {
+          id: "BAT01",
+          name: "BAT01",
+          model: BATCHES.BAT01.curriculum,
+          m: m1,
+          isTotal: false
+        },
+        {
+          id: "BAT02",
+          name: "BAT02",
+          model: BATCHES.BAT02.curriculum,
+          m: m2,
+          isTotal: false
+        },
+        {
+          id: "ALL",
+          name: "Overall School Total",
+          model: "Combined (BAT01 + BAT02)",
+          m: mAll,
+          isTotal: true
+        }
+      ];
+
+      const compTbody = document.getElementById("batchComparisonTbody");
+      compTbody.innerHTML = "";
+
+      rows.forEach(r => {
+        const tr = document.createElement("tr");
+        if (r.isTotal) {
+          tr.className = "summary-total-row";
+        } else if (currentBatchId === r.id) {
+          tr.className = "active-batch-row";
+        }
+
+        tr.innerHTML = `
+          <td><strong>${r.name}</strong></td>
+          <td style="color: var(--text-muted);">${r.model}</td>
+          <td>${r.m.enrolled}</td>
+          <td>${r.m.active} / ${r.m.enrolled} (${r.m.activePct}%)</td>
+          <td>${r.m.completedHabits} / ${r.m.assignedHabits}</td>
+          <td>
+            <div class="progress-wrap">
+              <div class="progress-track"><div class="progress-fill" style="width: ${r.m.completionPct}%;"></div></div>
+              <span class="progress-pct">${r.m.completionPct}%</span>
+            </div>
+          </td>
+          <td>${r.m.totalProofs} (${r.m.photos}P / ${r.m.audios}A / ${r.m.videos}V)</td>
+          <td>${r.m.verifiedCount}</td>
+          <td><strong>${r.m.flaggedCount}</strong></td>
+        `;
+        compTbody.appendChild(tr);
+      });
+    }
+
+    // 3. Render Batch-Level Detailed Breakdown (Habit Areas, Age Groups, Evidence Types)
+    function renderBatchDetailedAnalytics() {
+      const scopeTitle = currentBatchId === "ALL" ? "Overall School (All Batches)" : `Batch ${currentBatchId}`;
+      document.getElementById("breakdownSectionTitle").textContent = `2. Detailed Analytics Breakdown - ${scopeTitle}`;
+      document.getElementById("rosterSectionTitle").textContent = `3. Student Roster & Daily Verification - ${scopeTitle}`;
+
+      // 3A. Dimension Breakdown
+      const dims = computeDimensionAnalytics(activeRoster, currentBatchId);
+      const dimTbody = document.getElementById("dimensionAnalyticsTbody");
+      dimTbody.innerHTML = "";
+
+      dims.forEach(d => {
+        const pct = d.assigned > 0 ? Math.round((d.done / d.assigned) * 100) : 0;
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><strong>${d.label}</strong></td>
+          <td>${d.done} / ${d.assigned}</td>
+          <td>
+            <div class="progress-wrap">
+              <div class="progress-track"><div class="progress-fill" style="width: ${pct}%;"></div></div>
+              <span class="progress-pct">${pct}%</span>
+            </div>
+          </td>
+        `;
+        dimTbody.appendChild(tr);
+      });
+
+      // 3B. Age Group Breakdown
+      const ageGroups = computeAgeGroupAnalytics(activeRoster);
+      const ageTbody = document.getElementById("ageAnalyticsTbody");
+      ageTbody.innerHTML = "";
+
+      ageGroups.forEach(ag => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><strong>${ag.label}</strong></td>
+          <td>${ag.students}</td>
+          <td>${ag.completedHabits} / ${ag.assignedHabits}</td>
+          <td>${ag.completionPct}%</td>
+          <td>${ag.flaggedCount}</td>
+        `;
+        ageTbody.appendChild(tr);
+      });
+
+      // 3C. Evidence Summary
+      const m = computeGroupMetrics(activeRoster);
+      const evTbody = document.getElementById("evidenceAnalyticsTbody");
+      evTbody.innerHTML = `
+        <tr>
+          <td><strong>${m.photos}</strong> Photos</td>
+          <td><strong>${m.audios}</strong> Audio</td>
+          <td><strong>${m.videos}</strong> Video</td>
+          <td><strong>${m.totalProofs}</strong> (${m.proofPct}%)</td>
+          <td><strong>${m.missingProofs}</strong> Missing</td>
+        </tr>
+      `;
+    }
+
+    // 4. Render Student Roster Table
+    function renderRosterTable() {
+      const q = searchInput.value.toLowerCase().trim();
+      const ageVal = ageSelect.value;
+      const statusVal = statusSelect.value;
+
+      const filtered = activeRoster.filter(s => {
+        const matchQ = !q || s.name.toLowerCase().includes(q) || String(s.age).includes(q) || (s.batch && s.batch.toLowerCase().includes(q));
+        const matchAge = ageVal === "ALL" || String(s.age) === ageVal;
+        const matchStatus = statusVal === "ALL" || s.status === statusVal;
+        return matchQ && matchAge && matchStatus;
+      });
+
+      tbody.innerHTML = "";
+
+      if (filtered.length === 0) {
+        const emptyMsg = activeRoster.length === 0
+          ? `No students enrolled in ${currentBatchId} yet.`
+          : `No students match the selected filter in ${currentBatchId}.`;
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 24px; color: var(--text-dim);">${emptyMsg}</td></tr>`;
+        return;
+      }
+
+      filtered.forEach(s => {
+        const tr = document.createElement("tr");
+        const isFlag = s.status === "review_needed";
+        const pct = s.total > 0 ? Math.round((s.completed / s.total) * 100) : 0;
+
+        let badge = "";
+        if (s.status === "verified") {
+          badge = `<span class="badge badge-verified">Verified with Evidence</span>`;
+        } else if (s.status === "review_needed") {
+          badge = `<span class="badge badge-flag">Needs Review (${s.durationSec ? s.durationSec + 's' : 'Proof'})</span>`;
+        } else if (s.status === "disputed") {
+          badge = `<span class="badge badge-disputed">Disputed</span>`;
+        } else {
+          badge = `<span class="badge badge-progress">In Progress</span>`;
+        }
+
+        const evSummary = getEvidenceSummaryText(s);
+        const safeName = s.name.replace(/'/g, "\\'");
+
+        tr.innerHTML = `
+          <td class="name-text">
+            ${s.name}
+            ${s.isLiveSynced ? '<span class="live-chip">LIVE</span>' : ''}
+          </td>
+          <td><strong>${s.batch || 'BAT01'}</strong></td>
+          <td>Age ${s.age}</td>
+          <td><strong>${s.completed}</strong> / ${s.total}</td>
+          <td>${pct}%</td>
+          <td style="color: var(--text-muted);">${evSummary}</td>
+          <td>${badge}</td>
+          <td style="text-align: right;">
+            <button class="btn-action ${isFlag ? 'flag-action' : ''}" onclick="openSpotCheck('${safeName}')">
+              ${isFlag ? 'Inspect Proof (Flag)' : 'Inspect Proof'}
+            </button>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Inspect Specific Habit Media Evidence inside Modal
+    window.inspectHabitMedia = function(habitKey) {
+      if (!selectedStudent || !selectedStudent.evidence) return;
+      const ev = selectedStudent.evidence[habitKey];
+      if (!ev) return;
+
+      const titleEl = document.getElementById("evViewerTitle");
+      const stageEl = document.getElementById("evViewerStage");
+      const metaEl = document.getElementById("evViewerMeta");
+
+      const typeLabel = ev.type === "photo" ? "Photo Proof" : (ev.type === "audio" ? "Audio Voice Clip" : "Video Action Clip");
+      titleEl.textContent = `${typeLabel}: ${habitKey}`;
+
+      if (ev.type === "photo") {
+        const photoSrc = ev.base64 ? `data:image/jpeg;base64,${ev.base64}` : (ev.uri || '');
+        const imgHtml = photoSrc ? `
+          <div style="margin: 10px 0; text-align: center; background: #0F172A; border-radius: 4px; padding: 6px;">
+            <img src="${photoSrc}" alt="Submitted Habit Proof" style="max-width: 100%; max-height: 280px; object-fit: contain; border-radius: 4px; display: inline-block;">
+          </div>
+        ` : '';
+
+        stageEl.innerHTML = `
+          <div><strong>Submitted Snapshot File:</strong> ${ev.fileName || 'IMG_PROOF.jpg'} ${ev.fileSize ? '(' + (ev.fileSize > 1024 ? Math.round(ev.fileSize/1024) + ' KB' : ev.fileSize + ' B') + ')' : ''}</div>
+          ${imgHtml}
+          <div style="margin-top: 6px;"><strong>Student Note:</strong> "${ev.note || ev.summary || 'Completed habit task'}"</div>
+          <div style="margin-top: 6px; font-weight: 700;">Status: Image proof recorded on student device</div>
+        `;
+      } else if (ev.type === "audio") {
+        const audioSrc = ev.uri || '';
+        const audioPlayerHtml = (audioSrc && (audioSrc.startsWith('http') || audioSrc.startsWith('blob:') || audioSrc.startsWith('data:'))) ? `
+          <div style="margin: 10px 0;">
+            <audio controls src="${audioSrc}" style="width: 100%;"></audio>
+          </div>
+        ` : '';
+
+        stageEl.innerHTML = `
+          <div><strong>Submitted Voice Recording:</strong> ${ev.fileName || 'AUD_PROOF.m4a'} (${ev.durationSec || 10}s)</div>
+          ${audioPlayerHtml}
+          <div style="margin-top: 6px;"><strong>Student Note:</strong> "${ev.note || ev.summary || 'Voice explanation recorded'}"</div>
+          <div style="margin-top: 8px;">
+            <button class="btn-ev-view" onclick="playSimulatedAudio(this, ${ev.durationSec || 8})">Play Voice Recording (${ev.durationSec || 8}s)</button>
+          </div>
+        `;
+      } else {
+        const videoSrc = ev.uri || '';
+        const videoPlayerHtml = (videoSrc && (videoSrc.startsWith('http') || videoSrc.startsWith('blob:') || videoSrc.startsWith('data:'))) ? `
+          <div style="margin: 10px 0; text-align: center;">
+            <video controls src="${videoSrc}" style="max-width: 100%; max-height: 260px; border-radius: 4px;"></video>
+          </div>
+        ` : '';
+
+        stageEl.innerHTML = `
+          <div><strong>Submitted Video Clip:</strong> ${ev.fileName || 'VID_PROOF.mp4'} (${ev.durationSec || 12}s)</div>
+          ${videoPlayerHtml}
+          <div style="margin-top: 6px;"><strong>Student Note:</strong> "${ev.note || ev.summary || 'Video proof recorded'}"</div>
+          <div style="margin-top: 8px;">
+            <button class="btn-ev-view" onclick="playSimulatedVideo(this, ${ev.durationSec || 12})">Play Video Clip (${ev.durationSec || 12}s)</button>
+          </div>
+        `;
+      }
+
+      metaEl.textContent = `Synchronized from Habitopia Student App | Student: ${selectedStudent.name}`;
+      evidenceViewer.style.display = "block";
+    };
+
+    window.playSimulatedAudio = function(btn, sec) {
+      btn.textContent = "Playing Audio Clip...";
+      btn.disabled = true;
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(440, ctx.currentTime);
+        gain.gain.setValueAtTime(0.05, ctx.currentTime);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.35);
+      } catch (e) {}
+      setTimeout(() => {
+        btn.textContent = `Re-play Voice Recording (${sec}s)`;
+        btn.disabled = false;
+      }, 1500);
+    };
+
+    window.playSimulatedVideo = function(btn, sec) {
+      btn.textContent = "Playing Video Clip Stream...";
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = `Re-play Video Clip (${sec}s)`;
+        btn.disabled = false;
+      }, 1500);
+    };
+
+    document.getElementById("btnCloseEvViewer").addEventListener("click", () => {
+      evidenceViewer.style.display = "none";
+    });
+
+    // Spot-Check Action Modal
+    window.openSpotCheck = function(studentName) {
+      selectedStudent = activeRoster.find(s => s.name === studentName);
+      if (!selectedStudent) return;
+
+      evidenceViewer.style.display = "none";
+      document.getElementById("mName").textContent = selectedStudent.name;
+      document.getElementById("mMeta").textContent = `Age ${selectedStudent.age} | ${selectedStudent.batch} | ${getEvidenceSummaryText(selectedStudent)}`;
+
+      const diag = document.getElementById("mDiag");
+      if (selectedStudent.status === "review_needed") {
+        diag.className = "diag-box flag";
+        diag.innerHTML = `<strong>Audit Flag:</strong> ${selectedStudent.reason}. Review the submitted media proof and ask the 30-second verbal questions below before verifying.`;
+      } else if (selectedStudent.status === "verified") {
+        diag.className = "diag-box";
+        diag.innerHTML = `<strong>Verified Record:</strong> ${selectedStudent.reason}. Completions include submitted media evidence and realistic daily intervals.`;
+      } else {
+        diag.className = "diag-box";
+        diag.innerHTML = `<strong>Status:</strong> ${selectedStudent.reason}.`;
+      }
+
+      const logBody = document.getElementById("mLogTbody");
+      logBody.innerHTML = "";
+
+      const keys = Object.keys(selectedStudent.timestamps || {});
+      if (keys.length === 0) {
+        logBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-dim); padding: 8px;">No habits marked today.</td></tr>`;
+      } else {
+        keys.forEach((habit, i) => {
+          const tr = document.createElement("tr");
+          const time = selectedStudent.timestamps[habit];
+          const ev = selectedStudent.evidence && selectedStudent.evidence[habit];
+          let evText = `<span style="font-weight: 700;">Missing Proof</span>`;
+          let actionHtml = `<span style="color: var(--text-dim);">None</span>`;
+
+          if (ev && ev.type) {
+            const typeCap = ev.type === "photo" ? "Photo" : (ev.type === "audio" ? `Audio (${ev.durationSec || 8}s)` : `Video (${ev.durationSec || 12}s)`);
+            evText = `<strong>${typeCap}</strong>${ev.note ? '<div style="font-size: 11px; color: var(--text-muted);">' + ev.note + '</div>' : ''}`;
+            const safeKey = habit.replace(/'/g, "\\'");
+            const btnLabel = ev.type === "photo" ? "View Photo" : (ev.type === "audio" ? "Listen" : "Watch");
+            actionHtml = `<button class="btn-ev-view" onclick="inspectHabitMedia('${safeKey}')">${btnLabel}</button>`;
+          }
+
+          tr.innerHTML = `
+            <td>${i + 1}</td>
+            <td><strong>${habit}</strong></td>
+            <td>${evText}</td>
+            <td style="font-family: monospace;">${time}</td>
+            <td>${actionHtml}</td>
+          `;
+          logBody.appendChild(tr);
+        });
+      }
+
+      spotModal.style.display = "flex";
+    };
+
+    document.getElementById("btnCloseModal").addEventListener("click", () => {
+      spotModal.style.display = "none";
+    });
+
+    document.getElementById("btnVerify").addEventListener("click", () => {
+      if (!selectedStudent) return;
+      selectedStudent.status = "verified";
+      selectedStudent.reason = "Teacher verified submitted evidence and verbal check in class";
+      spotModal.style.display = "none";
+      render();
+    });
+
+    document.getElementById("btnDispute").addEventListener("click", () => {
+      if (!selectedStudent) return;
+      selectedStudent.status = "disputed";
+      selectedStudent.reason = "Disputed by teacher after evidence review. Marks reset.";
+      selectedStudent.completed = 0;
+      selectedStudent.timestamps = {};
+      selectedStudent.evidence = {};
+      spotModal.style.display = "none";
+      render();
+    });
+
+    // Sync Student Code Modal Handlers
+    const importModal = document.getElementById("importModal");
+    const importInput = document.getElementById("importInput");
+
+    document.getElementById("btnImportOpen").addEventListener("click", () => {
+      importInput.value = "";
+      importModal.style.display = "flex";
+    });
+
+    document.getElementById("btnCloseImport").addEventListener("click", () => {
+      importModal.style.display = "none";
+    });
+
+    document.getElementById("btnCancelImport").addEventListener("click", () => {
+      importModal.style.display = "none";
+    });
+
+    document.getElementById("btnSubmitImport").addEventListener("click", () => {
+      const raw = importInput.value.trim();
+      if (!raw) return;
+      try {
+        const data = JSON.parse(raw);
+        const targetBatch = (data.batch === "BAT02" ? "BAT02" : "BAT01");
+        const formattedTimestamps = {};
+        const formattedEvidence = {};
+        const rawTs = data.timestamps || {};
+        const rawEv = data.evidence || {};
+
+        Object.keys(rawTs).forEach(hid => {
+          const label = HABIT_NAME_MAP[hid] || hid;
+          const tsVal = rawTs[hid];
+          formattedTimestamps[label] = tsVal && tsVal.includes("T")
+            ? new Date(tsVal).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+            : String(tsVal);
+        });
+
+        Object.keys(rawEv).forEach(hid => {
+          const label = HABIT_NAME_MAP[hid] || hid;
+          formattedEvidence[label] = rawEv[hid];
+        });
+
+        const syncedStudent = {
+          name: data.name || "Synced Student",
+          age: Number(data.age) || 10,
+          batch: targetBatch,
+          completed: Number(data.completed) || Object.keys(formattedTimestamps).length,
+          total: Number(data.total) || (targetBatch === "BAT02" ? 6 : 5),
+          status: data.status || "verified",
+          reason: data.reason || "Synchronized via Student Audit Code with media evidence",
+          durationSec: Number(data.durationSec) || 0,
+          timestamps: formattedTimestamps,
+          evidence: formattedEvidence,
+          isLiveSynced: true
+        };
+
+        const batchList = loadBatchRoster(targetBatch);
+        const idx = batchList.findIndex(s => s.name.toLowerCase() === syncedStudent.name.toLowerCase());
+        if (idx >= 0) {
+          batchList[idx] = syncedStudent;
+        } else {
+          batchList.unshift(syncedStudent);
+        }
+
+        importModal.style.display = "none";
+        render();
+      } catch (err) {
+        alert("Invalid Student Audit Code format. Please paste the exact JSON exported from the Habitopia app.");
+      }
+    });
+
+    // Export CSV (Includes Batch Summary + Student Roster for Excel)
+    document.getElementById("btnExport").addEventListener("click", () => {
+      const r1 = loadBatchRoster("BAT01");
+      const r2 = loadBatchRoster("BAT02");
+      const m1 = computeGroupMetrics(r1);
+      const m2 = computeGroupMetrics(r2);
+      const mAll = computeGroupMetrics([...r1, ...r2]);
+
+      let csv = "SECTION 1: SCHOOL & BATCH ANALYTICS SUMMARY\n";
+      csv += "Batch,Enrolled Students,Active Today,Participation %,Habits Completed,Habits Assigned,Completion %,Proofs Submitted,Verified Honest,Needs Teacher Check\n";
+      csv += `"BAT01",${m1.enrolled},${m1.active},${m1.activePct}%,${m1.completedHabits},${m1.assignedHabits},${m1.completionPct}%,${m1.totalProofs},${m1.verifiedCount},${m1.flaggedCount}\n`;
+      csv += `"BAT02",${m2.enrolled},${m2.active},${m2.activePct}%,${m2.completedHabits},${m2.assignedHabits},${m2.completionPct}%,${m2.totalProofs},${m2.verifiedCount},${m2.flaggedCount}\n`;
+      csv += `"OVERALL SCHOOL TOTAL",${mAll.enrolled},${mAll.active},${mAll.activePct}%,${mAll.completedHabits},${mAll.assignedHabits},${mAll.completionPct}%,${mAll.totalProofs},${mAll.verifiedCount},${mAll.flaggedCount}\n\n`;
+
+      csv += `SECTION 2: STUDENT ROSTER (${currentBatchId})\n`;
+      csv += "Student Name,Batch,Age,Habits Done,Total Assigned,Completion %,Evidence Proof,Status,Reason\n";
+      activeRoster.forEach(s => {
+        const pct = s.total > 0 ? Math.round((s.completed / s.total) * 100) : 0;
+        csv += `"${s.name}","${s.batch}",${s.age},${s.completed},${s.total},${pct}%,"${getEvidenceSummaryText(s)}","${s.status}","${s.reason}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `habitopia_${currentBatchId}_school_analytics_report.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+
+    // Print Sheet (Clean A4 Print Layout)
+    document.getElementById("btnPrint").addEventListener("click", () => {
+      window.print();
+    });
+
+    // Filter event listeners
+    batchSelect.addEventListener("change", (e) => switchBatch(e.target.value));
+    searchInput.addEventListener("input", renderRosterTable);
+    ageSelect.addEventListener("change", renderRosterTable);
+    statusSelect.addEventListener("change", renderRosterTable);
+
+    // Reactive Storage Event Listener (Live Direct Sync from Habitopia App)
+    window.addEventListener("storage", () => {
+      runtimeRosters.BAT01 = null;
+      runtimeRosters.BAT02 = null;
+      render();
+    });
+
+    // Initial Setup
+    updateAgeOptions(currentBatchId);
+    render();
+  </script>
+</body>
+</html>

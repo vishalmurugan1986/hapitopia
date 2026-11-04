@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habitopia - Build a future-proof child | Achariya</title>
+  <link rel="icon" type="image/svg+xml" href="./habitopia_sprout_app_icon.svg">
+  <style>
+    :root {
+      --bg: #021427;
+      --card: #042C53;
+      --card-elevated: #093C6F;
+      --primary: #5DCAA5;
+      --secondary: #FAC775;
+      --tertiary: #85B7EB;
+      --purple: #AFA9EC;
+      --rose: #ED93B1;
+      --orange: #F0997B;
+      --tx: #F8FAFC;
+      --mu: #94A3B8;
+      --line: #222A3D;
+      --line-high: #334155;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--tx);
+      line-height: 1.6;
+      padding: 0;
+    }
+    .hero {
+      text-align: center;
+      padding: 56px 20px 40px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .logo-img {
+      width: 130px;
+      height: 130px;
+      border-radius: 30px;
+      background: #FFFFFF;
+      padding: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 12px 32px rgba(93, 202, 165, 0.3);
+    }
+    h1 {
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 10px;
+    }
+    .tagline {
+      font-size: 19px;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .desc {
+      font-size: 15.5px;
+      color: var(--mu);
+      max-width: 660px;
+      margin: 0 auto 28px;
+      line-height: 1.7;
+    }
+    .pill-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    .pill {
+      background: var(--card-elevated);
+      border: 1px solid var(--line-high);
+      border-radius: 20px;
+      padding: 7px 15px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--tx);
+    }
+    .pill.green {
+      border-color: rgba(93, 202, 165, 0.4);
+      color: var(--primary);
+      background: rgba(93, 202, 165, 0.1);
+    }
+    .pill.gold {
+      border-color: rgba(250, 199, 117, 0.4);
+      color: var(--secondary);
+      background: rgba(250, 199, 117, 0.1);
+    }
+    .section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px 44px;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .section-sub {
+      font-size: 13.5px;
+      color: var(--mu);
+    }
+    /* Comparison Grid */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+    .compare-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      position: relative;
+    }
+    .compare-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .compare-title {
+      font-size: 19px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .compare-desc {
+      font-size: 13.5px;
+      color: var(--mu);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--tx);
+    }
+    .feature-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .feature-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--primary);
+      flex-shrink: 0;
+    }
+    /* 6 Dimensions Grid */
+    .grid-6 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .dim-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      transition: transform 0.2s;
+    }
+    .dim-card:hover {
+      transform: translateY(-2px);
+    }
+    .dim-badge-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .dim-tag {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .dim-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .dim-sub {
+      font-size: 12.5px;
+      color: var(--mu);
+      line-height: 1.5;
+    }
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 36px 20px;
+      text-align: center;
+      color: var(--mu);
+      font-size: 13.5px;
+      background: var(--card);
+    }
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <img src="./habitopia_sprout_app_icon.svg" alt="Habitopia Icon" class="logo-img">
+    <h1>Habitopia</h1>
+    <div class="tagline">Build a future-proof child</div>
+    <p class="desc">The complete habit game platform designed for children ages 7 to 14. Master foundational habits through two specialized curriculum architectures: <strong>BAT01</strong> (Age-Tiered 35-Habit System) and <strong>BAT02</strong> (25-Week Progressive 30-Habit System with 5 Q Power Habits).</p>
+
+    <div class="pill-row">
+      <div class="pill green">BAT01 Curriculum (35 Habits)</div>
+      <div class="pill gold">BAT02 Curriculum (30 Habits)</div>
+      <div class="pill">6 Growth Dimensions</div>
+      <div class="pill">English & தமிழ்</div>
+      <div class="pill">Media Proof Verification</div>
+      <div class="pill">100% On-Device & Offline</div>
+    </div>
+
+    <div style="margin-bottom: 28px;">
+      <a href="./management.html" style="display: inline-block; padding: 11px 24px; background: var(--primary); color: #FFFFFF; font-weight: 700; text-decoration: none; border-radius: 12px; font-size: 14px; box-shadow: 0 4px 14px rgba(93, 202, 165, 0.3);">Open School Management Portal</a>
+    </div>
+  </div>
+
+  <!-- Curriculum Architecture Comparison -->
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">Two Dedicated Curriculum Architectures</h2>
+      <p class="section-sub">Choose your batch access code upon player creation to unlock the respective curriculum</p>
+    </div>
+
+    <div class="compare-grid">
+      <!-- BAT01 Card -->
+      <div class="compare-card" style="border-top: 4px solid var(--primary);">
+        <div class="compare-badge" style="background: rgba(93, 202, 165, 0.15); color: var(--primary);">
+          Cohort: BAT01 (Classes 2–8)
+        </div>
+        <h3 class="compare-title">35 Core Habits (5×7 System)</h3>
+        <p class="compare-desc">Age-graded curriculum spanning Classes 2 to 8. Habits unlock across Starter, Builder, and Master age-tiers with 5x7 matrix weekly scoring.</p>
+        <ul class="feature-list">
+          <li><span class="feature-dot"></span><strong>Ages 7–9 (Starter):</strong> 5 foundational daily habits (1 per dimension)</li>
+          <li><span class="feature-dot"></span><strong>Ages 10–11 (Builder):</strong> 15 active daily habits (3 per dimension)</li>
+          <li><span class="feature-dot"></span><strong>Ages 12–14 (Leader / CEO):</strong> All 35 habits (7 per dimension)</li>
+          <li><span class="feature-dot"></span><strong>5 Growth Dimensions:</strong> Physical, Mental, Intellectual, Emotional, Financial</li>
+          <li><span class="feature-dot"></span><strong>Scoring:</strong> 350-Point weekly score with Bronze, Silver, and Gold mastery tiers</li>
+        </ul>
+      </div>
+
+      <!-- BAT02 Card -->
+      <div class="compare-card" style="border-top: 4px solid var(--secondary);">
+        <div class="compare-badge" style="background: rgba(250, 199, 117, 0.18); color: var(--secondary);">
+          Cohort: BAT02 (25-Week Curriculum)
+        </div>
+        <h3 class="compare-title">30 Habits (25-Week Progression)</h3>
+        <p class="compare-desc">Workshop-driven progression starting with 5 Core Q Power Habits and adding 1 new dimension habit each week in a 5-dimension rotating cycle.</p>
+        <ul class="feature-list">
+          <li><span class="feature-dot" style="background: var(--secondary);"></span><strong>5 Q Power Habits:</strong> Daily baseline (Eye Ball, Speed Reading, Concentration Music, Blind Fold, Affirmations)</li>
+          <li><span class="feature-dot" style="background: var(--secondary);"></span><strong>25-Week Curriculum:</strong> Unlocks +1 habit weekly in rotation: P &rarr; M &rarr; I &rarr; E &rarr; F</li>
+          <li><span class="feature-dot" style="background: var(--secondary);"></span><strong>Week 1 (6 habits) &rarr; Week 25 (30 habits):</strong> Steady, non-congested compound growth</li>
+          <li><span class="feature-dot" style="background: var(--secondary);"></span><strong>6 Total Dimensions:</strong> Q Power Habits + Physical, Mental, Intellectual, Emotional, Financial</li>
+          <li><span class="feature-dot" style="background: var(--secondary);"></span><strong>Week Selector:</strong> Jump to or review any of the 25 curriculum weeks on demand</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Dimensions Section -->
+    <div class="section-header">
+      <h2 class="section-title">The 6 Growth Dimensions</h2>
+      <p class="section-sub">Holistic physical, sensory, cognitive, emotional, and practical intelligence</p>
+    </div>
+
+    <div class="grid-6">
+      <div class="dim-card" style="border-top: 3px solid #FAC775;">
+        <div class="dim-badge-row">
+          <span class="dim-tag" style="color: #FAC775;">BAT02</span>
+          <span style="font-size: 11px; color: var(--mu);">5 Habits</span>
+        </div>
+        <div class="dim-title" style="color: #FAC775;">Q Power Habits</div>
+        <div class="dim-sub">Activation Workshop Core. Eye Ball Exercise, Speed Reading, Alpha Music, Blindfold Focus, Affirmations.</div>
+      </div>
+
+      <div class="dim-card" style="border-top: 3px solid #5DCAA5;">
+        <div class="dim-badge-row">
+          <span class="dim-tag" style="color: #5DCAA5;">Dimension P</span>
+          <span style="font-size: 11px; color: var(--mu);">BAT01 &amp; BAT02</span>
+        </div>
+        <div class="dim-title" style="color: #5DCAA5;">Physically Healthy</div>
+        <div class="dim-sub">Body = First Classroom. Sunlight &amp; Warm Up, Move 30, Water First, Sleep Champion, Deep Breathing.</div>
+      </div>
+
+      <div class="dim-card" style="border-top: 3px solid #AFA9EC;">
+        <div class="dim-badge-row">
+          <span class="dim-tag" style="color: #AFA9EC;">Dimension M</span>
+          <span style="font-size: 11px; color: var(--mu);">BAT01 &amp; BAT02</span>
+        </div>
+        <div class="dim-title" style="color: #AFA9EC;">Mentally Strong</div>
+        <div class="dim-sub">Mind &gt; Mood. Visualize Future Self, Daily Gratitude, Win the Morning, Mindful Pause, Digital Boundaries.</div>
+      </div>
+
+      <div class="dim-card" style="border-top: 3px solid #85B7EB;">
+        <div class="dim-badge-row">
+          <span class="dim-tag" style="color: #85B7EB;">Dimension I</span>
+          <span style="font-size: 11px; color: var(--mu);">BAT01 &amp; BAT02</span>
+        </div>
+        <div class="dim-title" style="color: #85B7EB;">Intellectually Sharp</div>
+        <div class="dim-sub">Brain on Beast Mode. Brain Gym &amp; Logic, Read 10 Pages, Ask Why Questions, Daily Journaling, Teach to Learn.</div>
+      </div>
+
+      <div class="dim-card" style="border-top: 3px solid #ED93B1;">
+        <div class="dim-badge-row">
+          <span class="dim-tag" style="color: #ED93B1;">Dimension E</span>
+          <span style="font-size: 11px; color: var(--mu);">BAT01 &amp; BAT02</span>
+        </div>
+        <div class="dim-title" style="color: #ED93B1;">Emotionally Balanced</div>
+        <div class="dim-sub">Heart with IQ. Emotion Check-in, Deep Listening, Daily Kind Act, Express Appreciation, Respond Do Not React.</div>
+      </div>
+
+      <div class="dim-card" style="border-top: 3px solid #F0997B;">
+        <div class="dim-badge-row">
+          <span class="dim-tag" style="color: #F0997B;">Dimension F</span>
+          <span style="font-size: 11px; color: var(--mu);">BAT01 &amp; BAT02</span>
+        </div>
+        <div class="dim-title" style="color: #F0997B;">Financially Wealthy</div>
+        <div class="dim-sub">Money Smart Early. 4-Jars / 3-Jar Savings Method, Needs vs Wants, Track Expenses, Value Creation.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-links">
+      <a href="./management.html">School Management Portal</a>
+      <a href="./privacy.html">Privacy Policy</a>
+      <a href="./support.html">Support &amp; FAQ</a>
+      <a href="https://achariya.in" target="_blank" rel="noopener">Achariya World Class Education</a>
+    </div>
+    <p>&copy; 2026 Achariya Educational Trust. All rights reserved.</p>
+  </div>
+</body>
+</html>
