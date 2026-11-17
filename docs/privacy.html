@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - Habitopia | Achariya</title>
+  <meta name="theme-color" content="#FFF6E9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#151238" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" href="./habitopia_sprout_app_icon.png">
+  <link rel="apple-touch-icon" href="./habitopia_sprout_app_icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- Sprout Play tokens: Sunny Meadow (light) ---------- */
+    :root {
+      color-scheme: light dark;
+      --bg: #FFF6E9;
+      --surface-low: #FFFBF4;
+      --card: #FFFFFF;
+      --well: #F8EEDD;
+      --ledge: #E9DBC2;
+      --text: #26214A;
+      --muted: #5E587E;
+      --subtle: #8E88AA;
+      --line: rgba(38, 33, 74, .10);
+      --line-strong: rgba(38, 33, 74, .18);
+      --primary: #0E8A5F;
+      --primary-fill: #18B57E;
+      --primary-ledge: #06573B;
+      --primary-soft: #E8FBF3;
+      --on-primary: #FFFFFF;
+      --secondary: #B26B00;
+      --secondary-fill: #FFB915;
+      --secondary-ledge: #D18E00;
+      --secondary-soft: #FFF6DB;
+      --sky: #1B6AD0;
+      --grape: #5B3FD6;
+      --grape-soft: #F1EDFF;
+      --r-10: 10px; --r-14: 14px; --r-18: 18px; --r-24: 24px; --r-32: 32px; --r-pill: 999px;
+      --font-display: "Fredoka", "Nunito", system-ui, sans-serif;
+      --font-body: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    /* ---------- Sprout Play tokens: Starry Night (dark) ---------- */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #151238;
+        --surface-low: #1D1948;
+        --card: #252058;
+        --well: #0E0B2B;
+        --ledge: #0E0B2B;
+        --text: #F8F6FF;
+        --muted: #C3BDEA;
+        --subtle: #958FC4;
+        --line: rgba(255, 255, 255, .10);
+        --line-strong: rgba(255, 255, 255, .18);
+        --primary: #5FE3B0;
+        --primary-fill: #5FE3B0;
+        --primary-ledge: #2B9A72;
+        --primary-soft: rgba(95, 227, 176, .14);
+        --on-primary: #151238;
+        --secondary: #FFD45E;
+        --secondary-fill: #FFD45E;
+        --secondary-ledge: #C99A1F;
+        --secondary-soft: rgba(255, 212, 94, .14);
+        --sky: #7CC0FF;
+        --grape: #AE9BFF;
+        --grape-soft: rgba(174, 155, 255, .14);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 6% 2%, var(--secondary-soft) 0, transparent 260px),
+        radial-gradient(circle at 94% 8%, var(--primary-soft) 0, transparent 300px);
+      background-repeat: no-repeat;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      padding: 32px 16px;
+      overflow-x: hidden;
+    }
+    :focus-visible {
+      outline: 3px solid var(--sky);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1.5px solid var(--line-strong);
+      border-bottom: 5px solid var(--ledge);
+      border-radius: var(--r-32);
+      padding: 40px 32px;
+    }
+    @media (max-width: 520px) {
+      body { padding: 16px 12px; }
+      .container { padding: 28px 18px; border-radius: var(--r-24); }
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      border-bottom: 1.5px dashed var(--line-strong);
+      padding-bottom: 24px;
+    }
+    .app-icon {
+      width: 72px;
+      height: 72px;
+      flex-shrink: 0;
+      border-radius: var(--r-18);
+      border: 1.5px solid var(--line-strong);
+      box-shadow: 0 4px 0 var(--ledge);
+      transform: rotate(-4deg);
+    }
+    .title-group h1 {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--text);
+    }
+    .title-group p {
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 15px;
+      margin: 2px 0 0;
+    }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: var(--r-pill);
+      font-size: 13px;
+      font-weight: 800;
+      border: 1.5px solid var(--line-strong);
+      border-bottom-width: 3px;
+      background: var(--surface-low);
+      color: var(--text);
+    }
+    .badge.green {
+      border-color: color-mix(in srgb, var(--primary) 30%, transparent);
+      color: var(--primary);
+      background: var(--primary-soft);
+    }
+    .badge.gold {
+      border-color: color-mix(in srgb, var(--secondary) 30%, transparent);
+      color: var(--secondary);
+      background: var(--secondary-soft);
+    }
+    h2 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--primary);
+      margin: 36px 0 12px 0;
+      line-height: 1.3;
+    }
+    p, li {
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+    ul {
+      margin-left: 22px;
+      margin-bottom: 16px;
+    }
+    li {
+      margin-bottom: 8px;
+      padding-left: 4px;
+    }
+    li::marker { color: var(--primary-fill); }
+    strong {
+      color: var(--text);
+      font-weight: 800;
+    }
+    code {
+      font-size: 14px;
+      background: var(--well);
+      border-radius: 6px;
+      padding: 1px 6px;
+      color: var(--text);
+    }
+    a { color: var(--primary); font-weight: 700; }
+    .highlight-box {
+      background: var(--primary-soft);
+      border: 1.5px solid color-mix(in srgb, var(--primary) 30%, transparent);
+      border-bottom: 5px solid color-mix(in srgb, var(--primary) 45%, transparent);
+      border-radius: var(--r-24);
+      padding: 20px;
+      margin: 24px 0;
+    }
+    .highlight-box p {
+      color: var(--text);
+      margin: 0;
+      font-size: 16px;
+    }
+    .footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1.5px dashed var(--line-strong);
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footer p { font-size: 14px; }
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .footer a:hover { text-decoration: underline; }
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      margin-top: 16px;
+    }
+    .footer-credit {
+      margin-top: 12px;
+      font-size: 13px !important;
+      color: var(--subtle);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+      .app-icon { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="./habitopia_sprout_app_icon.png" alt="Habitopia App Icon" class="app-icon" width="72" height="72">
+      <div class="title-group">
+        <h1>Habitopia</h1>
+        <p>Build a future-proof child · Privacy Policy</p>
+      </div>
+    </div>
+
+    <div class="badge-row">
+      <span class="badge green">&#10003; 100% On-Device Local Storage</span>
+      <span class="badge green">&#10003; Zero Cloud Tracking</span>
+      <span class="badge green">&#10003; DPDP Act 2023 Compliant</span>
+      <span class="badge green">&#10003; COPPA Compliant</span>
+      <span class="badge gold">BAT01 &amp; BAT02 Verified</span>
+      <span class="badge">Ages 7–14 Safe</span>
+    </div>
+
+    <p><strong>Last Updated:</strong> November 2026</p>
+    <p>This Privacy Policy applies to the <strong>Habitopia</strong> mobile application developed and published by <strong>Achariya Educational Trust</strong> ("Achariya", "we", "us", or "our") supporting both <strong>BAT01</strong> and <strong>BAT02</strong> student cohorts.</p>
+
+    <div class="highlight-box">
+      <p><strong>Summary for Parents, Teachers and Guardians:</strong> Habitopia is an educational habit development application designed for children ages 7 to 14. We respect child data privacy. <strong>All habit progress, profiles, logs, media proof attachments (photos, voice notes, video clips), and reflection notes are stored 100% locally on your child's device. We do not transmit, collect, track, or sell any personal information to cloud servers or third parties.</strong></p>
+    </div>
+
+    <h2>1. Data Collection and Storage Practices</h2>
+    <p>Habitopia adheres to strict privacy-by-design principles across both BAT01 and BAT02:</p>
+    <ul>
+      <li><strong>Local Only:</strong> Nicknames, ages (7–14), chosen crest avatars, school-assigned batch code, habit completion ticks, scores (XP), milestone journals, and PIN codes are saved solely in the device's internal sandboxed local storage (<code>AsyncStorage</code>).</li>
+      <li><strong>Local Media Evidence Storage:</strong> When children attach proof of completed habits (photos, voice notes, or short video clips), these media files remain strictly inside the local device storage. They are never uploaded to any remote server or shared with external parties.</li>
+      <li><strong>Anti-Cheat Audit Trail:</strong> Timestamp spacing checks and verification hashes are computed locally on the device to assist school management audits without transmitting private data over the internet.</li>
+      <li><strong>No Account Creation:</strong> No email address, telephone number, physical address, biometric data, or government identity is required or collected.</li>
+      <li><strong>No Server Sync:</strong> Habitopia operates entirely offline. There are no backend database servers collecting analytics, user logs, or tracking data.</li>
+    </ul>
+
+    <h2>2. Third-Party Services and Advertisements</h2>
+    <ul>
+      <li><strong>Zero Advertisements:</strong> Habitopia contains absolutely no third-party advertisements or ad-tracking SDKs.</li>
+      <li><strong>No Analytics SDKs:</strong> We do not integrate third-party trackers, crash telemetries, or behavioral profiling tools.</li>
+      <li><strong>No Location Tracking:</strong> The app does not access GPS, Bluetooth, or location services. Camera and microphone permissions are strictly used on-demand when the student attaches habit completion proof.</li>
+    </ul>
+
+    <h2>3. Compliance with Child Privacy Laws</h2>
+    <p>Habitopia strictly complies with global child privacy frameworks:</p>
+    <ul>
+      <li><strong>India's DPDP Act 2023:</strong> Full adherence to children's data protection rules under India's Digital Personal Data Protection Act 2023. No profiling or tracking of children.</li>
+      <li><strong>US COPPA:</strong> Compliance with the Children's Online Privacy Protection Act. We do not knowingly collect personal information from children under 13.</li>
+      <li><strong>Apple &amp; Google Families Policies:</strong> Meets all Apple App Store Kids Category and Google Play Families Policy guidelines.</li>
+    </ul>
+
+    <h2>4. Parental Control and Data Erasure</h2>
+    <p>Parents retain complete sovereignty over all data stored in the app:</p>
+    <ul>
+      <li><strong>Pin Lock:</strong> A 4-digit PIN secures player profiles and prevents unauthorized modification.</li>
+      <li><strong>Instant Reset:</strong> Parents can delete any profile and erase all stored logs, media proofs, and progress instantly by tapping <em>"Reset Profile"</em> under the Me/Settings tab.</li>
+      <li><strong>App Uninstall:</strong> Uninstalling the application from the device permanently purges all local data.</li>
+    </ul>
+
+    <h2>5. Contact Us</h2>
+    <p>If you have any questions or feedback regarding this Privacy Policy or the Habitopia application, please contact:</p>
+    <p>
+      <strong>Achariya Educational Trust</strong><br>
+      Email: <a href="mailto:support@achariya.in">support@achariya.in</a><br>
+      Website: <a href="https://achariya.in" target="_blank" rel="noopener">https://achariya.in</a>
+    </p>
+
+    <div class="footer">
+      <p>&copy; 2026 Achariya Educational Trust. All rights reserved.</p>
+      <div class="nav-links">
+        <a href="./index.html">App Overview</a>
+        <a href="./management.html">School Portal</a>
+        <a href="./support.html">Parent &amp; Teacher Support</a>
+      </div>
+      <p class="footer-credit">Habitopia by Achariya World Class Education</p>
+    </div>
+  </div>
+</body>
+</html>

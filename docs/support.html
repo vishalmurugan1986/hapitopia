@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support & Help Center - Habitopia | Achariya</title>
+  <meta name="theme-color" content="#FFF6E9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#151238" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" href="./habitopia_sprout_app_icon.png">
+  <link rel="apple-touch-icon" href="./habitopia_sprout_app_icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- Sprout Play tokens: Sunny Meadow (light) ---------- */
+    :root {
+      color-scheme: light dark;
+      --bg: #FFF6E9;
+      --surface-low: #FFFBF4;
+      --card: #FFFFFF;
+      --well: #F8EEDD;
+      --ledge: #E9DBC2;
+      --text: #26214A;
+      --muted: #5E587E;
+      --subtle: #8E88AA;
+      --line: rgba(38, 33, 74, .10);
+      --line-strong: rgba(38, 33, 74, .18);
+      --primary: #0E8A5F;
+      --primary-fill: #18B57E;
+      --primary-ledge: #06573B;
+      --primary-soft: #E8FBF3;
+      --on-primary: #FFFFFF;
+      --secondary: #B26B00;
+      --secondary-fill: #FFB915;
+      --secondary-soft: #FFF6DB;
+      --sky: #1B6AD0;
+      --r-10: 10px; --r-14: 14px; --r-18: 18px; --r-24: 24px; --r-32: 32px; --r-pill: 999px;
+      --font-display: "Fredoka", "Nunito", system-ui, sans-serif;
+      --font-body: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    /* ---------- Sprout Play tokens: Starry Night (dark) ---------- */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #151238;
+        --surface-low: #1D1948;
+        --card: #252058;
+        --well: #0E0B2B;
+        --ledge: #0E0B2B;
+        --text: #F8F6FF;
+        --muted: #C3BDEA;
+        --subtle: #958FC4;
+        --line: rgba(255, 255, 255, .10);
+        --line-strong: rgba(255, 255, 255, .18);
+        --primary: #5FE3B0;
+        --primary-fill: #5FE3B0;
+        --primary-ledge: #2B9A72;
+        --primary-soft: rgba(95, 227, 176, .14);
+        --on-primary: #151238;
+        --secondary: #FFD45E;
+        --secondary-fill: #FFD45E;
+        --secondary-soft: rgba(255, 212, 94, .14);
+        --sky: #7CC0FF;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 6% 2%, var(--secondary-soft) 0, transparent 260px),
+        radial-gradient(circle at 94% 8%, var(--primary-soft) 0, transparent 300px);
+      background-repeat: no-repeat;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      padding: 32px 16px;
+      overflow-x: hidden;
+    }
+    :focus-visible {
+      outline: 3px solid var(--sky);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1.5px solid var(--line-strong);
+      border-bottom: 5px solid var(--ledge);
+      border-radius: var(--r-32);
+      padding: 40px 32px;
+    }
+    @media (max-width: 520px) {
+      body { padding: 16px 12px; }
+      .container { padding: 28px 18px; border-radius: var(--r-24); }
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      border-bottom: 1.5px dashed var(--line-strong);
+      padding-bottom: 24px;
+    }
+    .app-icon {
+      width: 72px;
+      height: 72px;
+      flex-shrink: 0;
+      border-radius: var(--r-18);
+      border: 1.5px solid var(--line-strong);
+      box-shadow: 0 4px 0 var(--ledge);
+      transform: rotate(-4deg);
+    }
+    .title-group h1 {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--text);
+    }
+    .title-group p {
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 15px;
+      margin: 2px 0 0;
+    }
+    h2 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--primary);
+      margin: 28px 0 16px 0;
+      line-height: 1.3;
+    }
+    p, li {
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+    .faq-item {
+      background: var(--surface-low);
+      border: 1.5px solid var(--line-strong);
+      border-bottom: 4px solid var(--ledge);
+      border-radius: var(--r-18);
+      padding: 16px 18px;
+      margin-bottom: 14px;
+    }
+    .faq-q {
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+    .faq-a {
+      color: var(--muted);
+      font-size: 16px;
+      margin: 0;
+      line-height: 1.65;
+    }
+    .contact-card {
+      background: var(--primary-soft);
+      border: 1.5px solid color-mix(in srgb, var(--primary) 30%, transparent);
+      border-bottom: 5px solid color-mix(in srgb, var(--primary) 45%, transparent);
+      border-radius: var(--r-24);
+      padding: 24px 20px;
+      margin: 32px 0;
+      text-align: center;
+    }
+    .contact-card h3 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--text);
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    .contact-btn {
+      display: inline-block;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      margin-top: 8px;
+      background: var(--primary-fill);
+      color: var(--on-primary);
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 17px;
+      padding: 12px 24px;
+      border-radius: var(--r-18);
+      border-bottom: 4px solid var(--primary-ledge);
+      transition: transform .08s ease, border-bottom-width .08s ease, filter .15s ease;
+    }
+    .contact-btn:hover { filter: brightness(1.05); }
+    .contact-btn:active {
+      transform: translateY(3px);
+      border-bottom-width: 1px;
+      margin-bottom: 3px;
+    }
+    .footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1.5px dashed var(--line-strong);
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footer p { font-size: 14px; }
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .footer a:hover { text-decoration: underline; }
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      margin-top: 16px;
+    }
+    .footer-credit {
+      margin-top: 12px;
+      font-size: 13px !important;
+      color: var(--subtle);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+      .app-icon { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="./habitopia_sprout_app_icon.png" alt="Habitopia App Icon" class="app-icon" width="72" height="72">
+      <div class="title-group">
+        <h1>Habitopia</h1>
+        <p>Parent &amp; Educator Support Center</p>
+      </div>
+    </div>
+
+    <h2>Frequently Asked Questions (FAQ)</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">1. What are the 4-digit Batch Codes?</div>
+      <div class="faq-a">During player creation, children enter the confidential 4-digit Batch Code provided by their school administration to unlock their assigned curriculum (for BAT01 or BAT02 cohorts). Contact your school habit coordinator if you need your student access code.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">2. How does the BAT02 25-Week Curriculum work?</div>
+      <div class="faq-a">BAT02 includes 5 daily Core Q Power Habits (Eye Ball Exercise, Speed Reading Card, Concentration Music, Blind Fold Practice, Power Affirmations) that students practice every day. In addition, 1 new dimension habit is unlocked each week in a 5-step rotating cycle (Physical &rarr; Mental &rarr; Intellectual &rarr; Emotional &rarr; Financial), scaling from 6 active habits in Week 1 to 30 active habits in Week 25.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">3. How does habit proof / media evidence submission work?</div>
+      <div class="faq-a">When a child marks a daily habit complete, they are prompted to submit evidence (a photo, a short audio voice note, or a brief video clip). Once evidence is submitted, +10 XP is awarded and the completion timestamp is logged for school management review.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">4. How do I turn Game Sound Effects on or off?</div>
+      <div class="faq-a">Game Sound Effects are enabled (ON) by default to provide encouraging audio feedback for daily habit clears. You can toggle sound effects on or off with a single tap using the speaker icon located on the main top header bar of the app, or from the Me tab under preferences.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">5. Can multiple children use Habitopia on the same device?</div>
+      <div class="faq-a">Yes! The Welcome screen features a multi-profile selector where siblings or classmates can switch between profiles, each protected by their secret 4-digit PIN.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">6. What if my child forgets their 4-digit PIN?</div>
+      <div class="faq-a">Tap "Forgot PIN" on the login screen. The child can recover access by tapping their secret avatar crest chosen during profile creation.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">7. Does Habitopia work without internet?</div>
+      <div class="faq-a">Yes. Habitopia operates entirely offline with zero network connectivity requirements. All progress and media proofs remain safely on the device.</div>
+    </div>
+
+    <div class="contact-card">
+      <h3>Need Help or Have Suggestions?</h3>
+      <p>Our education and support team at Achariya Educational Trust is here to help.</p>
+      <a href="mailto:support@achariya.in?subject=Habitopia%20Support%20Request" class="contact-btn">Email Support: support@achariya.in</a>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2026 Achariya Educational Trust. All rights reserved.</p>
+      <div class="nav-links">
+        <a href="./index.html">App Overview</a>
+        <a href="./management.html">School Portal</a>
+        <a href="./privacy.html">Privacy Policy</a>
+      </div>
+      <p class="footer-credit">Habitopia by Achariya World Class Education</p>
+    </div>
+  </div>
+</body>
+</html>
